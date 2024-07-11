@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="main" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Industries" EntityType="main.Industries"/>
+                <EntitySet Name="Skills" EntityType="main.Skills"/>
+                <EntitySet Name="Employees" EntityType="main.Employees"/>
+            </EntityContainer>
+            <EntityType Name="Industries">
+                <Key>
+                    <PropertyRef Name="INDUSTRY_TYPE"/>
+                </Key>
+                <Property Name="industry_cluster" Type="Edm.String"/>
+                <Property Name="INDUSTRY_TYPE" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Skills">
+                <Key>
+                    <PropertyRef Name="PRACTICE"/>
+                    <PropertyRef Name="JSC"/>
+                    <PropertyRef Name="SKILLS"/>
+                </Key>
+                <Property Name="PRACTICE" Type="Edm.String" Nullable="false"/>
+                <Property Name="JSC" Type="Edm.String" Nullable="false"/>
+                <Property Name="SKILLS" Type="Edm.String" Nullable="false"/>
+                <Property Name="horizon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Employees">
+                <Key>
+                    <PropertyRef Name="PS_NO"/>
+                </Key>
+                <Property Name="base_sbu" Type="Edm.String"/>
+                <Property Name="deputed_bu" Type="Edm.String"/>
+                <Property Name="deputed_sbu" Type="Edm.String"/>
+                <Property Name="absorption_date" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="unbilled_ageing_derived_billed_status" Type="Edm.String"/>
+                <Property Name="billed_allocation_percentage" Type="Edm.Byte"/>
+                <Property Name="deployement_location" Type="Edm.String"/>
+                <Property Name="account_group_age" Type="Edm.Int32"/>
+                <Property Name="cummulative_bench_age" Type="Edm.Int32"/>
+                <Property Name="unbilled_age_in_current_bu" Type="Edm.Int32"/>
+                <Property Name="ageing_in_same_project" Type="Edm.Int32"/>
+                <Property Name="business_unit" Type="Edm.String"/>
+                <Property Name="base_location" Type="Edm.String"/>
+                <Property Name="delivery_unit" Type="Edm.String"/>
+                <Property Name="PS_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="employee_name" Type="Edm.String"/>
+                <Property Name="email" Type="Edm.String"/>
+                <Property Name="grade" Type="Edm.String"/>
+                <Property Name="level" Type="Edm.String"/>
+                <Property Name="billing_status" Type="Edm.String"/>
+                <Property Name="resigned" Type="Edm.String"/>
+                <Property Name="practice" Type="Edm.String"/>
+                <Property Name="sub_practice" Type="Edm.String"/>
+                <Property Name="lti_experience" Type="Edm.Int32"/>
+                <Property Name="sap_experience" Type="Edm.Int32"/>
+                <Property Name="total_experience" Type="Edm.Int32"/>
+                <Property Name="lwd" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="resigned_on" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="deputed_country" Type="Edm.String"/>
+                <Property Name="date_of_joining" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="customer_name" Type="Edm.String"/>
+                <Property Name="project_id" Type="Edm.String"/>
+                <Property Name="project_name" Type="Edm.String"/>
+                <Property Name="project_start_date" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="project_end_date" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="customer_group" Type="Edm.String"/>
+                <Property Name="project_manager_name" Type="Edm.String"/>
+                <Property Name="project_manager_ps_number" Type="Edm.String"/>
+                <Property Name="reporting_manager" Type="Edm.String"/>
+                <Property Name="ps_number_of_reporting_manager" Type="Edm.String"/>
+                <Property Name="designation" Type="Edm.String"/>
+                <Property Name="location" Type="Edm.String"/>
+                <Property Name="source_indicator" Type="Edm.String"/>
+                <Property Name="active" Type="Edm.Boolean"/>
+                <Property Name="profile_pic" Type="Edm.String"/>
+                <Property Name="secondary_skill_cluster" Type="Edm.String"/>
+                <Property Name="project_skill_cluster" Type="Edm.String"/>
+            </EntityType>
+            <Annotations Target="main.EntityContainer/Industries" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Skills" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employees" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employees/email" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Validation.Pattern" String="^[a-z0-9_.±]+@[a-z0-9-]+.[a-z0-9-.]+$"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
