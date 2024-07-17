@@ -5,37 +5,43 @@
 	xmlns:t="sap.ui.table"
     xmlns:cssgrid="sap.ui.layout.cssgrid"
     xmlns:f="sap.f"
-    xmlns:tnt="sap.tnt">
+    xmlns:tnt="sap.tnt"
+	xmlns:core="sap.ui.core"
+    xmlns:c="sap.suite.ui.microchart">
+
+	
     <f:DynamicPage id="page" title="{i18n>title}">
         <f:content >
-     <tnt:ToolPage id="toolPage">
+     <tnt:ToolPage id="toolPage" >
+	   
 		<tnt:header >
-		
+		    
 			<f:ShellBar id="_IDGenShellBar1" title="My Skills App"
 				
 				showMenuButton="true"
-				homeIcon="./resources/sap/ui/documentation/sdk/images/logo_sap.png"
+				homeIcon="https://upload.wikimedia.org/wikipedia/commons/9/9f/LTIMindtree_Logo.svg"
 				showCopilot="false"
 				showNotifications="false"
 				menuButtonPressed="onMenuButtonPress"
 				notificationsNumber="2">
+				
 			   <f:profile>
-			    <Avatar initials="UI"/>
+			    <Avatar initials="{EmployeeModel>/employee_name}"/>
+				
 		       </f:profile>
 			</f:ShellBar>
 		</tnt:header>
 		<tnt:sideContent>
-		 
+
 			    <tnt:SideNavigation id="sideNavigation" selectedKey="walked" >
-                   
-					 
+
 					<tnt:NavigationList id="_Iist1">
-					    
+
 					  <tnt:NavigationListItem id="_Ism1" text="My Profile" icon="sap-icon://employee"  />
 
                       <tnt:NavigationListItem id="item1" text="Skill Screener" icon="sap-icon://people-connected" />
 
-					  <tnt:NavigationListGroup id="grp1"  text="Learning Hub"  >
+					  <tnt:NavigationListGroup id="grp1"  text="Learning Hub" >
 						  <tnt:NavigationListItem id="grp2" text="Training" icon="sap-icon://learning-assistant"  />
 						  <tnt:NavigationListItem id="grp3" text="Certifications" icon="sap-icon://validate"/>
 						  <tnt:NavigationListItem id="grp10" text="Certification Report" icon="sap-icon://clinical-task-tracker"  />
@@ -69,29 +75,113 @@
 					 			columnsL="4"
 						 		columnsXL="5">
 			
-								<Label id="_IDGenLabel2" text="PS No." />
-								<Text id="nameText" text="{Employees>/PS_NO}" />
-								<Label id="_IDGenLabel3" text="Location" />
-								<Text id="_IDGenText2" text=" {Employees>/base_location}" />
-								<Label id="_IDGenLabel4" text="Primary JSC" />
-								<Text id="_IDGenText3" text="{Employees>/practice}" />
-								<Label id="_IDGenLabel5" text="Country" />
-								<Text id="countryText" text="{Employees>/deputed_country}" />
+								<Label id="_IDGenLabel2" text="PS No.">
+								   <layoutData>
+                                      <form:ColumnElementData cellsSmall="5" />
+                                  </layoutData>
+                               </Label>
+								<Text id="nameText" text="{EmployeeModel>/PS_NO}" >
+								 <layoutData>
+     							     <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+     							    </layoutData>
+     							   </Text>
+								<Label id="_IDGenLabel3" text="Location" >
+								   <layoutData>
+                                      <form:ColumnElementData cellsSmall="5" />
+                                    </layoutData>
+                                </Label>
+								<Text id="_IDGenText2" text=" {EmployeeModel>/base_location}" >
+								 <layoutData>
+       							   <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+       							  </layoutData>
+       							 </Text>
+								<Label id="_IDGenLabel4" text="Primary JSC">
+								  <layoutData>
+                                      <form:ColumnElementData cellsSmall="5" />
+                                  </layoutData>
+                               </Label>
+								<Text id="_IDGenText3" text="{EmployeeModel>/practice}" >
+								 <layoutData>
+      								    <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+     								    </layoutData>
+     								   </Text>
+								<Label id="_IDGenLabel5" text="Country" >
+								  <layoutData>
+      							     <form:ColumnElementData cellsSmall="5" />
+      							   </layoutData>
+      							</Label>
+								<Text id="countryText" text="{EmployeeModel>/deputed_country}" >
+								 <layoutData>
+       								   <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+       								  </layoutData>
+       								 </Text>
 								
 				
-								<Label id="_IDGenLabel7" text="Customer Name" />
-								<Text id="_IDGenText4" text="{Employees>/customer_name}" />
-								<Label id="_IDGenLabel8" text="Project Name" />
-								<Text id="_IDGenText5" text="{Employees>/project_name}" />
-								<Label id="_IDGenLabel9" text="Secondary JSC" />
-								<Text id="_IDGenText6" text="{Employees>/sub_practice}" />
+								<Label id="_IDGenLabel7" text="Customer Name" >
+								 <layoutData>
+         							 <form:ColumnElementData cellsSmall="5" />
+         							</layoutData>
+       							 </Label>
+								<Text id="_IDGenText4" text="{EmployeeModel>/customer_name}" >
+								 <layoutData>
+     							     <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+    							     </layoutData>
+     							   </Text>
+
+								<Label id="_IDGenLabel8" text="Project Name" >
+								 <layoutData>
+         							 <form:ColumnElementData cellsSmall="5" />
+        							 </layoutData>
+       							 </Label>
+								<Text id="_IDGenText5" text="{EmployeeModel>/project_name}" >
+								 <layoutData>
+         							 <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+        							 </layoutData>
+       							 </Text>
+
+								<Label id="_IDGenLabel9" text="Secondary JSC" >
+								 <layoutData>
+        							  <form:ColumnElementData cellsSmall="5" />
+       							 </layoutData>
+      							</Label>
+								<Text id="_IDGenText6" text="{EmployeeModel>/sub_practice}" >
+								 <layoutData>
+        							  <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+        							 </layoutData>
+        							</Text>
 				
-								<Label id="_IDGenLabel10" text="LTIMindtree Exp" />
-								<Text id="_IDGenText7" text="{Employees>/lti_experience}" />
-								<Label id="_IDGenLabel11" text="Total Exp" />
-								<Text id="_IDGenText8" text="{Employees>/total_experience}" />
-								<Label id="_IDGenLabel12" text="Project JSC" />
-								<Text id="_IDGenText9" text="{Employees>/PS_NO}" />
+								<Label id="_IDGenLabel10" text="LTIMindtree Exp" >
+								   <layoutData>
+        						      <form:ColumnElementData cellsSmall="5" />
+        						   </layoutData>
+        						</Label>
+								<Text id="_IDGenText7" text="{EmployeeModel>/lti_experience}" >
+								 <layoutData>
+        							  <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+        							 </layoutData>
+       							 </Text>
+
+								<Label id="_IDGenLabel11" text="Total Exp" >
+								   <layoutData>
+        								  <form:ColumnElementData cellsSmall="5" />
+        						  </layoutData>
+       							 </Label>  
+								<Text id="_IDGenText8" text="{EmployeeModel>/total_experience}" >
+								 <layoutData>
+       							   <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+       							  </layoutData>
+       							 </Text>
+
+								<Label id="_IDGenLabel12" text="Project JSC" >
+								 <layoutData>
+       							    <form:ColumnElementData cellsSmall="5" />
+       							   </layoutData>
+       							  </Label>
+								<Text id="_IDGenText9" text="{EmployeeModel>/PS_NO}" >
+								 <layoutData>
+        							  <form:ColumnElementData cellsSmall="6" cellsLarge="6" />
+        							 </layoutData>
+       							 </Text>
 								
 			
 		       			    </form:SimpleForm>
@@ -104,12 +194,12 @@
 									icon="sap-icon://tree"
 									text="Skills">
                                        
-                                         <!-- {path:'Employees>/', parameters:{expand: 'employee_cluster'}} -->
+                                         <!-- {path:'EmployeeModel>/', parameters:{expand: 'employee_cluster'}} -->
 
 								  <VBox id="vbox1">	
 				                       <t:TreeTable
                    						 id="TreeTableBasic"
-                   						  rows="{path: 'Employees>/employee_cluster/results/0/cluster_array/' , parameters:{expand: 'employee_skill', arrayName: 'results'}}"
+                   						  rows="{path: 'EmployeeModel>/employee_cluster/results/0/cluster_array/' , parameters:{expand: 'employee_skill', arrayName: 'results'}}"
                    						 selectionMode="MultiToggle"
                   						 enableSelectAll="true"
                   						 ariaLabelledBy="title"
@@ -119,43 +209,50 @@
                                                  <Title id="title" text=" "/>
 												 
                         						 <ToolbarSpacer/>
-												  <Button id="vedit" icon="sap-icon://edit" text="Edit Skills" press="onvEdit" tooltip="Edit skills"  type="Emphasized" ></Button>
-							 					 <Button text="Collapse selection" press="onCollapseSelection"/>
-                        						 <Button text="Expand first level" press="onExpandFirstLevel"/>
-												 <Button id="delbtn" class="sapUiSmallMarginBeginEnd"  icon="sap-icon://delete" text="Delete" press=".onDelete"/>
+												 <!-- <SearchField width="20%" search=".handleSearch" /> -->
 												
-												 <!-- <Button id="_IDGenButton2" 
-											  		 type="Accept"
+                        						 <Button text="Expand first level" press="onExpandFirstLevel"/>
+												 <Button text="Expand selection" press="onExpandSelection"/>
+												 <Button text="Collapse all" press="onCollapseAll"/>
+												 <Button text="Collapse selection" press="onCollapseSelection"/>
+												
+												  <Button id="save_btn" 
+											  		 type="Emphasized"
 											   		 text="Save"
-											  		 press="savedata"
-											  		 ariaDescribedBy="acceptButtonDescription genericButtonDescription" >
+											  		 press="onSaveChanges"
+													 tooltip="save changes"
+											  		 ariaDescribedBy="acceptButtonDescription genericButtonDescription" 
+													 >
                 							  		  <layoutData>
                 							  		              <FlexItemData id="FlexItemData1"/>
                 							  		  </layoutData>
-                								  </Button> -->
-                								  <!-- <Button id="_IDGenButton23" 
-                								       type="Reject" 
+                								  </Button>
+												  <Button id="vedit" icon="" text="Add" press="onAdd" tooltip="Add skills"  type="Emphasized" ></Button>
+							 				     <Button id="cancel_btn" 
+                								       type="Emphasized" 
                 								       text="Cancel" 
-                								       press="oncancel" 
-                								       ariaDescribedBy="rejectButtonDescription genericButtonDescription">
+                								       press=".onCancel" 
+                								       ariaDescribedBy="rejectButtonDescription genericButtonDescription"
+													   >
                 								          <layoutData>
                 								              <FlexItemData id="_IDGenFlexItemData2" />
                 								           </layoutData>
-                                           	       </Button> -->
-                       
+                                           	       </Button>
+												  <Button id="delbtn" class="sapUiSmallMarginBeginEnd"  icon="sap-icon://delete" type="Reject" text="" press=".onDelete"/>
+												
                                                 </OverflowToolbar>
                                           </t:extension>
                                           <t:columns>
-                    							<t:Column>
-                    							    <Label text="Leaf Skill"/>
+                    							<t:Column >
+                    							    <Label text="Leaf Skill" />
                     							    <t:template>
-                    							       <Text text="{Employees>skill} {Employees>clust_JSC}" wrapping="false" />
+                    							       <Text text="{EmployeeModel>skill} {EmployeeModel>clust_JSC}" wrapping="false" />
                     							    </t:template>
                     							</t:Column>
                     							<t:Column >
                     							    <Label text="Rate your Skill"/>
                     							    <t:template>
-                    							       <RatingIndicator id="RI_M" maxValue="5" class="sapUiSmallMarginBottom" value="{Employees>rating}" visible="{= ${Employees>rating} === undefined ? false : true}" iconSize="22px" tooltip="Rating Tooltip" />
+                    							       <RatingIndicator id="RI_M" maxValue="5" class="sapUiSmallMarginBottom" value="{EmployeeModel>rating}" visible="{= ${EmployeeModel>rating} === undefined ? false : true}" iconSize="22px" tooltip="Rating Tooltip" />
                     							    </t:template>
                    							   </t:Column>
                    							   <t:Column >
@@ -163,22 +260,22 @@
                    							     <t:template>
                    							        <HBox>
 													      <VBox>
-													       <Label text="in years" textAlign="Center" visible="{= ${Employees>exp_years} === undefined ? false : true}" labelFor="exp_yrs" />
+													       <Label text="in years" textAlign="Center" visible="{= ${EmployeeModel>exp_years} === undefined ? false : true}" labelFor="exp_yrs" />
 															<StepInput
 																id="exp_yrs"
 																valueStateText="in years"
 																width="10%"
-																value="{Employees>exp_years}"
-																visible="{= ${Employees>exp_years} === undefined ? false : true}" 
+																value="{EmployeeModel>exp_years}"
+																visible="{= ${EmployeeModel>exp_years} === undefined ? false : true}" 
 																valueState="{None}"/>
 														    </VBox>		
 															<VBox>
-													        <Label text="in months" visible="{= ${Employees>exp_months} === undefined ? false : true}" labelFor="exp_mths" />
+													        <Label text="in months" visible="{= ${EmployeeModel>exp_months} === undefined ? false : true}" labelFor="exp_mths" />
 															<StepInput
 																id="exp_mths"
 																width="10%"
-																value="{Employees>exp_months}"
-																visible="{= ${Employees>exp_months} === undefined ? false : true}" 
+																value="{EmployeeModel>exp_months}"
+																visible="{= ${EmployeeModel>exp_months} === undefined ? false : true}" 
 																valueState="{valueState}"/>
 													       </VBox>
 													</HBox>
@@ -193,31 +290,91 @@
 					            <IconTabFilter id="_IDGenIconTabFilter2"
 									key="experience"
 									icon="sap-icon://suitcase"
-									text="Experience">
-									<!-- <List id="_IDGenList1" headerText="A List" showSeparators="Inner" >
-									</List> -->
+									text="Experience"
+									count="6"
+									>
+									<customData>
+						               <BadgeCustomData visible="true"/>
+					                </customData>
 									
-									<GenericTile id="_IDGenGenericTile1"
-								 	    class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
-								 	    header="INDUSTRY EXPERIENCE" 
-								 	    press="onPress"
-		                                frameType="TwoByOne" 
-									    subheader="Subtitle"
-										>
-										
-		                             <TileContent id="_IDGenTileContent1">
-			
-		                             </TileContent>
-	                            	</GenericTile>
+									  <items>
+					                        <IconTabFilter text="Industry Experience">
+											  <Title text="INDUSTRY EXPERIENCE"/> 
+						                       <t:TreeTable
+                   								 id="TreeTableBasic2"
+                   								  rows=""
+                   								 selectionMode="MultiToggle"
+                  								 enableSelectAll="true"
+                  								 ariaLabelledBy="title"
+												>
+												  
+                                                 <t:extension>
+                                                  <OverflowToolbar style="Clear">
+                                                
+                        						 <ToolbarSpacer/>
+												  <Button id="vedit_exp" icon="sap-icon://edit"  press="onvEdit" tooltip="Edit"  type="Emphasized" ></Button>
+							 					 
+                                                   </OverflowToolbar>
+                                                  </t:extension>
+                                          			<t:columns>
+                    										<t:Column >
+                    										    <Label text="Industry" />
+                    										    <t:template>
+                    										       <Text text=" " wrapping="false" />
+                    										    </t:template>
+                    										</t:Column>
+                    										<t:Column >
+                    										    <Label text="Experience in Respective Industry"/>
+                    										    <t:template>
+                    										       <Text text=" " wrapping="false" />
+                    										    </t:template>
+                   										   </t:Column>
+                   							   
+                										</t:columns>
+                                                 </t:TreeTable> 
+					                      </IconTabFilter>
 
-									<GenericTile id="_IDGenGenericTile2" 
-									    class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
-									    header="KEY CUSTOMER EXPERIENCE"
-										subheader="Subtitle" 
-										press="press"
-										frameType= "TwoByOne">
-										<TileContent id="_IDGenTileContent2" />
-									</GenericTile>
+										  <IconTabFilter text="Customer Experience">
+										          <Title text=" KEY CUSTOMER EXPERIENCE"/> 
+												 <form:SimpleForm>
+												        
+												        <FlexBox width="40rem" height="22rem" alignItems="Center" class="sapUiSmallMargin">
+															<items>
+																<c:InteractiveLineChart selectionChanged="selectionChanged" press="press" precedingPoint="15"
+																					  succeedingPoint="89">
+																	<c:points>
+																	    
+																		<c:InteractiveLineChartPoint value="33.1" label="May" secondaryLabel="Q2"/>
+																		<c:InteractiveLineChartPoint value="12" label="June"/>
+																		<c:InteractiveLineChartPoint value="51.4" label="July" secondaryLabel="Q3"/>
+																		<c:InteractiveLineChartPoint value="52" label="Aug"/>
+																		<c:InteractiveLineChartPoint value="69.9" label="Sep"/>
+																		<c:InteractiveLineChartPoint value="0.9" label="Oct" secondaryLabel="Q4"/>
+																	</c:points>
+																</c:InteractiveLineChart>
+															</items>
+
+														</FlexBox>
+												 </form:SimpleForm>
+										  </IconTabFilter>
+
+											<IconTabFilter text="Product Experience">
+												<Title text=" PRODUCT EXPERIENCE"/> 
+											</IconTabFilter>
+
+											<IconTabFilter text="SAP/NON SAP Product Experience">
+												<Title text="SAP/ NON SAP PRODUCT EXPERIENCE"/> 
+											</IconTabFilter>
+
+											<IconTabFilter text="Language ProfIciency">
+												<Title text="LANGUAGE PROFICIENCY"/> 
+											</IconTabFilter>
+
+											<IconTabFilter text="Onsite Country Experience">
+					                          	<Title text="ONSITE COUNTRY EXPERIENCE"/> 
+											</IconTabFilter>
+										</items>
+									
 					
 				     			</IconTabFilter>
 

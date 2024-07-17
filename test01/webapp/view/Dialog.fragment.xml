@@ -1,0 +1,73 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+		id="myDialog"
+		noDataText="No Products Found"
+		title="Select Product"
+		search=".handleSearch"
+		confirm=".handleClose"
+		cancel=".handleClose"
+		items="{
+			path : '/ProductCollection',
+			sorter : {
+				path : 'Name',
+				descending : false
+			}
+		}">
+		<ColumnListItem id="_IDGenColumnListItem1" vAlign="Middle">
+			<cells>
+				<ObjectIdentifier id="_IDGenObjectIdentifier1" title="{Name}" text="{ProductId}" />
+				<Text id="_IDGenText1" text="{SupplierName}" />
+				<Text id="_IDGenText2" text="{Width} x {Depth} x {Height} {DimUnit}" />
+				<ObjectNumber id="_IDGenObjectNumber1"
+					number="{WeightMeasure}"
+					unit="{WeightUnit}"
+					state="{
+						path: 'WeightMeasure',
+						formatter: 'sap.m.sample.TableSelectDialog.Formatter.weightState'
+					}" />
+				<ObjectNumber id="_IDGenObjectNumber2"
+					number="{
+						parts:[{path:'Price'},{path:'CurrencyCode'}],
+						type: 'sap.ui.model.type.Currency',
+						formatOptions: {showMeasure: false}
+					}"
+					unit="{CurrencyCode}" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column id="_IDGenColumn1" width="12em">
+				<header>
+					<Text id="_IDGenText3" text="Product" />
+				</header>
+			</Column>
+			<Column id="_IDGenColumn2" minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text id="_IDGenText4" text="Supplier" />
+				</header>
+			</Column>
+			<Column id="_IDGenColumn3"
+				minScreenWidth="Desktop"
+				demandPopin="true"
+				hAlign="End">
+				<header>
+					<Text id="_IDGenText5" text="Dimensions" />
+				</header>
+			</Column>
+			<Column id="_IDGenColumn4"
+				minScreenWidth="Desktop"
+				demandPopin="true"
+				hAlign="Center">
+				<header>
+					<Text id="_IDGenText6" text="Weight" />
+				</header>
+			</Column>
+			<Column id="_IDGenColumn5" hAlign="End">
+				<header>
+					<Text id="_IDGenText7" text="Product" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

@@ -1,7 +1,7 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "myskillsapp",
+    "id": "test01",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.14.0",
-      "toolsId": "3ddbaf07-6f53-4342-a646-4c885106d28a"
+      "toolsId": "80f5b32a-b6d0-462c-ae76-16012aace028"
     },
     "dataSources": {
       "mainService": {
@@ -30,7 +30,7 @@
   "sap.ui": {
     "technology": "UI5",
     "icons": {
-      "icon": "logo.png",
+      "icon": "",
       "favIcon": "",
       "phone": "",
       "phone@2": "",
@@ -66,7 +66,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "myskillsapp.i18n.i18n"
+          "bundleName": "test01.i18n.i18n"
         }
       },
       "": {
@@ -87,32 +87,32 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "myskillsapp.view",
+        "viewPath": "test01.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
       },
       "routes": [
         {
-          "name": "RouteMainView",
+          "name": "RouteView1",
           "pattern": ":?query:",
           "target": [
-            "TargetMainView"
+            "TargetView1"
           ]
         }
       ],
       "targets": {
-        "TargetMainView": {
+        "TargetView1": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "MainView",
-          "viewName": "MainView"
+          "viewId": "View1",
+          "viewName": "View1"
         }
       }
     },
     "rootView": {
-      "viewName": "myskillsapp.view.App",
+      "viewName": "test01.view.App",
       "type": "XML",
       "async": true,
       "id": "App"

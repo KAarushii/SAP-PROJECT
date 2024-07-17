@@ -7,7 +7,7 @@
 		noDataText="No Products Found"
 		title="Select Product"
 		search=".handleSearch"
-		confirm=".handleClose"
+		confirm=".handleSaveSkill"
 		cancel=".handleClose"
 	    multiSelect="true"
 		items="{
@@ -22,22 +22,8 @@
 				<!-- <ObjectIdentifier title="{Name}" text="{ProductId}" /> -->
                 <Text id="two" text="{practice}" />
 				<Text id="one" text="{JSC}" />
-			    <Text id="three" text="{skills_list}" />
+			    <Text id="three" text="{leaf_skills}" />
 				
-				<!-- <ObjectNumber
-					number="{WeightMeasure}"
-					unit="{WeightUnit}"
-					state="{
-						path: 'WeightMeasure',
-						formatter: 'sap.m.sample.TableSelectDialog.Formatter.weightState'
-					}" />
-				<ObjectNumber
-					number="{
-						parts:[{path:'Price'},{path:'CurrencyCode'}],
-						type: 'sap.ui.model.type.Currency',
-						formatOptions: {showMeasure: false}
-					}"
-					unit="{CurrencyCode}" /> -->
 			</cells>
 		</ColumnListItem>
 		<columns>
@@ -58,23 +44,8 @@
 				</header>
 			</Column>
 
-			<!-- <Column
-				minScreenWidth="Desktop"
-				demandPopin="true"
-				hAlign="End">
-				<header>
-					<Text text="Dimensions" />
-				</header>
-			</Column>
-			<Column
-				minScreenWidth="Desktop"
-				demandPopin="true"
-				hAlign="Center">
-				<header>
-					<Text text="Weight" />
-				</header>
-			</Column> -->
-			
 		</columns>
+	
 	</TableSelectDialog>
+	
 </core:FragmentDefinition>
