@@ -1,1 +1,20 @@
 /* Enter your custom styles here */
+
+/* .sapUiNoContentPadding{
+    height: auto;
+} */
+/* .sticky{
+    height: auto; 
+} */
+
+.HorizontalLayout{
+    max-width: max-content;
+  
+}
+.sapUiSmallNegativeMarginBeginEnd{
+   position: fixed;
+}
+.jas{
+   font-weight: bold;
+  
+}

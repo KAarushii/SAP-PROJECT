@@ -15,6 +15,20 @@
       "version": "1.14.0",
       "toolsId": "3ddbaf07-6f53-4342-a646-4c885106d28a"
     },
+    "crossNavigation": {
+      "inbounds": {
+        "Syncpo-manage": {
+          "semanticObject": "Dynamic",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "subTitle": "{{flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }          
+        }
+      }    
+    },
     "dataSources": {
       "mainService": {
         "uri": "/v2/odata/v4/main/",
@@ -44,7 +58,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.125.1",
       "libs": {
@@ -117,5 +131,13 @@
       "async": true,
       "id": "App"
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "myskillsapp"
   }
+
+ 
+   
+       
 }
