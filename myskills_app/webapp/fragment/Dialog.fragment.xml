@@ -5,7 +5,7 @@
 	<TableSelectDialog
 		id="myDialog"
 		noDataText="No Products Found"
-		title="Select Product"
+		title="Select Skill"
 		search=".handleSearch"
 		confirm=".handleSaveSkill"
 		cancel=".handleClose"
@@ -27,20 +27,20 @@
 			</cells>
 		</ColumnListItem>
 		<columns>
-			<Column id="col1" width="12em">
+			<Column id="col1" width="12em" >
 				<header>
-					<Text id="T1" text="Practice" />
+					<Text id="T1" text="Practice"  class= "tableSelectDialogue"  />
 				</header>
 			</Column>
 			<Column id="col2" minScreenWidth="Tablet" demandPopin="true">
 				<header>
-					<Text id="T2" text="Skill Cluster" />
+					<Text id="T2" text="Skill Cluster"  class="tableSelectDialogue"/>
 				</header>
 			</Column>
 
             <Column id="col3" >
 				<header>
-					<Text id="T3" text="Skills" />
+					<Text id="T3" text="Skills"  class="tableSelectDialogue" />
 				</header>
 			</Column>
 

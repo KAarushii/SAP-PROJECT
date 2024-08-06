@@ -21,6 +21,7 @@ function (Controller,MessageBox, Filter, FilterOperator, Sorter, JSONModel,
           this._onReadEmpData();  
           this.linearWizard = this.byId("wizardContentPage");
           this._initializeAsync();
+         
         },
         
         _initializeAsync: async function () {
@@ -64,6 +65,12 @@ function (Controller,MessageBox, Filter, FilterOperator, Sorter, JSONModel,
 
 
         },
+        onCollapseExpandPress() {
+			const oSideNavigation = this.byId("sideNavigation"),
+				bExpanded = oSideNavigation.getExpanded();
+
+			oSideNavigation.setExpanded(!bExpanded);
+		},
 
         _setTreeTableData: function () {
 
@@ -576,6 +583,7 @@ function (Controller,MessageBox, Filter, FilterOperator, Sorter, JSONModel,
                 // Success callback function
                 if (oResponse.statusCode === "202" || oResponse.statusCode === 202) {
                     sap.m.MessageBox.success("Skills Updated Successfully");
+                    oTable.clearSelection();
                     this._initializeAsync();
                 }
                 // Handle the response data

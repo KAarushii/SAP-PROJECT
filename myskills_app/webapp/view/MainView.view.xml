@@ -17,16 +17,10 @@
     <tnt:ToolPage id="toolPage" >
 	    	
 	    <tnt:sideContent>
-		
-               <!-- <VBox renderType="Bare" alignItems="Start" height="100%"> -->
-			  
-			    <tnt:SideNavigation id="sideNavigation" selectedKey="walked" selectedItem="" >
-                    <tnt:customData>
-					 
-							
-					 </tnt:customData>
-					
-					<tnt:NavigationList id="_Iist1">
+
+		  <tnt:SideNavigation id="sideNavigation" selectedKey="walked" selectedItem="" >
+                   
+				 <tnt:NavigationList id="_Iist1">
 					 <tnt:NavigationListItem id="_Ism7"  icon="sap-icon://menu2"  />
 					 
 					  <tnt:NavigationListItem id="_Ism1" text="My Profile" icon="sap-icon://employee"  />
@@ -51,101 +45,99 @@
 					</tnt:NavigationList>
 		
 				</tnt:SideNavigation>
-				<!-- </VBox> -->
-		</tnt:sideContent>
-		<tnt:mainContents >
 				
-			
-		
+		</tnt:sideContent>
+
+		<tnt:mainContents >
+
 			<f:DynamicPage id="dynamicPageId" 
 				stickySubheaderProvider="_IDGenIconTabBar1"
-			    class="sapUiNoContentPadding"
-			    
-			>
-			
-			<f:title>
+			    class="sapUiNoContentPadding">
+ 
+ 			  		<f:title>
 				
-			</f:title>
-			<f:header>
-				<f:DynamicPageHeader pinnable="false"  >
+			  		</f:title>
+			 	 <f:header>
+						<f:DynamicPageHeader pinnable="false"  >
 				   		
-					<layout:HorizontalLayout class="HorizontalLayout" >
-					       <layout:VerticalLayout class="sapUiMediumMarginEnd">
+					             <layout:HorizontalLayout class="HorizontalLayout" >
+					                 	   
+									<layout:VerticalLayout class="sapUiMediumMarginEnd">
 
-						        <layout:HorizontalLayout class="HorizontalLayout" >
-							        <ObjectAttribute title="Name " class="jas" />
-							        <ObjectAttribute text="{EmployeeModel>/employee_name}"/>
-							    </layout:HorizontalLayout  >
+						               <layout:HorizontalLayout class="HorizontalLayout" >
+							                <ObjectAttribute title="Name " class="jas" />
+							       	        <ObjectAttribute text="{EmployeeModel>/employee_name}"/>
+							            </layout:HorizontalLayout  >
 							
-							    <layout:HorizontalLayout class="HorizontalLayout" >
-									<ObjectAttribute title="PS No. " class="jas" />
-									
-									<ObjectAttribute text="{EmployeeModel>/PS_NO}"/>
-							    </layout:HorizontalLayout  >
+							            <layout:HorizontalLayout class="HorizontalLayout" >
+									         <ObjectAttribute title="PS No. " class="jas" />
+											 <ObjectAttribute text="{EmployeeModel>/PS_NO}"/>
+							            </layout:HorizontalLayout  >
 
-								<layout:HorizontalLayout class="HorizontalLayout" >
-									<ObjectAttribute title="Location " class="jas" />
-									<ObjectAttribute text="{EmployeeModel>/base_location}"/>
-								</layout:HorizontalLayout  >
+										<layout:HorizontalLayout class="HorizontalLayout" >
+											<ObjectAttribute title="Location " class="jas" />
+											<ObjectAttribute text="{EmployeeModel>/base_location}"/>
+										</layout:HorizontalLayout  >
 							
-						   </layout:VerticalLayout>
+						            </layout:VerticalLayout>
 						    
                            
-					       <layout:VerticalLayout class="sapUiMediumMarginEnd" >
+					               <layout:VerticalLayout class="sapUiMediumMarginEnd" >
 
-                                <layout:HorizontalLayout class="HorizontalLayout" >
-									<ObjectAttribute title="Primary JSC " class="jas" />
-									<ObjectAttribute text="  {EmployeeModel>/practice}"/>
-                                </layout:HorizontalLayout>
+                               			 <layout:HorizontalLayout class="HorizontalLayout" >
+											<ObjectAttribute title="Primary JSC " class="jas" />
+											<ObjectAttribute text="  {EmployeeModel>/practice}"/>
+                               			 </layout:HorizontalLayout>
 
-								<layout:HorizontalLayout class="HorizontalLayout" >
-									<ObjectAttribute title="Secondary JSC " class="jas" />
-									<ObjectAttribute text="{EmployeeModel>/sub_practice}"/>
-								</layout:HorizontalLayout>
+										<layout:HorizontalLayout class="HorizontalLayout" >
+											<ObjectAttribute title="Secondary JSC " class="jas" />
+											<ObjectAttribute text="{EmployeeModel>/sub_practice}"/>
+										</layout:HorizontalLayout>
 
-								<layout:HorizontalLayout class="HorizontalLayout" >
-									<ObjectAttribute title="Country " class="jas" />
-									<ObjectAttribute text="{EmployeeModel>/deputed_country}"/>
-							    </layout:HorizontalLayout>
-							</layout:VerticalLayout>
+										<layout:HorizontalLayout class="HorizontalLayout" >
+											<ObjectAttribute title="Country " class="jas" />
+											<ObjectAttribute text="{EmployeeModel>/deputed_country}"/>
+							    		</layout:HorizontalLayout>
+							       </layout:VerticalLayout>
 
-							<layout:VerticalLayout class="sapUiMediumMarginEnd"  >
+							       <layout:VerticalLayout class="sapUiMediumMarginEnd"  >
 
-							    <layout:HorizontalLayout class="HorizontalLayout" >
-									<ObjectAttribute title="Customer Name " class="jas" />
-									<ObjectAttribute  text="{EmployeeModel>/customer_name}"/>
-							   </layout:HorizontalLayout >	
+							   			 <layout:HorizontalLayout class="HorizontalLayout" >
+												<ObjectAttribute title="Customer Name " class="jas" />
+												<ObjectAttribute  text="{EmployeeModel>/customer_name}"/>
+							  			 </layout:HorizontalLayout >	
 
-							   <layout:HorizontalLayout class="HorizontalLayout" >	
-									<ObjectAttribute title="Project Name " class="jas"  />
-									<ObjectAttribute text="{EmployeeModel>/project_name}"/>
-							   </layout:HorizontalLayout>	
+							  			 <layout:HorizontalLayout class="HorizontalLayout" >	
+												<ObjectAttribute title="Project Name " class="jas"  />
+												<ObjectAttribute text="{EmployeeModel>/project_name}"/>
+							  			 </layout:HorizontalLayout>	
 								
-								<layout:HorizontalLayout class="HorizontalLayout" >	
-									<ObjectAttribute title="Project JSC " class="jas" />
-									<ObjectAttribute text="{EmployeeModel>/deputed_country}"/>
-								</layout:HorizontalLayout  >	
-							</layout:VerticalLayout>
+										 <layout:HorizontalLayout class="HorizontalLayout" >	
+										 	<ObjectAttribute title="Project JSC " class="jas" />
+										 	<ObjectAttribute text="{EmployeeModel>/deputed_country}"/>
+										 </layout:HorizontalLayout  >	
+							       </layout:VerticalLayout>
 
-							<layout:VerticalLayout class="sapUiMediumMarginEnd" >
-							    <layout:HorizontalLayout class="HorizontalLayout" >
-									<ObjectAttribute title="LTIMindtree Exp " class="jas" />
-									<ObjectAttribute text="{EmployeeModel>/lti_experience}"/>
-								</layout:HorizontalLayout  >
+							       <layout:VerticalLayout class="sapUiMediumMarginEnd" >
+							   			 <layout:HorizontalLayout class="HorizontalLayout" >
+												<ObjectAttribute title="LTIMindtree Exp " class="jas" />
+												<ObjectAttribute text="{EmployeeModel>/lti_experience}"/>
+											</layout:HorizontalLayout  >
 								
-								<layout:HorizontalLayout class="HorizontalLayout" >	
-									<ObjectAttribute title="Total Exp " class="jas" />
-									<ObjectAttribute  text="{EmployeeModel>/total_experience}" />
-								</layout:HorizontalLayout>	
-							</layout:VerticalLayout>
+											<layout:HorizontalLayout class="HorizontalLayout" >	
+												<ObjectAttribute title="Total Exp " class="jas" />
+												<ObjectAttribute  text="{EmployeeModel>/total_experience}" />
+											</layout:HorizontalLayout>	
+									</layout:VerticalLayout>
 							
-					</layout:HorizontalLayout>
-				</f:DynamicPageHeader>
-			</f:header>
+					           </layout:HorizontalLayout>
+
+						</f:DynamicPageHeader>
+				 </f:header>
 
 
-			<f:content >
-				<IconTabBar id="_IDGenIconTabBar1" class="IconTabBar" > 
+			 		 <f:content >
+						  <IconTabBar id="_IDGenIconTabBar1" class="IconTabBar" > 
 							<items>
 								<IconTabFilter id="_IDGenIconTabFilter1"
 									key="skills"
@@ -164,12 +156,12 @@
                   						 ariaLabelledBy="title"
 										 useGroupMode="false"
 										 groupHeaderProperty="{clust_JSC}"
-										 class="sapUiSmallNegativeMarginBeginEnd"
+										 
 								         width="auto"
 										 rowSelectionChange="oDataSelect"
 										  >
                                            <t:extension >
-                                              <OverflowToolbar style="Clear" >
+                                              <OverflowToolbar style="Clear"  >
                                                  
                         						 <ToolbarSpacer/>
 												
@@ -189,7 +181,7 @@
                 							  		              <FlexItemData id="FlexItemData1"/>
                 							  		  </layoutData>
                 								  </Button>
-												  <!-- <Button id="vedit"  text="Edit" press="onEditChanges" tooltip="Edit skills"  type="Emphasized" ></Button> -->
+												
 							 				      <Button id="add" text="Add" press="onAdd" tooltip="Add skills"  type="Emphasized" ></Button>
 												 <Button id="cancel_btn" 
                 								       type="Emphasized" 
@@ -206,23 +198,30 @@
                                                 </OverflowToolbar>
                                           </t:extension>
                                           <t:columns>
-                    							<t:Column  >
-                    							    <Label text="Leaf Skill" class="columnHeader" />
+                    							<t:Column>
+                    							    <Label text="Leaf Skill"  textAlign="Center" class="columnHeader" />
                     							    <t:template>
                     							       <Text text="{skill} {clust_JSC}" wrapping="false" />
                     							    </t:template>
                     							</t:Column>
                     							<t:Column >
-                    							    <Label text="Rate your Skill"/>
+                    							    <Label text="Rate your Skill" textAlign="Center" />
                     							    <t:template>
                     							      <RatingIndicator id="RI_M" maxValue="4" class="sapUiSmallMarginBottom" 
 													  value="{rating}" visible="{= ${rating} === undefined ? false : true}" 
 													  iconSize="22px" tooltip="Rating Tooltip" editable="{bEditable}"/>
                     							    </t:template>
                    							   </t:Column>
-                   							   <t:Column >
-                   							     <Label text="Experience in Respective Skill in years" />
-                   							     <t:template>
+
+                   							   	<t:Column
+													
+													headerSpan="2,1">
+													<t:multiLabels>
+							
+														<Label text="Experience in Respective Skill" textAlign="Center" width="100%"/>
+														<Label text="in years" textAlign="Center" width="100%"/>
+													</t:multiLabels>
+													<t:template>
                    							        <HBox>
 													      <VBox>
 													       <Label text=""  visible="{= ${exp_years} === undefined ? false : true}" labelFor="exp_yrs"   />
@@ -240,27 +239,32 @@
 														 
 													</HBox>
                    							     </t:template>
-												 
-                   							   </t:Column>
-											    <!-- <t:Column >
-                   							     <Label text="Experience in Respective Skill" />
-                   							     <t:template>
+												</t:Column>
+												<t:Column
+										        	headerSpan="2">
+													<t:multiLabels>
+														<Label text="Experience in Respective Skill"/>
+														<Label text="in months" textAlign="Center" width="100%"/>
+							
+													</t:multiLabels>
+													 <t:template>
                    							        <HBox>
 													      		
 															<VBox>
-													        <Label text="in months" visible="{= ${EmployeeModel>exp_months} === undefined ? false : true}" labelFor="exp_mths" />
+													        <Label  visible="{= ${exp_months} === undefined ? false : true}" labelFor="exp_mths" />
 															<StepInput
 																id="exp_mths"
 																width="10%"
-																value="{EmployeeModel>exp_months}"
-																visible="{= ${EmployeeModel>exp_months} === undefined ? false : true}" 
+																value="{exp_months}"
+																visible="{= ${exp_months} === undefined ? false : true}" 
 																valueState="{valueState}"
-																editable="false"/>
+																editable="{bEditable}"/>
 													       </VBox>
 														 
 													</HBox>
                    							     </t:template>
-                   							   </t:Column> -->
+												</t:Column>
+
                 							</t:columns>
                                       </t:TreeTable>
 	   					      	  </VBox>
@@ -278,12 +282,14 @@
 											finishButtonText="Finish"
 											currentStep="Langutep"
 											class="sapUiSmallNegativeMarginBeginEnd"
+											
 									    >
 											
 
 										  <WizardStep id="ProductTypeStep"
 														title="INDUSTRY EXPERIENCE"
-														activate="onActivate">
+														activate="onActivate"
+														>
 												      <t:TreeTable
                    										 id="TreeTableBasic2"
                    										  rows=""
@@ -345,7 +351,6 @@
 		                                      </WizardStep>
 
 											  <WizardStep id="OptionalInfoStep"
-											  			optional="true"
 											  			title="PRODUCT EXPERIENCE"
 											  			activate="onActivate">
 											  	  <form:SimpleForm
@@ -396,7 +401,7 @@
 											</WizardStep>
 
 											<WizardStep id="LanguageStep"
-														title="Language ProfIciency"
+														title="LANGUAGE PROFICIENCY"
 														activate="onActivate">
 			
 												<form:SimpleForm
@@ -417,7 +422,7 @@
 											</WizardStep>
 
 											<WizardStep id="Langutep"
-														title="Onsite Country Experience"
+														title="ONSITE COUNTRY EXPERIENCE"
 														activate="onActivate">
 			
 												<form:SimpleForm
@@ -439,176 +444,6 @@
 									</Wizard>
 
 									
-									
-											
-			
-				
-					
-					   
-					   	
-					
-				
-				
-			
-												
-									<!-- <Breadcrumbs separatorStyle="GreaterThan">
-											<Link text="Industry Experience" press="onPress0" />
-											<Link text="Customer Experience" press="onPress1" />
-											<Link text="Product Experience" press="onPress2" />
-											<Link text="SAP/NON SAP Product Experience" press="onPress3" />
-											<Link text="Language ProfIciency" press="onPress4" />
-											<Link text="Onsite Country Experience" press="onPress5" />
-									</Breadcrumbs>
-				                    <VBox id="exp0" visible="true">
-									
-						                       <t:TreeTable
-                   								 id="TreeTableBasic2"
-                   								  rows=""
-                   								 selectionMode="MultiToggle"
-                  								 enableSelectAll="true"
-                  								 ariaLabelledBy="title"
-												
-												>
-												  
-                                                 <t:extension>
-                                                  <OverflowToolbar style="Clear">
-												 		<Title text="INDUSTRY EXPERIENCE"/> 
-                                                 		<ToolbarSpacer/>
-												 		<Button id="vedit_exp" icon="sap-icon://edit"  press="onEditInd" tooltip="Edit"  type="Emphasized" ></Button>
-							 					 
-                                                   </OverflowToolbar>
-                                                  </t:extension>
-                                          			<t:columns>
-                    										<t:Column >
-                    										    <Label text="Industry" />
-                    										    <t:template>
-                    										       <Text text=" " wrapping="false" />
-                    										    </t:template>
-                    										</t:Column>
-                    										<t:Column >
-                    										    <Label text="Experience in Respective Industry"/>
-                    										    <t:template>
-                    										       <Text text=" " wrapping="false" />
-                    										    </t:template>
-                   										   </t:Column>
-                   							   
-                										</t:columns>
-                                                 </t:TreeTable>
-									</VBox>
-									<VBox id="exp1"  visible="false">
-									
-												 <form:SimpleForm>
-												        
-												        <FlexBox width="20rem" height="22rem" alignItems="Start" class="sapUiSmallMargin">
-															<items>
-															    <Title text=" KEY CUSTOMER EXPERIENCE"/> 
-																<c:InteractiveLineChart selectionChanged="selectionChanged" press="press" precedingPoint="15"
-																					  succeedingPoint="89">
-																	<c:points>
-																	    
-																		<c:InteractiveLineChartPoint value="33.1" label="May" secondaryLabel="Q2"/>
-																		<c:InteractiveLineChartPoint value="12" label="June"/>
-																		<c:InteractiveLineChartPoint value="51.4" label="July" secondaryLabel="Q3"/>
-																		<c:InteractiveLineChartPoint value="52" label="Aug"/>
-																		<c:InteractiveLineChartPoint value="69.9" label="Sep"/>
-																		<c:InteractiveLineChartPoint value="0.9" label="Oct" secondaryLabel="Q4"/>
-																	</c:points>
-																</c:InteractiveLineChart>
-															</items>
-
-														</FlexBox>
-												 </form:SimpleForm>
-									</VBox>
-									<VBox id="exp2" visible="false">
-									   <Title text="PRODUCT EXPERIENCE"/>
-									</VBox>
-									<VBox id="exp3" visible="false">
-									   <Title text="SAP/NON SAP Product Experience"/>
-									</VBox>
-									<VBox id="exp4" visible="false">
-									   <Title text="Language ProfIciency"/>
-									</VBox>
-									<VBox id="exp5" visible="false">
-									   <Title text="Onsite Country Experience"/>
-									</VBox> -->
-									<!-- <items>
-					                        <IconTabFilter text="Industry Experience">
-											  <Title text="INDUSTRY EXPERIENCE"/> 
-						                       <t:TreeTable
-                   								 id="TreeTableBasic2"
-                   								  rows=""
-                   								 selectionMode="MultiToggle"
-                  								 enableSelectAll="true"
-                  								 ariaLabelledBy="title"
-												>
-												  
-                                                 <t:extension>
-                                                  <OverflowToolbar style="Clear">
-                                                
-                        						 <ToolbarSpacer/>
-												  <Button id="vedit_exp" icon="sap-icon://edit"  press="onvEdit" tooltip="Edit"  type="Emphasized" ></Button>
-							 					 
-                                                   </OverflowToolbar>
-                                                  </t:extension>
-                                          			<t:columns>
-                    										<t:Column >
-                    										    <Label text="Industry" />
-                    										    <t:template>
-                    										       <Text text=" " wrapping="false" />
-                    										    </t:template>
-                    										</t:Column>
-                    										<t:Column >
-                    										    <Label text="Experience in Respective Industry"/>
-                    										    <t:template>
-                    										       <Text text=" " wrapping="false" />
-                    										    </t:template>
-                   										   </t:Column>
-                   							   
-                										</t:columns>
-                                                 </t:TreeTable> 
-					                      </IconTabFilter>
-
-										  <IconTabFilter text="Customer Experience">
-										          <Title text=" KEY CUSTOMER EXPERIENCE"/> 
-												 <form:SimpleForm>
-												        
-												        <FlexBox width="40rem" height="22rem" alignItems="Center" class="sapUiSmallMargin">
-															<items>
-																<c:InteractiveLineChart selectionChanged="selectionChanged" press="press" precedingPoint="15"
-																					  succeedingPoint="89">
-																	<c:points>
-																	    
-																		<c:InteractiveLineChartPoint value="33.1" label="May" secondaryLabel="Q2"/>
-																		<c:InteractiveLineChartPoint value="12" label="June"/>
-																		<c:InteractiveLineChartPoint value="51.4" label="July" secondaryLabel="Q3"/>
-																		<c:InteractiveLineChartPoint value="52" label="Aug"/>
-																		<c:InteractiveLineChartPoint value="69.9" label="Sep"/>
-																		<c:InteractiveLineChartPoint value="0.9" label="Oct" secondaryLabel="Q4"/>
-																	</c:points>
-																</c:InteractiveLineChart>
-															</items>
-
-														</FlexBox>
-												 </form:SimpleForm>
-										  </IconTabFilter>
-
-											<IconTabFilter text="Product Experience">
-												<Title text=" PRODUCT EXPERIENCE"/> 
-											</IconTabFilter>
-
-											<IconTabFilter text="SAP/NON SAP Product Experience">
-												<Title text="SAP/ NON SAP PRODUCT EXPERIENCE"/> 
-											</IconTabFilter>
-
-											<IconTabFilter text="Language ProfIciency">
-												<Title text="LANGUAGE PROFICIENCY"/> 
-											</IconTabFilter>
-
-											<IconTabFilter text="Onsite Country Experience">
-					                          	<Title text="ONSITE COUNTRY EXPERIENCE"/> 
-											</IconTabFilter>
-									</items> -->
-									
 					
 				     			</IconTabFilter>
 
@@ -619,8 +454,8 @@
 								    <FeedInput id="_IDGenFeedInput1" />
 					           </IconTabFilter>
 				           </items>
-			           </IconTabBar>
-			</f:content>
+			 		     </IconTabBar>
+			 		 </f:content>
 
 			</f:DynamicPage >
 		
