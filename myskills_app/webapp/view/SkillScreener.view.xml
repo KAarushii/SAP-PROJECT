@@ -1,0 +1,107 @@
+<mvc:View xmlns:smartmultiedit="sap.ui.comp.smartmultiedit" controllerName="myskillsapp.controller.SkillScreener"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+	xmlns:t="sap.ui.table"
+    xmlns:cssgrid="sap.ui.layout.cssgrid"
+    xmlns:f="sap.f"
+    xmlns:tnt="sap.tnt"
+	xmlns:core="sap.ui.core"
+    xmlns:c="sap.suite.ui.microchart"
+	xmlns:l="sap.ui.layout"
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:layout="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	>
+
+    <tnt:ToolPage id="toolPage" >
+	    	
+	    <tnt:sideContent  >
+
+		   <tnt:SideNavigation id="sideNavigation" selectedKey="walked" selectedItem="" expanded="false"  >
+                   
+				 <tnt:NavigationList id="_Iist1" >
+				
+					 <tnt:NavigationListItem id="_Ism7"  icon="sap-icon://menu2" select="onExpandSideNavigation"  />
+					 
+					  <tnt:NavigationListItem id="_Ism1" text="My Profile" icon="sap-icon://employee" select="onNavToMyProfile" />
+
+                      <tnt:NavigationListItem id="item1" text="Skill Screener" icon="sap-icon://people-connected"  select="onNavToSkillScreener" />
+
+					  <tnt:NavigationListGroup id="grp1"  text="Learning Hub" >
+						  <tnt:NavigationListItem id="grp2" text="Training" icon="sap-icon://learning-assistant"   select="onNavToTraining"/>
+						  <tnt:NavigationListItem id="grp3" text="Certifications" icon="sap-icon://validate"  select="onNavToCertifications"/>
+						  <tnt:NavigationListItem id="grp10" text="Certification Report" icon="sap-icon://clinical-task-tracker"  select="onNavToCertificationReport"  />
+						  <tnt:NavigationListItem id="grp11" text="Training Course Master" icon="sap-icon://learning-assistant"  select="onNavToTrainingCourseMaster"/>
+					  </tnt:NavigationListGroup>
+
+					  <tnt:NavigationListGroup id="grp4"  text="Recruitment">
+						  <tnt:NavigationListItem id="grp5" text="Planel Slot Booking" icon="sap-icon://retail-store-manager"  select="onNavToPanelSlotBooking" />
+					  </tnt:NavigationListGroup>
+					  
+					   <tnt:NavigationListGroup id="grp7"  text="Reports">
+						  <tnt:NavigationListItem id="grp8" text="Adoption Status" icon="sap-icon://document-text"  select="onNavToAdoptionStatus" />
+					  </tnt:NavigationListGroup>
+                        
+					</tnt:NavigationList>
+		
+				</tnt:SideNavigation>
+				
+		</tnt:sideContent>
+
+		<tnt:mainContents >
+
+			<f:DynamicPage id="dynamicPageId" 
+				stickySubheaderProvider="_IDGenIconTabBar1"
+			    class="sapUiNoContentPadding"
+				backgroundDesign="Transparent"
+				title="Skill Screener"
+				>
+ 
+ 			  		<f:title>
+				    	<f:DynamicPageTitle>
+								<f:heading>
+									<Title text="Skill Screener"/>
+								</f:heading>
+						</f:DynamicPageTitle>
+			  		</f:title>
+			 	 <f:header >
+						<f:DynamicPageHeader pinnable="false"   >
+				   		   
+                              
+						</f:DynamicPageHeader>
+						
+				 </f:header>
+
+
+			 		 <f:content >
+						  <IconTabBar id="_IDGenIconTabBar1" > 
+							<items >
+							
+
+					            <IconTabFilter id="_IDGenIconTabFilter2"
+									key="experience"
+									icon=""
+									text="Experience">
+									
+									
+									
+					
+				     			</IconTabFilter>
+
+					  		   
+				           </items>
+			 		     </IconTabBar>
+			 		 </f:content>
+
+			</f:DynamicPage >
+		
+			
+		</tnt:mainContents>
+		
+	</tnt:ToolPage>
+	
+    
+
+</mvc:View>
+

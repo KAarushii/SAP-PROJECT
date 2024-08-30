@@ -95,6 +95,7 @@
           "uri": "css/style.css"
         }
       ]
+      
     },
     "routing": {
       "config": {
@@ -113,6 +114,62 @@
           "target": [
             "TargetMainView"
           ]
+        },
+        {
+          "name": "MyProfile",
+          "pattern": "MyProfile",
+          "target": [
+            "MyProfile"
+          ]
+        },
+        {
+          "name": "SkillScreener",
+          "pattern": "SkillScreener",
+          "target": [
+            "SkillScreener"
+          ]
+        },
+        {
+          "name": "Training",
+          "pattern": "Training",
+          "target": [
+            "Training"
+          ]
+        },
+        {
+          "name": "Certifications",
+          "pattern": "Certifications",
+          "target": [
+            "Certifications"
+          ]
+        },
+        {
+          "name": "CertificationReport",
+          "pattern": "CertificationReport",
+          "target": [
+            "CertificationReport"
+          ]
+        },
+        {
+          "name": "TrainingCourseMaster",
+          "pattern": "TrainingCourseMaster",
+          "target": [
+            "TrainingCourseMaster"
+          ]
+        },
+        {
+          "name": "PanelSlotBooking",
+          "pattern": "PanelSlotBooking",
+          "target": [
+            "PanelSlotBooking"
+          ]
+        },
+        {
+          "name": "AdoptionStatus",
+          "pattern": "AdoptionStatus",
+          "target": [
+            "AdoptionStatus"
+          ]
         }
       ],
       "targets": {
@@ -122,7 +179,64 @@
           "clearControlAggregation": false,
           "viewId": "MainView",
           "viewName": "MainView"
-        }
+        },
+       "MyProfile":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "MainView",
+        "viewName": "MainView"
+      },
+      "SkillScreener":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "SkillScreener",
+        "viewName": "SkillScreener"
+      },
+      "Training":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "Training",
+        "viewName": "Training"
+      },
+      "Certifications":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "Certifications",
+        "viewName": "Certifications"
+      },
+      "CertificationReport":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "CertificationReport",
+        "viewName": "CertificationReport"
+      },
+      "TrainingCourseMaster":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "TrainingCourseMaster",
+        "viewName": "TrainingCourseMaster"
+      },
+      "PanelSlotBooking":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "PanelSlotBooking",
+        "viewName": "PanelSlotBooking"
+      },
+      "AdoptionStatus":{
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "AdoptionStatus",
+        "viewName": "AdoptionStatus"
+      }
+      
       }
     },
     "rootView": {

@@ -3,48 +3,44 @@
 	xmlns:core="sap.ui.core"
 	xmlns:l="sap.ui.layout">
 	<TableSelectDialog
-		id="myDialog"
-		noDataText="No Products Found"
-		title="Select Product"
-		search=".handleSearch"
-		confirm=".handleSaveSkill"
-		cancel=".handleClose"
-	    multiSelect="true"
-		items="{
-			path : '/Cluster',
-			sorter : {
-				path : 'practice',
-				descending : false
-			}
-		}">
-		<ColumnListItem id="col" vAlign="Middle" >
-			<cells>
-				<!-- <ObjectIdentifier title="{Name}" text="{ProductId}" /> -->
-                <Text id="two" text="{practice}" />
-				<Text id="one" text="{JSC}" />
-			    <Text id="three" text="{leaf_skills}" />
-				
-			</cells>
-		</ColumnListItem>
-		<columns>
-			<Column id="col1" width="12em">
-				<header>
-					<Text id="T1" text="Practice" />
-				</header>
-			</Column>
-			<Column id="col2" minScreenWidth="Tablet" demandPopin="true">
-				<header>
-					<Text id="T2" text="Skill Cluster" />
-				</header>
-			</Column>
+        id="myDialogIndustries"
+        noDataText="No Products Found"
+        title="Select Skill Cluster"
+        search=".handleSearchIndustry"
+        confirm=".handleSaveIndustryExperience"
+        cancel=".handleClose"
+        multiSelect = "true"
+        items="{
+            path : '/Industries',
+            sorter : {
+                path : 'industry_cluster',
+                descending : false
+            }
+        }">
+        <columns>
+            <Column id="col1" width="12em">
+                <header>
+                    <Text id="T1" text="Industry Cluster" />
+                </header>
+            </Column>
 
-            <Column id="col3" >
-				<header>
-					<Text id="T3" text="Skills" />
-				</header>
-			</Column>
+            <Column id="col2" >
+                <header>
+                    <Text id="T2" text="Industry Type" />
+                </header>
+            </Column>
 
-		</columns>
-	
-	</TableSelectDialog>
+            
+            
+        </columns>
+        <ColumnListItem id="col" vAlign="Middle">
+            <cells>
+                
+                <Text id="one" text="{industry_cluster}" />
+                <Text id="two" text="{industry_type}" />
+                
+            </cells>
+        </ColumnListItem>
+        
+    </TableSelectDialog>
 </core:FragmentDefinition>

@@ -3,13 +3,16 @@
 	xmlns:core="sap.ui.core">
 	
 	<TableSelectDialog
-		id="myDialog"
+		
 		noDataText="No Products Found"
 		title="Select Skill"
-		search=".handleSearch"
+		search=".handleSearchSkill"
 		confirm=".handleSaveSkill"
 		cancel=".handleClose"
 	    multiSelect="true"
+		
+		class="tableSelectDialogue"
+		 
 		items="{
 			path : '/Cluster',
 			sorter : {
@@ -18,8 +21,8 @@
 			}
 		}">
 		<ColumnListItem id="col" vAlign="Middle" >
-			<cells>
-				<!-- <ObjectIdentifier title="{Name}" text="{ProductId}" /> -->
+			<cells >
+				
                 <Text id="two" text="{practice}" />
 				<Text id="one" text="{JSC}" />
 			    <Text id="three" text="{leaf_skills}" />
@@ -27,20 +30,20 @@
 			</cells>
 		</ColumnListItem>
 		<columns>
-			<Column id="col1" width="12em" >
-				<header>
-					<Text id="T1" text="Practice"  class= "tableSelectDialogue"  />
+			<Column id="col1" width="12em"  class="tableSelectDialogue"  >
+				<header >
+					<Text id="T1" text="Practice" />
 				</header>
 			</Column>
 			<Column id="col2" minScreenWidth="Tablet" demandPopin="true">
 				<header>
-					<Text id="T2" text="Skill Cluster"  class="tableSelectDialogue"/>
+					<Text id="T2" text="Skill Cluster" />
 				</header>
 			</Column>
 
             <Column id="col3" >
 				<header>
-					<Text id="T3" text="Skills"  class="tableSelectDialogue" />
+					<Text id="T3" text="Skills" />
 				</header>
 			</Column>
 

@@ -8,16 +8,20 @@
 } */
 
 .HorizontalLayout{
-    max-width: max-content;
+    width:900%;
   
 }
 .sapUiSmallNegativeMarginBeginEnd{
    position: fixed;
 }
-.jas{
-   font-weight: bold;
-  
+
+
+.textAlignment{
+    position: relative;
 }
-.tableSelectDialogue{
-    color:aquamarine;
+.sapUiMediumMarginEnd{
+   
+    padding-right: 28px;
+    padding-left: 28px;
 }
+

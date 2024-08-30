@@ -1,0 +1,45 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	
+	<TableSelectDialog
+		id="myDialogCountry"
+		noDataText="No Products Found"
+		title="Select Country"
+		search=".handleSearchCountry"
+		confirm=".handleSaveCountryExperience"
+		cancel=".handleClose"
+		multiSelect = "true"
+		items="{
+			path : '/Country',
+			sorter : {
+				path : 'country_name',
+				descending : false
+			}
+		}">
+		<columns>
+			
+			<Column  minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Label  text="Country Flag" />
+				</header>
+			</Column>
+			<Column  width="12em">
+				<header>
+					<Label  text="Country Name" />
+				</header>
+			</Column>
+			
+			
+		</columns>
+		<ColumnListItem  vAlign="Middle">
+			<cells>
+				
+				<Image  src="{country_flag}" width="50px" height="30px"/>
+				<Text  text="{country_name}" />
+				
+			</cells>
+		</ColumnListItem>
+		
+	</TableSelectDialog>
+</core:FragmentDefinition>

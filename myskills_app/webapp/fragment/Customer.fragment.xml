@@ -1,0 +1,109 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	
+	xmlns:form="sap.ui.layout.form"
+	>
+		<Dialog
+		title="Add Key Customer Experience"
+		class="sapUiSmallNegativeMarginBeginEnd"
+		>
+		<content >
+		
+          <form:SimpleForm
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title="Select Customer and your Experience">
+		
+			<ComboBox 
+				id="comboBoxCustomer"	
+				showClearIcon="true"
+					items="{
+					path: '/Customer',
+					sorter: { path: 'customer_name' }
+				}">
+				<core:Item key="{customer_name}" text="{customer_name}" />
+			</ComboBox>
+			
+				 <!-- <StepInput
+				 		id="comboBox_exp_years"
+						valueStateText="in years"
+						width="10%"
+						value=""
+						editable="true"
+						textAlign="Begin"/> -->
+
+				<Button text="Add" icon="sap-icon://save"  press="handleSaveCustomerExperience" tooltip="Add Experience"  type="Emphasized" width="20%"/>			
+           
+			</form:SimpleForm>
+			
+			
+
+		   <form:SimpleForm
+		    editable="true"
+			layout="ResponsiveGridLayout"
+			title=" Customer Experience Details Table" >
+			
+						<OverflowToolbar style="Clear">                    
+                    		<ToolbarSpacer/>
+                    		<Button  icon="sap-icon://delete" tooltip="Delete" type="Reject"  press=".onDeleteCustomer"/>
+						</OverflowToolbar>
+			
+			
+			<Table id="tableCustomerExperience"
+		               inset="false"
+			          mode="MultiSelect"
+			         alternateRowColors="true"
+					 items="{path:'EmployeeModel>/employee_customer_experience/results'}" 
+					 visible="true" 
+					 selectionChange="onRowCustomerSelect">
+	
+						<columns>
+							<Column>
+								<Text text="Customer Name" />
+							</Column>
+							<Column>
+								<Text text="Total Experience" />
+							</Column>
+
+						</columns>
+						<items>
+							<ColumnListItem vAlign="Middle">
+								<cells>
+									<ObjectIdentifier
+										title=""
+										text="{EmployeeModel>customer_name}"/>
+									<StepInput
+										valueStateText="in years"
+										width="10%"
+										value="{EmployeeModel>exp_years}"
+										valueState="{None}"
+										editable="{EmployeeModel>bEditable}"
+									/>
+
+								</cells>
+							</ColumnListItem>
+						</items>
+			</Table>
+			
+			</form:SimpleForm>	
+		</content>
+			<footer>
+				<Toolbar>
+				<content>
+					
+						<ToolbarSpacer /> 
+						<Button type="Accept"
+								text="Apply Changes"
+								press="onSaveCustomerChanges" />
+						<Button text="Cancel"
+							type="Reject"
+							press=".onCancelCustomerChanges"
+							ariaHasPopup="Dialog" />
+				</content>
+				</Toolbar>
+			</footer> 
+		</Dialog>				
+		
+</core:FragmentDefinition>

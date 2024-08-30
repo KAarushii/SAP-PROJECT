@@ -1,0 +1,67 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<Dialog >
+	<VBox class="sapUiSmallMargin">
+		<f:SimpleForm layout="ResponsiveGridLayout"
+						labelSpanXL="3"
+						labelSpanL="3"
+						labelSpanM="3"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4"
+						emptySpanL="4"
+						emptySpanM="4"
+						emptySpanS="0"
+						columnsXL="1"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="true" >
+			<f:content>
+				 <Title text="Education Qualification" class="sapUiSmallMarginEnd"></Title>
+				 
+				<Label text="Degree"/>
+					
+					<ComboBox
+						id="eduSteam">
+				        <core:Item key="bsc" text="B.Sc" />
+						<core:Item key="btech" text="B.Tech" />
+						<core:Item key="mtech" text="M.Tech" />
+			        </ComboBox>
+					<Label text="Specialization"/>
+					<Input id="specialization" value=""/>
+					<Label text="Institute Name"/>
+					<Input id="institute" value=""/>
+					<Label id="_IDGendeLabel3startd" text="Start Date" />
+				   <DatePicker
+					id="DP8"
+					value="{
+						'path':'/valueDP2',
+						'type':'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'yyyy-MM-dd'
+						}
+					}"
+					change="handleChange"
+					class="sapUiSmallMarginBottom"/>
+
+					 <Label id="_IDGendeLabel3ed" text="End Date" />
+				   <DatePicker
+					id="DP6"
+					value="{
+						'path':'/valueDP2',
+						'type':'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'yyyy-MM-dd'
+						}
+					}"
+					change="handleChange"
+					class="sapUiSmallMarginBottom"/> 
+			</f:content>
+			<Button text="SAVE" press="onSaveEducation" width="" type="Emphasized"></Button>	
+		</f:SimpleForm>
+	</VBox>
+	</Dialog>
+</core:FragmentDefinition>
