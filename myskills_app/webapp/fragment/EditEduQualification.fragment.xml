@@ -3,8 +3,9 @@
 	xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
-	<Dialog id="eduDialog">
-	<VBox class="sapUiSmallMargin">
+	<Dialog id="eduDialog"
+	 title="Edit Education Qualification">
+	<content>
 		<f:SimpleForm layout="ResponsiveGridLayout"
 						labelSpanXL="3"
 						labelSpanL="3"
@@ -20,49 +21,58 @@
 						columnsM="1"
 						singleContainerFullSize="true" >
 			<f:content>
-				 <Title text="Edit Education Qualification" class="sapUiSmallMarginEnd"></Title>
+				 <!-- <Title text="Edit Education Qualification" class="sapUiSmallMarginEnd"></Title> -->
 				 <Input id="eduId" visible="false" value=""></Input>
 				<Label text="Degree"/>
-					
-					<ComboBox
+				<Input id="edit_degree" visible="false" value="{EmployeeModel>degree}"></Input>	
+					<!-- <ComboBox
 						id="editeduSteam">
 				        <core:Item key="bsc" text="B.Sc" />
 						<core:Item key="btech" text="B.Tech" />
 						<core:Item key="mtech" text="M.Tech" />
-			        </ComboBox>
+			        </ComboBox> -->
 					<Label text="Specialization"/>
-					<Input id="editspecialization" value=""/>
+					<Input id="editspecialization" value="{EmployeeModel>specialization}"/>
 					<Label text="Institute Name"/>
-					<Input id="editinstitute" value=""/>
+					<Input id="editinstitute" value="{EmployeeModel>institute_name}"/>
 					<Label id="_IDGendeLabel3startd" text="Start Date" />
 				   <DatePicker
 					id="DP8"
-					value="{
-						'path':'/valueDP2',
-						'type':'sap.ui.model.type.Date',
-						'formatOptions': {
-							'pattern': 'yyyy-MM-dd'
-						}
-					}"
+					value="{EmployeeModel>startDate}"
 					change="handleChange"
 					class="sapUiSmallMarginBottom"/>
 
 					 <Label id="_IDGendeLabel3ed" text="End Date" />
 				   <DatePicker
 					id="DP6"
-					value="{
-						'path':'/valueDP2',
-						'type':'sap.ui.model.type.Date',
-						'formatOptions': {
-							'pattern': 'yyyy-MM-dd'
-						}
-					}"
+					value="{EmployeeModel>endDate}"
 					change="handleChange"
 					class="sapUiSmallMarginBottom"/> 
 			</f:content>
-			<Button text="SAVE" press="onUpdateEducation" width="" type="Emphasized"></Button>
-			<Button id="cancel" text="Cancel" visible="true" press="oCancelFragment" />	
+			<!-- <Button text="SAVE" press="onUpdateEducation" width="" type="Emphasized"></Button> -->
+			<!-- <Button id="cancel" text="Cancel" visible="true" press="oCancelFragment" />	 -->
 		</f:SimpleForm>
-	</VBox>
+	  </content>
+	   <footer>
+            <Toolbar>
+                <content>
+                    <ToolbarSpacer />
+                    <Button
+                        icon="sap-icon://save"
+                        press="handleSaveEduQ"
+                        tooltip="save"
+                        type="Accept"
+                    />
+
+                    <Button
+                        icon="sap-icon://decline"
+                        tooltip="cancel"
+                        press="onCancelEduQualification"
+                        type="Reject"
+                    />
+                </content>
+            </Toolbar>
+        </footer>
 	</Dialog>
+   	
 </core:FragmentDefinition>

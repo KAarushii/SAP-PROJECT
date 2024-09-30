@@ -34,7 +34,11 @@
 						editable="true"
 						textAlign="Begin"/> -->
 
-				<Button text="Add" icon="sap-icon://save"  press="handleSaveCustomerExperience" tooltip="Add Experience"  type="Emphasized" width="20%"/>			
+				<Button  icon="sap-icon://add" 
+				 press="handleSaveCustomerExperience" 
+				 tooltip="Add Experience" 
+				  type="Emphasized" 
+				  width="10%"/>			
            
 			</form:SimpleForm>
 			
@@ -45,10 +49,10 @@
 			layout="ResponsiveGridLayout"
 			title=" Customer Experience Details Table" >
 			
-						<OverflowToolbar style="Clear">                    
+						<!-- <OverflowToolbar style="Clear">                    
                     		<ToolbarSpacer/>
                     		<Button  icon="sap-icon://delete" tooltip="Delete" type="Reject"  press=".onDeleteCustomer"/>
-						</OverflowToolbar>
+						</OverflowToolbar> -->
 			
 			
 			<Table id="tableCustomerExperience"
@@ -97,10 +101,19 @@
 						<Button type="Accept"
 								text="Apply Changes"
 								press="onSaveCustomerChanges" />
-						<Button text="Cancel"
-							type="Reject"
+
+						<Button 
+							type="Attention"
 							press=".onCancelCustomerChanges"
-							ariaHasPopup="Dialog" />
+							ariaHasPopup="Dialog"
+							icon="sap-icon://decline" 
+							tooltip="cancel"/>
+
+						<Button  
+						icon="sap-icon://delete" 
+						tooltip="Delete"
+						 type="Reject" 
+						 press=".onDeleteCustomer"/>	
 				</content>
 				</Toolbar>
 			</footer> 

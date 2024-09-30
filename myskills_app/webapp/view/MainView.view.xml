@@ -14,33 +14,34 @@
 	xmlns:u="sap.ui.unified"
 	>
 
-    <tnt:ToolPage id="toolPage" >
-	    	
+    <tnt:ToolPage id="ToolPage" >
+
+
 	    <tnt:sideContent  >
 
-		  <tnt:SideNavigation id="sideNavigation" selectedKey="walked" selectedItem="" expanded="false" >
+		  <tnt:SideNavigation id="ProfileSideNavigation"  selectedKey="walked" selectedItem="" expanded="false" >
                    
-				 <tnt:NavigationList id="_Iist1" >
+				 <tnt:NavigationList  >
 				
-					 <tnt:NavigationListItem id="_Ism7"  icon="sap-icon://menu2" select="onExpandSideNavigation"  />
+					 <tnt:NavigationListItem icon="sap-icon://menu2" select="onExpandSideNavigation"  />
 					 
-					  <tnt:NavigationListItem id="_Ism1" text="My Profile" icon="sap-icon://employee" select="onNavToMyProfile" />
+					  <tnt:NavigationListItem  text="My Profile" icon="sap-icon://employee" select="onNavToMyProfile" />
 
-                      <tnt:NavigationListItem id="item1" text="Skill Screener" icon="sap-icon://people-connected"  select="onNavToSkillScreener" />
+                      <tnt:NavigationListItem  text="Skill Screener" icon="sap-icon://people-connected"  select="onNavToSkillScreener" />
 
-					  <tnt:NavigationListGroup id="grp1"  text="Learning Hub" >
-						  <tnt:NavigationListItem id="grp2" text="Training" icon="sap-icon://learning-assistant"   select="onNavToTraining"/>
-						  <tnt:NavigationListItem id="grp3" text="Certifications" icon="sap-icon://validate"  select="onNavToCertifications"/>
-						  <tnt:NavigationListItem id="grp10" text="Certification Report" icon="sap-icon://clinical-task-tracker"  select="onNavToCertificationReport"  />
-						  <tnt:NavigationListItem id="grp11" text="Training Course Master" icon="sap-icon://learning-assistant"  select="onNavToTrainingCourseMaster"/>
+					  <tnt:NavigationListGroup text="Learning Hub" >
+						  <tnt:NavigationListItem  text="Training" icon="sap-icon://learning-assistant"   select="onNavToTraining"/>
+						  <tnt:NavigationListItem  text="Certifications" icon="sap-icon://validate"  select="onNavToCertifications"/>
+						  <tnt:NavigationListItem  text="Certification Report" icon="sap-icon://clinical-task-tracker"  select="onNavToCertificationReport"  />
+						  <tnt:NavigationListItem  text="Training Course Master" icon="sap-icon://learning-assistant"  select="onNavToTrainingCourseMaster"/>
 					  </tnt:NavigationListGroup>
 
-					  <tnt:NavigationListGroup id="grp4"  text="Recruitment">
-						  <tnt:NavigationListItem id="grp5" text="Planel Slot Booking" icon="sap-icon://retail-store-manager"  select="onNavToPanelSlotBooking" />
+					  <tnt:NavigationListGroup   text="Recruitment">
+						  <tnt:NavigationListItem  text="Planel Slot Booking" icon="sap-icon://retail-store-manager"  select="onNavToPanelSlotBooking" />
 					  </tnt:NavigationListGroup>
 					  
-					   <tnt:NavigationListGroup id="grp7"  text="Reports">
-						  <tnt:NavigationListItem id="grp8" text="Adoption Status" icon="sap-icon://document-text"  select="onNavToAdoptionStatus" />
+					   <tnt:NavigationListGroup   text="Reports">
+						  <tnt:NavigationListItem  text="Adoption Status" icon="sap-icon://document-text"  select="onNavToAdoptionStatus" />
 					  </tnt:NavigationListGroup>
                         
 					</tnt:NavigationList>
@@ -51,8 +52,8 @@
 
 		<tnt:mainContents >
 
-			<f:DynamicPage id="dynamicPageId" 
-				stickySubheaderProvider="_IDGenIconTabBar1"
+			<f:DynamicPage
+				stickySubheaderProvider="_ProfileIconTabBar1"
 			    class="sapUiNoContentPadding"
 				backgroundDesign="Transparent"
 				>
@@ -62,18 +63,7 @@
 					<f:heading>
 							<Title text="{EmployeeModel>/employee_name}" wrapping="true" />
 					</f:heading>
-					<!-- <f:snappedHeading>
-					       	<HBox>
-						<VBox>
-							<Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiSmallMarginEnd" />
-						</VBox>
-
-						<VBox>
-							<Title text="Name, designation" wrapping="true"/>
-							
-						</VBox>
-					</HBox>
-					</f:snappedHeading> -->
+					
 					
 					<f:expandedContent>
 						<Label text="designation"/>
@@ -85,16 +75,7 @@
 							<Title text="designation"/>
 					</f:snappedTitleOnMobile>
 					<f:content>
-						<!-- <OverflowToolbar>
-							<Avatar
-                            					 displaySize="S"
-                           						 displayShape="Circle"
-                           						 press="onPress"
-                           						 src="sap-icon://customer"
-                           						 badgeIcon=""
-                           						 badgeTooltip= "Julie Armstrong"
-													/>
-						</OverflowToolbar> -->
+						
 					</f:content>
 					
 					
@@ -109,14 +90,7 @@
 									 displaySize="S" 
 									 displayShape="Circle"
 									 class="sapUiMediumMarginEnd sapUiSmallMarginBottom" />
-											  <!-- <Avatar
-                            					 displaySize="S"
-                           						 displayShape="Circle"
-                           						 press="onPress"
-                           						 src="sap-icon://customer"
-                           						 badgeIcon=""
-                           						 badgeTooltip= "Julie Armstrong"
-													/>	    -->
+											
 									<layout:VerticalLayout class="sapUiMediumMarginEnd">
 
 						               <layout:HorizontalLayout class="HorizontalLayout" >
@@ -198,17 +172,7 @@
 											
 
 								  </layout:VerticalLayout>
-                                         <!-- <Avatar
-                            					 displaySize="S"
-                           						 displayShape="Circle"
-                           						 press="onPress"
-                           						 src="sap-icon://customer"
-                           						 badgeIcon=""
-                           						 badgeTooltip= "Julie Armstrong"
-													/>   
-											 -->
-								 
-							              
+                                       
 					           </layout:HorizontalLayout>
                             </FlexBox>  
 						</f:DynamicPageHeader>
@@ -217,7 +181,7 @@
 
 
 			 		 <f:content >
-						  <IconTabBar id="_IDGenIconTabBar1" > 
+						  <IconTabBar id="_ProfileIconTabBar1" > 
 							<items >
 								<IconTabFilter id="_IDGenIconTabFilter1"
 									key="skills"
@@ -252,7 +216,7 @@
 												
 												 <Button id="add" icon="sap-icon://add" press="onAddSkillsDialog" tooltip="Add Skills"   type="Emphasized" ></Button>
 												 <Button id="save_btn" type="Accept" icon="sap-icon://save" press="onSaveSkillChanges" tooltip="Save"/>
-                							  	 <Button id="delbtn"  icon="sap-icon://delete" tooltip="Delete" type="Reject"  press=". onDeleteSkill"/>
+                							  	 <Button id="delbtn"  icon="sap-icon://delete" tooltip="Delete" type="Reject"  press=".onDeleteSkill"/>
 												 <Button id="cancel_btn" type="Attention" icon="sap-icon://decline" press=".onCancelSkillChanges" tooltip="Cancel"/>
                 							    
 												
@@ -323,7 +287,7 @@
 								   
 					           </IconTabFilter>
 
-					            <IconTabFilter id="_IDGenIconTabFilter2"
+					            <IconTabFilter id="_IDGennIconTabFilter2"
 									key="experience"
 									icon=""
 									text="Experience">
@@ -610,258 +574,167 @@
 
 
                                 <IconTabFilter id="_IDGenIconTabFilter3"  key="cv" icon="" text="CV">
-            <!-- <FeedInput id="_IDGenFeedInput1" value="Test"/> -->
-    <!--CV Form Start-->
+            
  
-						<Wizard
-							id="CreateCVWizard"
-							finishButtonText="Finish"
-							currentStep="pdfdwnload"
-							class="sapUiSmallNegativeMarginBeginEnd"
-							showNextButton="false"
-						>
+								  <Wizard
+									 id="CreateCVWizard"
+									 finishButtonText="Finish"
+									 currentStep="CV_Download"
+							         showNextButton="false">
+						
 
 						
-											  <WizardStep id="InfoEMP"
-											  			title="Employee Info"
-											  			activate="onActivate"
-														>
-														<OverflowToolbar style="Clear">
-												 		 
-                                                 				<ToolbarSpacer/>
-												 				<!-- <Button id="infoEdit" icon="sap-icon://edit"  press="onEditOnSiteExp" tooltip="Edit"  type="Emphasized" ></Button> -->
-							 					 
-                                                  		</OverflowToolbar>
-											  	  <form:SimpleForm id="cvDisplayForm" editable="false"
-				   		                           layout="ResponsiveGridLayout"
-						                        width="80%"
-				   >
-				   		<!-- <Avatar
-						   
-							displaySize="M"
-							backgroundColor="Accent3"
-							press="onPress"
-							badgeIcon="sap-icon://edit" 
-							/> -->
-							
-						
-			<form:content >
-				<Label text="Full Name" id="_IDGenLabel1"/>
-				<Text id="nameText1" text="{EmployeeModel>/employee_name}" />
-				<Label text="Designation" id="_IDGenLabel2"/>
-				<Text text="{EmployeeModel>/designation}" id="nameText2"/>
-				<Label text="Email" id="_IDGenLabel3"/>
-				<Text text="{EmployeeModel>/email}" id="nameText3"/>
-				<Label text="Location" id="_IDGenLabel4"/>
-				<Text id="countryText1" text="{EmployeeModel>/deputed_country}  {EmployeeModel>/base_location}" />
-			</form:content>
-				   </form:SimpleForm>
+										 <WizardStep 
+											 	id="CV_EmpInfo"
+												title="EMPLOYEE INFORMATION"
+												activate="onActivate">
+														
+											  	  		<form:SimpleForm id="cvDisplayForm" editable="false"
+				   		                          		 layout="ResponsiveGridLayout"
+						                          		 width="80%">
+				   
+															<form:content >
+																<Label text="Name" design="Bold" />
+																<Text  text="{EmployeeModel>/employee_name}" />
+																<Label text="Designation" design="Bold"/>
+																<Text text="{EmployeeModel>/designation}" />
+																<Label text="Email" design="Bold"/>
+																<Text text="{EmployeeModel>/email}" />
+																<Label text="Location" design="Bold"/>
+																<Text  text="{EmployeeModel>/base_location}" />
+															</form:content>
+													  </form:SimpleForm>
 
-											  </WizardStep>
-											  <WizardStep id="profilesum"
-														title="Profile Summary"
+										  </WizardStep>
+
+											  
+										  <WizardStep id="cv_ProfileSummary"
+														title="PROFILE SUMMARY"
 														activate="onActivate"
 														>
+                                                     	
+
 														<OverflowToolbar style="Clear" width="80%">
 												 		 
                                                  				<ToolbarSpacer/>
-												 				<Button id="profileEdit" icon="sap-icon://add"  press="onEditProfsummary" tooltip="Edit"  type="Emphasized" visible="true"></Button>
+												 				<Button id="profileEdit" icon="sap-icon://edit"  press="onEditProfsummary" tooltip="Edit"  type="Accept" visible="true"></Button>
+																<Button id="DeleteProfile"   type="Reject" icon="sap-icon://delete"  press="onDeleteProfSummary" visible="true"/>
 							 					 				<Button id="saveProfileSumm" type="Accept" icon="sap-icon://save" press="onProfSummary" tooltip="Save" visible="false"/>
 																<Button id="cancel_Profilebtn" type="Attention" icon="sap-icon://decline" press="onProfSummarynotadd" tooltip="Cancel" visible="false"/>
                                                   		</OverflowToolbar>
-														
-															<Text id="profsumm" text="{oViewCVModel>/profSummaryData}"  visible="true"/>
-															<!--  <Text id="" text="{wrkcareerData}" /> -->
-														
-				
-				<VBox id="profSummAdd" visible="false">
-				 <form:SimpleForm width="80%">
-				 <form:content>
-				     <l:VerticalLayout id="idVerticalLayout" class="sapUiContentPadding" >
-					<HBox alignItems="Center">
+                                                            <Text id="profsumm" text="{oViewCVModel>/profSummaryData}" width="80%" visible="true"/>
+															
+															<VBox id="profSummAdd" visible="false">
+															 <form:SimpleForm width="80%"
+															>
+															 <form:content>
+															     <l:VerticalLayout id="idVerticalLayout" class="sapUiContentPadding" >
+																<HBox alignItems="Center">
+					                                            <Text text="{oViewCVModel>/profSummaryData}" />
 					   
-					   
-					</HBox>
+																</HBox>
 					
-	            </l:VerticalLayout>
-				 </form:content>
-				 </form:SimpleForm>
-				</VBox>
+	            											</l:VerticalLayout>
+															 </form:content>
+															 </form:SimpleForm>
+															</VBox>
 				
-											  </WizardStep>
-											  <WizardStep id="wrkexp"
-														title="Work Experience"
+										  </WizardStep>
+
+										  <WizardStep id="CV_WorkExperience"
+														title=" WORK EXPERIENCE"
 														activate="onActivate"
 														>
-												<VBox >
-												
-													<t:TreeTable
-														id="workTreeTable"
-														rows="{/workListArray}"
-														selectionMode="MultiToggle"
-														enableSelectAll="true"
-														ariaLabelledBy="title"
-														useGroupMode="false"
-														groupHeaderProperty=""
-														width="80%"
-														rowSelectionChange="oWorkitemSelect"
-														
+												     
+														<List
+															id="WorkExp"
+															items="{path: 'EmployeeModel>/employee_cv_experience_data/results'}"
+															mode="MultiSelect"
+															selectionChange=""
+															includeItemInSelection="true"
+															growing="true"
+		                                                    growingThreshold="4"
+															width="80%">
+															
+		                                                        <headerToolbar>
+																	<OverflowToolbar  style="Clear">
+			                                                        
+                                                 				 	 <ToolbarSpacer/>
+												 				 	 <Button  icon="sap-icon://add" press="onAddWorkExpDialog" tooltip="Add Work Experience"   type="Emphasized" ></Button>
+												                 	 <Button   type="Accept" icon="sap-icon://edit" press="onEditWorkExpDialog" />
+																 	 <Button   type="Reject" icon="sap-icon://delete"  press="onMultiDeleteWorkExp"/>
+																	</OverflowToolbar>
+																</headerToolbar>
+																<CustomListItem>
+																     <HBox>
+																	     <Avatar src="sap-icon://building" 
+																		 displaySize="S" 
+																		 displayShape="Square"
+																		 class="sapUiMediumMarginEnd"
+																		 
+																		 />
+																		 
+																	   <VBox   >
+																	       
+																	       <Text text="{EmployeeModel>company_name}"  />
+																		   <Text text="{EmployeeModel>role}" />
+																		   <Text text="{EmployeeModel>startDate} to {EmployeeModel>endDate}" />
+																		   <!-- <Text text="" /> -->
+																	   </VBox>
+																	 </HBox>
+																</CustomListItem>
+	
+														</List>													
+													
+									  </WizardStep>
+
+									  <WizardStep id="CV_EducationQualification"
+												  title="EDUCATION QUALIFICATION"
+												>
+													<List  
+													    id="EduQ"
+														mode="MultiSelect" 
+														items="{path: 'EmployeeModel>/employee_education_detail/results'}" 
+														width="80%">
+
+														<headerToolbar>
+															<OverflowToolbar style="Clear">
+																	<ToolbarSpacer/>
+																	<Button id="eduaddd" icon="sap-icon://add" press="onAddEduDialog" tooltip="Add Education Qualification"   type="Emphasized" ></Button>
+																	<Button   type="Accept" icon="sap-icon://edit" press="onEditEduQDialog" />
+																	<Button   type="Reject" icon="sap-icon://delete"  press="onMultiDeleteEduQ" />
+															</OverflowToolbar>
+														</headerToolbar>	   
+														<CustomListItem>
+															<HBox>
+																<Avatar src="sap-icon://study-leave" 
+																			displaySize="S" 
+																			displayShape="Square"
+																			class="sapUiMediumMarginEnd"
+																			/>
 										
-										  >
-                                           <t:extension >
-                                              <OverflowToolbar style="Clear"  >
-                                                 
-                        						 <ToolbarSpacer/>
-												
-                        						 
-												
-												 <Button id="wrkadd" icon="sap-icon://add" press="onAddWorkExpDialog" tooltip="Add Work Experience"   type="Emphasized" ></Button>
-												 <Button id="wrkedit" type="Accept" icon="sap-icon://edit" press="onEditWorkExpDialog" tooltip="Edit Work Experience"/>
-                							  	 <Button id="wrkdel"  icon="sap-icon://delete" tooltip="Work Delete" type="Reject"  press="onDeleteWork"/>
-												 <!-- <Button id="wrkcancel" type="Attention" icon="sap-icon://decline" press=".onCancelSkillChanges" tooltip="Cancel"/> -->
-                							    
-												
-                                                </OverflowToolbar>
-                                          </t:extension>
-                                          <t:columns>
-                    							<t:Column hAlign="Center">
-                    							    <Label text="Organization Name" design="Bold" class="textAlignment" />
-                    							    <t:template>
-                    							       <Text text="{company_name}" wrapping="false" />
-													   <!-- <Input type="Text" value="{company_name}" editable="false"></Input> -->
-                    							    </t:template>
-                    							</t:Column>
-                    							<t:Column hAlign="Center" >
-                    							    <Label text="Designation" design="Bold" textAlign="Center" />
-                    							    <t:template>
-                    							      <Text text="{role}" wrapping="false" />
-                    							    </t:template>
-                   							   </t:Column>
-
-                   							   	<t:Column
-												    hAlign="Center"
-													headerSpan="2,1">
-													<t:multiLabels >
-							
-														<Label text="Time Period" design="Bold" textAlign="Center" width="100%"/>
-														<Label text="Joining Date" design="Bold" textAlign="Center" width="100%" />
-													</t:multiLabels>
-													<t:template>
-												              
-														    <Text text="{startDate}" wrapping="false" />
-                   							     </t:template>
-												</t:Column>
-												<t:Column hAlign="Center"
-										        	headerSpan="2">
-													<t:multiLabels>
-														<Label text="Time Period" design="Bold"/>
-														<Label text="Last Working Date" design="Bold" textAlign="Center" width="100%"/>
-							
-													</t:multiLabels>
-												
-													 <t:template>
-                   							       
-															<Text text="{endDate}" wrapping="false" />
-													      
-                   							     </t:template>
-												</t:Column>
-
-                							</t:columns>
-                                      </t:TreeTable>
-												</VBox>
+																<VBox >
+																	<Label text="{EmployeeModel>institute_name}"/>
+																	<Text  text="{EmployeeModel>degree}-{EmployeeModel>specialization}"/>
+																	<Text text="{EmployeeModel>startDate} to {EmployeeModel>endDate}"/>
+																</VBox>
+															</HBox>
+														</CustomListItem>
+													</List>  
+                        			  </WizardStep>
 
 
-											  </WizardStep>
-											  <WizardStep id="education"
-														title="Education Qualification"
-														activate="onActivate"
-														>
-											<VBox >
-												<t:TreeTable
-														id="educationTreeTable"
-														rows="{/educationListArray}"
-														selectionMode="MultiToggle"
-														enableSelectAll="true"
-														ariaLabelledBy="title"
-														useGroupMode="false"
-														groupHeaderProperty=""
-														width="80%"
-														
-										
-										  >
-                                           <t:extension >
-                                              <OverflowToolbar style="Clear"  >
-                                                 
-                        						 <ToolbarSpacer/>
-												
-                        						 
-												
-												 <Button id="eduadd" icon="sap-icon://add" press="onAddEducationDialog" tooltip="Add Education Qualification"   type="Emphasized" ></Button>
-												 <Button id="eduedit" type="Accept" icon="sap-icon://edit" press="onEditEducation" tooltip="Edit Education Qualification"/>
-                							  	 <Button id="edudel"  icon="sap-icon://delete" tooltip="Delete" type="Reject"  press="onDeleteEducation"/>
-												 <!-- <Button id="educancel" type="Attention" icon="sap-icon://decline" press=".onCancelSkillChanges" tooltip="Cancel"/> -->
-                							     
-												
-                                                </OverflowToolbar>
-                                          </t:extension>
-                                          <t:columns>
-                    							<t:Column hAlign="Center">
-                    							    <Label text="Degree" design="Bold" class="textAlignment" />
-                    							    <t:template>
-                    							       <Text text="{degree}" wrapping="false" />
-                    							    </t:template>
-                    							</t:Column>
-                    							<t:Column hAlign="Center" >
-                    							    <Label text="Specialization" design="Bold" textAlign="Center" />
-                    							    <t:template>
-                    							      <Text text="{specialization}" wrapping="false" />
-                    							    </t:template>
-                   							   </t:Column>
-											   <t:Column hAlign="Center" >
-                    							    <Label text="Institute Name" design="Bold" textAlign="Center" />
-                    							    <t:template>
-                    							      <Text text="{institute_name}" wrapping="false" />
-                    							    </t:template>
-                   							   </t:Column>
 
-                   							   	<t:Column
-												    hAlign="Center"
-													headerSpan="2,1">
-													<t:multiLabels >
-							
-														<Label text="Time Period" design="Bold" textAlign="Center" width="100%"/>
-														<Label text="Starting Date" design="Bold" textAlign="Center" width="100%"/>
-													</t:multiLabels>
-													<t:template>
-												              
-														    <Text text="{startDate}" wrapping="false" />
-                   							     </t:template>
-												</t:Column>
-												<t:Column hAlign="Center"
-										        	headerSpan="2">
-													<t:multiLabels>
-														<Label text="Time Period" design="Bold"/>
-														<Label text="End Date" design="Bold" textAlign="Center" width="100%"/>
-							
-													</t:multiLabels>
-												
-													 <t:template>
-                   							       
-															<Text text="{endDate}" wrapping="false" />
-													      
-                   							     </t:template>
-												</t:Column>
 
-                							</t:columns>
-                                      </t:TreeTable>
-											</VBox>
-											</WizardStep>
-											 <WizardStep id="pdfdwnload"
+											
+											<WizardStep id="CV_Download"
 														title="Download CV"
 														activate="onActivate"
 														>
-												<Button id="pdfbtn"  text="Download PDF" type="Emphasized" visible="true" press="handlePDF" />
-												</WizardStep>
+												 <Input id="inputName" placeholder="Profile Summary"/>
+     											 <Input id="inputEmail" placeholder="Achievements"/>		
+												 <Button id="pdfbtn"  text="Download PDF" type="Emphasized" visible="true" press="onGeneratePuppeteerPDF" />
+											</WizardStep>
 													
 
 						               </Wizard>

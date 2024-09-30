@@ -46,7 +46,7 @@ sap.ui.define([
 
       // Expand and collapse the side navigation
         onExpandSideNavigation: function(){
-            const oSideNavigation = this.byId("sideNavigation"),
+            const oSideNavigation = this.byId("AdoptionSideNavigation"),
                 bExpanded = oSideNavigation.getExpanded();
 
             oSideNavigation.setExpanded(!bExpanded);

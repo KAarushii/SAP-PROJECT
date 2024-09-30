@@ -19,6 +19,8 @@ server:
           - path: /v2
             url: https://larsen---toubro-infotech-ltd-dev-iptools-project-skills-app-srv.cfapps.eu10.hana.ondemand.com
             destination: Project_skills_app
+          - path: /v2
+            url: https://larsen---toubro-infotech-ltd-dev-iptools-project-skills-app-srv.cfapps.eu10.hana.ondemand.com
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="main" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Employees" EntityType="main.Employees"/>
+                <EntitySet Name="Cluster" EntityType="main.Cluster"/>
+                <EntitySet Name="Industries" EntityType="main.Industries"/>
+                <EntitySet Name="Customer" EntityType="main.Customer"/>
+                <EntitySet Name="Product" EntityType="main.Product"/>
+                <EntitySet Name="Language" EntityType="main.Language"/>
+                <EntitySet Name="Country" EntityType="main.Country"/>
+                <EntitySet Name="Employee_Skill_Detail" EntityType="main.Employee_Skill_Detail"/>
+                <EntitySet Name="Employee_Industries_Experience" EntityType="main.Employee_Industries_Experience"/>
+                <EntitySet Name="Employee_Customer_Experience" EntityType="main.Employee_Customer_Experience"/>
+                <EntitySet Name="Employee_Product_Experience" EntityType="main.Employee_Product_Experience"/>
+                <EntitySet Name="Employee_Language_Experience" EntityType="main.Employee_Language_Experience"/>
+                <EntitySet Name="Employee_Country_Experience" EntityType="main.Employee_Country_Experience"/>
+                <EntitySet Name="Employee_CV_Experience_Data" EntityType="main.Employee_CV_Experience_Data"/>
+                <EntitySet Name="Employee_Education_Detail" EntityType="main.Employee_Education_Detail"/>
+                <EntitySet Name="Employee_Professional_Summary" EntityType="main.Employee_Professional_Summary"/>
+                <EntitySet Name="Employee_Project_Summary" EntityType="main.Employee_Project_Summary"/>
+                <AssociationSet Name="Employee_Skill_Detail_empl" Association="main.Employee_Skill_Detail_empl">
+                    <End Role="Employee_Skill_Detail" EntitySet="Employee_Skill_Detail"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Industries_Experience_empl" Association="main.Employee_Industries_Experience_empl">
+                    <End Role="Employee_Industries_Experience" EntitySet="Employee_Industries_Experience"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Customer_Experience_empl" Association="main.Employee_Customer_Experience_empl">
+                    <End Role="Employee_Customer_Experience" EntitySet="Employee_Customer_Experience"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Product_Experience_empl" Association="main.Employee_Product_Experience_empl">
+                    <End Role="Employee_Product_Experience" EntitySet="Employee_Product_Experience"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Language_Experience_empl" Association="main.Employee_Language_Experience_empl">
+                    <End Role="Employee_Language_Experience" EntitySet="Employee_Language_Experience"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Country_Experience_empl" Association="main.Employee_Country_Experience_empl">
+                    <End Role="Employee_Country_Experience" EntitySet="Employee_Country_Experience"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_CV_Experience_Data_empl" Association="main.Employee_CV_Experience_Data_empl">
+                    <End Role="Employee_CV_Experience_Data" EntitySet="Employee_CV_Experience_Data"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Education_Detail_empl" Association="main.Employee_Education_Detail_empl">
+                    <End Role="Employee_Education_Detail" EntitySet="Employee_Education_Detail"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Professional_Summary_empl" Association="main.Employee_Professional_Summary_empl">
+                    <End Role="Employee_Professional_Summary" EntitySet="Employee_Professional_Summary"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+                <AssociationSet Name="Employee_Project_Summary_empl" Association="main.Employee_Project_Summary_empl">
+                    <End Role="Employee_Project_Summary" EntitySet="Employee_Project_Summary"/>
+                    <End Role="Employees" EntitySet="Employees"/>
+                </AssociationSet>
+            </EntityContainer>
+            <EntityType Name="Employees">
+                <Key>
+                    <PropertyRef Name="PS_NO"/>
+                </Key>
+                <NavigationProperty Name="employee_skill_detail" Relationship="main.Employee_Skill_Detail_empl" FromRole="Employees" ToRole="Employee_Skill_Detail"/>
+                <NavigationProperty Name="employee_industries_experience" Relationship="main.Employee_Industries_Experience_empl" FromRole="Employees" ToRole="Employee_Industries_Experience"/>
+                <NavigationProperty Name="employee_customer_experience" Relationship="main.Employee_Customer_Experience_empl" FromRole="Employees" ToRole="Employee_Customer_Experience"/>
+                <NavigationProperty Name="employee_country_experience" Relationship="main.Employee_Country_Experience_empl" FromRole="Employees" ToRole="Employee_Country_Experience"/>
+                <NavigationProperty Name="employee_product_experience" Relationship="main.Employee_Product_Experience_empl" FromRole="Employees" ToRole="Employee_Product_Experience"/>
+                <NavigationProperty Name="employee_language_experience" Relationship="main.Employee_Language_Experience_empl" FromRole="Employees" ToRole="Employee_Language_Experience"/>
+                <NavigationProperty Name="employee_cv_experience_data" Relationship="main.Employee_CV_Experience_Data_empl" FromRole="Employees" ToRole="Employee_CV_Experience_Data"/>
+                <NavigationProperty Name="employee_education_detail" Relationship="main.Employee_Education_Detail_empl" FromRole="Employees" ToRole="Employee_Education_Detail"/>
+                <NavigationProperty Name="employee_professional_summary" Relationship="main.Employee_Professional_Summary_empl" FromRole="Employees" ToRole="Employee_Professional_Summary"/>
+                <NavigationProperty Name="employee_project_summary" Relationship="main.Employee_Project_Summary_empl" FromRole="Employees" ToRole="Employee_Project_Summary"/>
+                <Property Name="to_cluster_skill_detail_ID" Type="Edm.Guid"/>
+                <Property Name="to_cluster_skill_detail_ps_no" Type="Edm.Int32"/>
+                <Property Name="to_cluster_skill_detail_practice" Type="Edm.String"/>
+                <Property Name="to_cluster_skill_detail_JSC" Type="Edm.String"/>
+                <Property Name="to_cluster_skill_detail_leaf_skills" Type="Edm.String"/>
+                <Property Name="base_sbu" Type="Edm.String"/>
+                <Property Name="deputed_bu" Type="Edm.String"/>
+                <Property Name="deputed_sbu" Type="Edm.String"/>
+                <Property Name="absorption_date" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="unbilled_ageing_derived_billed_status" Type="Edm.String"/>
+                <Property Name="billed_allocation_percentage" Type="Edm.Byte"/>
+                <Property Name="deployement_location" Type="Edm.String"/>
+                <Property Name="account_group_age" Type="Edm.Int32"/>
+                <Property Name="cummulative_bench_age" Type="Edm.Int32"/>
+                <Property Name="unbilled_age_in_current_bu" Type="Edm.Int32"/>
+                <Property Name="ageing_in_same_project" Type="Edm.Int32"/>
+                <Property Name="business_unit" Type="Edm.String"/>
+                <Property Name="base_location" Type="Edm.String"/>
+                <Property Name="delivery_unit" Type="Edm.String"/>
+                <Property Name="PS_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="employee_name" Type="Edm.String"/>
+                <Property Name="email" Type="Edm.String"/>
+                <Property Name="grade" Type="Edm.String"/>
+                <Property Name="level" Type="Edm.String"/>
+                <Property Name="billing_status" Type="Edm.String"/>
+                <Property Name="resigned" Type="Edm.String"/>
+                <Property Name="practice" Type="Edm.String"/>
+                <Property Name="sub_practice" Type="Edm.String"/>
+                <Property Name="lti_experience" Type="Edm.Double"/>
+                <Property Name="sap_experience" Type="Edm.Double"/>
+                <Property Name="total_experience" Type="Edm.Double"/>
+                <Property Name="lwd" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="resigned_on" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="deputed_country" Type="Edm.String"/>
+                <Property Name="date_of_joining" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="customer_name" Type="Edm.String"/>
+                <Property Name="project_id" Type="Edm.String"/>
+                <Property Name="project_name" Type="Edm.String"/>
+                <Property Name="project_start_date" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="project_end_date" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="customer_group" Type="Edm.String"/>
+                <Property Name="project_manager_name" Type="Edm.String"/>
+                <Property Name="project_manager_ps_number" Type="Edm.String"/>
+                <Property Name="reporting_manager" Type="Edm.String"/>
+                <Property Name="ps_number_of_reporting_manager" Type="Edm.String"/>
+                <Property Name="designation" Type="Edm.String"/>
+                <Property Name="location" Type="Edm.String"/>
+                <Property Name="source_indicator" Type="Edm.String"/>
+                <Property Name="active" Type="Edm.Boolean"/>
+                <Property Name="profile_pic" Type="Edm.String"/>
+                <Property Name="primary_skill_cluster" Type="Edm.String"/>
+                <Property Name="secondary_skill_cluster" Type="Edm.String"/>
+                <Property Name="project_skill_cluster" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Cluster">
+                <Key>
+                    <PropertyRef Name="practice"/>
+                    <PropertyRef Name="JSC"/>
+                    <PropertyRef Name="leaf_skills"/>
+                    <PropertyRef Name="horizon"/>
+                </Key>
+                <Property Name="practice" Type="Edm.String" Nullable="false"/>
+                <Property Name="JSC" Type="Edm.String" Nullable="false"/>
+                <Property Name="leaf_skills" Type="Edm.String" Nullable="false"/>
+                <Property Name="horizon" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Industries">
+                <Key>
+                    <PropertyRef Name="industry_type"/>
+                </Key>
+                <Property Name="industry_cluster" Type="Edm.String"/>
+                <Property Name="industry_type" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Customer">
+                <Key>
+                    <PropertyRef Name="customer_name"/>
+                </Key>
+                <Property Name="customer_name" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Product">
+                <Key>
+                    <PropertyRef Name="product_name"/>
+                </Key>
+                <Property Name="product_name" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Language">
+                <Key>
+                    <PropertyRef Name="language"/>
+                </Key>
+                <Property Name="language" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Country">
+                <Key>
+                    <PropertyRef Name="country_name"/>
+                </Key>
+                <Property Name="country_name" Type="Edm.String" Nullable="false"/>
+                <Property Name="country_flag" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Employee_Skill_Detail">
+                <Key>
+                    <PropertyRef Name="empl_PS_NO"/>
+                    <PropertyRef Name="JSC"/>
+                    <PropertyRef Name="skill"/>
+                </Key>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Skill_Detail_empl" FromRole="Employee_Skill_Detail" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="JSC" Type="Edm.String" Nullable="false"/>
+                <Property Name="skill" Type="Edm.String" Nullable="false"/>
+                <Property Name="rating" Type="Edm.Int32"/>
+                <Property Name="exp_years" Type="Edm.Int32"/>
+                <Property Name="exp_months" Type="Edm.Int32"/>
+                <Property Name="bEditable" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="Employee_Industries_Experience">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Industries_Experience_empl" FromRole="Employee_Industries_Experience" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="industry_cluster" Type="Edm.String"/>
+                <Property Name="industry_type" Type="Edm.String"/>
+                <Property Name="exp_years" Type="Edm.Int32"/>
+                <Property Name="exp_months" Type="Edm.Int32"/>
+                <Property Name="bEditable" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="Employee_Customer_Experience">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Customer_Experience_empl" FromRole="Employee_Customer_Experience" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="customer_name" Type="Edm.String"/>
+                <Property Name="exp_years" Type="Edm.Int32"/>
+                <Property Name="exp_months" Type="Edm.Int32"/>
+                <Property Name="bEditable" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="Employee_Product_Experience">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Product_Experience_empl" FromRole="Employee_Product_Experience" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="product_name" Type="Edm.String"/>
+                <Property Name="exp_years" Type="Edm.Int32"/>
+                <Property Name="exp_months" Type="Edm.Int32"/>
+                <Property Name="bEditable" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="Employee_Language_Experience">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Language_Experience_empl" FromRole="Employee_Language_Experience" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="language" Type="Edm.String"/>
+                <Property Name="proficiency_rating" Type="Edm.Int32"/>
+                <Property Name="bEditable" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="Employee_Country_Experience">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Country_Experience_empl" FromRole="Employee_Country_Experience" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="country_name" Type="Edm.String"/>
+                <Property Name="exp_years" Type="Edm.Int32"/>
+                <Property Name="exp_months" Type="Edm.Int32"/>
+                <Property Name="bEditable" Type="Edm.Boolean"/>
+                <Property Name="country_flag" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Employee_CV_Experience_Data">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_CV_Experience_Data_empl" FromRole="Employee_CV_Experience_Data" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="company_name" Type="Edm.String"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="domain" Type="Edm.String"/>
+                <Property Name="startDate" Type="Edm.String"/>
+                <Property Name="endDate" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Employee_Education_Detail">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Education_Detail_empl" FromRole="Employee_Education_Detail" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="specialization" Type="Edm.String"/>
+                <Property Name="degree" Type="Edm.String"/>
+                <Property Name="institute_name" Type="Edm.String"/>
+                <Property Name="startDate" Type="Edm.String"/>
+                <Property Name="endDate" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Employee_Professional_Summary">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Professional_Summary_empl" FromRole="Employee_Professional_Summary" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="professional_desc" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Employee_Project_Summary">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="empl" Relationship="main.Employee_Project_Summary_empl" FromRole="Employee_Project_Summary" ToRole="Employees"/>
+                <Property Name="empl_PS_NO" Type="Edm.Int32"/>
+                <Property Name="project_name" Type="Edm.String"/>
+                <Property Name="startDate" Type="Edm.String"/>
+                <Property Name="endDate" Type="Edm.String"/>
+                <Property Name="technology_used" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+            </EntityType>
+            <Association Name="Employee_Skill_Detail_empl">
+                <End Role="Employee_Skill_Detail" Type="main.Employee_Skill_Detail" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Skill_Detail">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Industries_Experience_empl">
+                <End Role="Employee_Industries_Experience" Type="main.Employee_Industries_Experience" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Industries_Experience">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Customer_Experience_empl">
+                <End Role="Employee_Customer_Experience" Type="main.Employee_Customer_Experience" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Customer_Experience">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Product_Experience_empl">
+                <End Role="Employee_Product_Experience" Type="main.Employee_Product_Experience" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Product_Experience">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Language_Experience_empl">
+                <End Role="Employee_Language_Experience" Type="main.Employee_Language_Experience" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Language_Experience">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Country_Experience_empl">
+                <End Role="Employee_Country_Experience" Type="main.Employee_Country_Experience" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Country_Experience">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_CV_Experience_Data_empl">
+                <End Role="Employee_CV_Experience_Data" Type="main.Employee_CV_Experience_Data" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_CV_Experience_Data">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Education_Detail_empl">
+                <End Role="Employee_Education_Detail" Type="main.Employee_Education_Detail" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Education_Detail">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Professional_Summary_empl">
+                <End Role="Employee_Professional_Summary" Type="main.Employee_Professional_Summary" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Professional_Summary">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Employee_Project_Summary_empl">
+                <End Role="Employee_Project_Summary" Type="main.Employee_Project_Summary" Multiplicity="*"/>
+                <End Role="Employees" Type="main.Employees" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Employees">
+                        <PropertyRef Name="PS_NO"/>
+                    </Principal>
+                    <Dependent Role="Employee_Project_Summary">
+                        <PropertyRef Name="empl_PS_NO"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Annotations Target="main.EntityContainer/Employees" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employees/email" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Validation.Pattern" String="^[a-z0-9_.±]+@[a-z0-9-]+.[a-z0-9-.]+$"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Cluster" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Industries" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Customer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Product" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Language" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Country" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Skill_Detail" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Industries_Experience" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Industries_Experience/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Customer_Experience" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Customer_Experience/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Product_Experience" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Product_Experience/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Language_Experience" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Language_Experience/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Country_Experience" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Country_Experience/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_CV_Experience_Data" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_CV_Experience_Data/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Education_Detail" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Education_Detail/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Professional_Summary" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Professional_Summary/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="main.EntityContainer/Employee_Project_Summary" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="main.Employee_Project_Summary/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

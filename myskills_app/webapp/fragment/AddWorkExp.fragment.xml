@@ -3,11 +3,16 @@
 	xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
-	<Dialog id="wrkDialog">
-	<VBox class="sapUiSmallMargin">
-	<Title text="Work Experience" class="sapUiSmallMarginEnd"></Title>
-		<f:SimpleForm layout="ResponsiveGridLayout"
-						labelSpanXL="3"
+	
+	<Dialog
+	  title="Add Experience"
+	   >
+ 
+      <content>
+	   		<f:SimpleForm
+			   editable="true"
+			   layout="ResponsiveGridLayout"
+			            labelSpanXL="3"
 						labelSpanL="3"
 						labelSpanM="3"
 						labelSpanS="12"
@@ -20,21 +25,22 @@
 						columnsL="1"
 						columnsM="1"
 						singleContainerFullSize="true" 
-						width="100%"
-						>
-			<f:content>
-				 <!-- <Title text="Work Experience" class="sapUiSmallMarginEnd"></Title> -->
-				 <!-- <Label id="_IDGendeLabelcurrent" text="Is" /> -->
-				 <CheckBox id="iscurrentcompany" text="Is it your current Company" select="onCurrentCompanySelection" />
-				  <Label id="_IDGendeLabel3org" text="Organization" />
-                   <Input id="org" value=""/>
-				   <Label id="_IDGendeLabel3deg" text="Designation" />
-                   <Input id="desig" value=""/>
-				   <Label id="_IDGendeLabel3jobpr" text="Job Profile" />
-                   <TextArea id="jobprofile" placeholder="Enter Text" value="" growing="true" growingMaxLines="7" width="100%"/>
-                   <Label id="_IDGendeLabel3joind" text="Join Date" />
+						width="100%">
+                <f:content>
+				   <Label  text="Organization" />
+                   <Input id="workExp_org" value=""/>
+
+                  <CheckBox id="currentcompany" text="Is this your current Company" select="onCurrentCompanySelection" />
+
+				   <Label  text="Designation" />
+                   <Input id="designation" value=""/>
+
+				   <Label  text="Job Profile" />
+                   <TextArea id="jobProfile" placeholder="Enter Text" value="" growing="true" growingMaxLines="7" width="100%"/>
+                   
+				   <Label  text="Start Date" />
 				   <DatePicker
-					id="DP2"
+					id="startDate"
 					value="{
 						'path':'/valueDP2',
 						'type':'sap.ui.model.type.Date',
@@ -45,9 +51,9 @@
 					change="handleChange"
 					class="sapUiSmallMarginBottom"/>
 
-					 <Label id="_IDGendeLabel3endate" text="Last Date" visible="true"/>
+					 <Label  text="End Date" visible="true"/>
 				   <DatePicker
-					id="DP5"
+					id="endDate"
 					visible="true"
 					value="{
 						'path':'/valueDP2',
@@ -57,13 +63,28 @@
 						}
 					}"
 					change="handleChange"
-					class="sapUiSmallMarginBottom" /> 
+					class="sapUiSmallMarginBottom" />
+				</f:content>
+	   		</f:SimpleForm>
+      </content>
+      <footer>
+	      <Toolbar>
+				<content>
+				    <ToolbarSpacer />
+	        		<Button
+					    icon="sap-icon://save" 
+						press="handleSaveWorkexp" 
+						tooltip="save"
+						type="Accept"/>	
+					<Button 
+					    icon="sap-icon://decline" 
+						tooltip="cancel"
+						press="onCancelWorkExpChanges"
+						type="Reject" />
+                </content>
+		 </Toolbar>	
+	  </footer>
 
-				 
-			</f:content>
-			<Button text="SAVE" press="onSaveWorkexp" width="" type="Emphasized"></Button>	
-			<Button id="cancel" text="Cancel" visible="true" press="oCancelFragment" />
-		</f:SimpleForm>
-	</VBox>
+	
 	</Dialog>
 </core:FragmentDefinition>

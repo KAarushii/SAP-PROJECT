@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
-
 specVersion: "3.1"
 metadata:
   name: myskillsapp
@@ -9,7 +7,7 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertError: false
         ui5:
           path:
             - /resources
@@ -19,6 +17,8 @@ server:
           - path: /v2
             url: https://larsen---toubro-infotech-ltd-dev-iptools-project-skills-app-srv.cfapps.eu10.hana.ondemand.com
             destination: Project_skills_app
+          - path: /v2
+            url: https://larsen---toubro-infotech-ltd-dev-iptools-project-skills-app-srv.cfapps.eu10.hana.ondemand.com
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -31,7 +31,7 @@ server:
         mountPath: /
         services:
           - urlPath: /v2/odata/v4/main
-            metadataPath: ./webapp/localService/metadata.xml
-            mockdataPath: ./webapp/localService/data
+            metadataPath: ./webapp/localService/main/metadata.xml
+            mockdataPath: ./webapp/localService/main/data
             generateMockData: true
         annotations: []
