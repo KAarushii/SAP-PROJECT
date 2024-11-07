@@ -47,6 +47,24 @@
                     "localUri": "localService/main/metadata.xml",
                     "odataVersion": "2.0"
                 }
+            },
+            "admin": {
+                "uri": "/odata/v4/admin/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/admin/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            },
+            "admin1": {
+                "uri": "/odata/v4/admin/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/admin1/metadata.xml",
+                    "odataVersion": "4.0"
+                }
             }
         }
     },
@@ -108,6 +126,26 @@
                         "sap-value-list": "none"
                     }
                 }
+            },
+            "admin": {
+                "dataSource": "admin",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "admin1": {
+                "dataSource": "admin1",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
             }
         },
         "resources": {
@@ -116,7 +154,6 @@
                     "uri": "css/style.css"
                 }
             ]
-           
         },
         "routing": {
             "config": {

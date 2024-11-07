@@ -18,6 +18,7 @@ sap.ui.define([
     function (Controller, MessageBox, Filter, FilterOperator, Sorter, JSONModel, UserInfo,
         MessageToast, MockServer, exportLibrary, Spreadsheet, ODataModel, CoreLibrary, UnifiedLibrary, DateTypeRange, UI5Date) {
         "use strict";
+        var ResumeData = "10735098";
 
         return Controller.extend("myskillsapp.controller.MainView", {
             onInit: function () {
@@ -83,6 +84,7 @@ sap.ui.define([
                         urlParameters: oUrlParameters,
                         success: function (response) {
                             oJSONModel.setData(response.results[0]);
+                            // ResumeData = response.results[0];
                             this.getView().setModel(oJSONModel, "EmployeeModel");
                             console.log(response.results[0].employee_cv_experience_data.results[0].ID);
                             oBusyDialog.close();
@@ -3206,47 +3208,377 @@ sap.ui.define([
                 });
             },
 
+
             ///////////////////////////////////////////////////////////PDF TAB ////////////////////////////////////////////////////////////    
+           
+            generate_cv_new: function () {
 
-            // onGeneratePDF: function () {
-            //     var oMainModel = this.getView().getModel("EmployeeModel").getData();
+                const table_font = "Verdana, sans-serif";
+                const table_font_size_in_pixels = 12;
+
+                var oMainModel = this.getView().getModel("EmployeeModel").getData();
+                var oModel = this.getView().getModel("EmployeeModel"); // Define oModel
+                let oEducationModel = oModel.getProperty("/employee_education_detail");
+                let oExperienceModel = oModel.getProperty("/employee_cv_experience_data");
 
 
+                //create the rows of the educationDetails
+                var htmlEducationDetailsTable = ""
+                for (let i = 0; i < oEducationModel.results.length; i++) {
+                    htmlEducationDetailsTable += `<tr>
+                           <td>${oEducationModel.results[i].degree}</td>
+                           <td>${oEducationModel.results[i].specialization}</td>
+                           <td>${oEducationModel.results[i].degree}</td>
+                           <td>${oEducationModel.results[i].institute_name}</td>
+                           <td>${oEducationModel.results[i].endDate}</td>
+                           </tr>
+                           `
+                }
 
-            //     const { jsPDF } = window.jspdf;
-            //     const doc = new jsPDF();
+                 //create the rows of the experienceDetails
+                 var htmlExperienceDetailsTable = ""
+                 for (let i = 0; i < oExperienceModel.results.length; i++) {
+                     htmlExperienceDetailsTable += `<tr>
+                            <td>${oExperienceModel.results[i].startDate}</td>
+                            <td>${oExperienceModel.results[i].endDate}</td>
+                            <td>${oExperienceModel.results[i].role}</td>
+                            <td>${oExperienceModel.results[i].company_name}</td>
+                            <td>${oExperienceModel.results[i].endDate}</td>
+                            </tr>
+                            `
+                 }
+                var cv_html = `<!DOCTYPE html>
+                    <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>BIO DATA</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            font-size: 10px;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom:20px;
+                            padding:20px;
 
-            //     doc.text(`Name: ${oMainModel.employee_name}`, 10, 10);
-            //     doc.text(`PS NO: ${oMainModel.PS_NO}`, 10, 20);
-            //     doc.autoTable({ html: '#TreeTableBasic' })
-            //     //doc.save("sample.pdf");
+                        }
+                        th, td {
+                            padding: 8px;
+                            text-align: left;
+                            border: 1px solid #ddd;
+                        }
+                        th {
+                            background-color: #f2f2f2;
+                        }
+                        .section-title {
+                            font-weight: bold;
+                            background-color: #f2f2f2;
+                            padding: 10px;
+                        }
+                        .header {
+                            font-weight: bold;
+                            background-color: #f2f2f2;
+                            padding: 20px;
+                            font-size: 10px;
+                            text-align: center;
+                            
+                        }
+                        .profile-pic {
+                            width: 100px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    
+                    <div class="header">
+                         BIO DATA
+                    </div>
+                    
+                   
+                    <table>
+                        <tr>
+                            <td rowspan="5" style="width: 20%;"><img src="profile.jpg" alt="Profile Picture" class="profile-pic"></td>
+                            <td><b>Name</b></td>
+                            <td colspan="3"> ${oMainModel.employee_name}</td>
+                        </tr>
+                        <tr>
+                            <td><b>IC</b> </td>
+                            <td colspan="3">${oMainModel.practice}</td>
+                        </tr>
+                        <tr>
+                            <td><b>SBG</b> </td>
+                            <td colspan="3">${oMainModel.sub_practice}</td>
+                        </tr>
+                        <tr>
+                            <td ><b>BU</b> </td>
+                            <td colspan="3">${oMainModel.deputed_bu}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Cluster Desc</b> </td>
+                            <td colspan="3">${oMainModel.base_location}</td>
+                        </tr>
+                        <tr>
+                            <td ><b>Overall Experience</b> </td>
+                            <td>${oMainModel.total_experience}Yrs</td>
+                            <td><b>L&T Experience</b> </td>
+                            <td>${oMainModel.lti_experience}Yrs</td>
+                        </tr>
+                    
+                        <tr>
+                            <td ><b>Separation Date</b>  </td>
+                            <td>${oMainModel.lwd}</td>
+                            <td ><b>Reason</b> </td>
+                            <td>-</td>
+                        </tr>
+                    </table>
+                    
+                
+                    <div class="section-title">Employment Details</div>
+                
+                    <table>
+                        <tr>
+                            <td>PS Number</td>
+                            <td>${oMainModel.PS_NO}</td>
+                            <td>IS Name</td>
+                            <td> ${oMainModel.customer_name}</td>
+                        </tr>
+                        <tr>
+                            <td>Joining Date </td>
+                            <td>${oMainModel.date_of_joining}</td>
+                            <td>DH Name </td>
+                            <td>82887 - Sthaladipti Saha</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth </td>
+                            <td>31-Oct-2000</td>
+                            <td>Cadre </td>
+                            <td>M4-B</td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td>23</td>
+                            <td>Designation</td>
+                            <td>${oMainModel.level}</td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td>Female</td>
+                            <td>Last Promotion Date </td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Retirement</td>
+                            <td>-</td>
+                            <td>Job Function Desc</td>
+                            <td>Project Management Group</td>
+                        </tr>
+                        <tr>
+                            <td>End of Contract</td>
+                            <td>-</td>
+                            <td>Department/Project Name</td>
+                            <td>${oMainModel.project_name}</td>
+                        </tr>
+                        <tr>
+                            <td >Office /Site</td>
+                            <td>Office</td>
+                            <td >Base Location Name</td>
+                            <td>${oMainModel.base_location}</td>
+                        </tr>
+                    </table>
+                
+                    <div class="section-title">Education Details</div>
+                
+                    <table id="educationTable">
+                        <tr>
+                            <th>Qualification</th>
+                            <th>Discipline</th>
+                            <th>Type of Course</th>
+                            <th>College / University</th>
+                            <th>Year of Passing</th>
+                        </tr>
+                        ${htmlEducationDetailsTable}
+                        
+                    </table>
+                   
 
-            //     var sName = this.byId("inputName").getValue();
-            //     var sEmail = this.byId("inputEmail").getValue();
+                    <div class="section-title">Certifications</div>
+                
+                    <table>
+                        <tr>
+                            <th>Certificate Type</th>
+                            <th>Institute</th>
+                            <th>Company Sponsored</th>
+                            <th>Certificate / Licenses</th>
+                            <th>Valid Upto</th>
+                        </tr>
+                        <tr>
+                             <td>Executive Post Graduate Diploma in Management (EPGDM)</td>
+                            <td>PROJECT MANAGEMNET ASSOCIATES</td>
+                            <td>-</td>
+                            <td>IPMA LEVEL-D EXAM</td>
+                            <td>2023</td>
+                        </tr>
+                        
+                    </table>
 
-            //     // // Add custom data to the PDF
-            //     // doc.text(`Name: ` + sName, 10, 10);
-            //     // doc.text(`Email: ` + sEmail, 10, 20);
-            //     const columns = ["ID", "Name", "Country"];
-            //     const rows = [];
+                    <div class="section-title">Experience Details</div>
+                
+                    <table>
+                        <tr>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Pervious Employers</th>
+                            <th>Designation</th>
+                            <th>Total No. of Yrs/Mon</th>
+                        </tr>
+                         ${htmlExperienceDetailsTable}
+                        
+                    </table>
 
-            //     // Example of dynamically adding rows
-            //     for (let i = 1; i <= 10; i++) {
-            //         rows.push([i, `Name ${i}`, `Country ${i}`]);
-            //     }
+                     <div class="section-title">Personal Details</div>
+                
+                    <table>
+                        <tr>
+                            <td>Father's Name</td>
+                            <td>Susheel kushwaha</td>
+                            <td>Blood Group</td>
+                            <td>B+</td>
+                        </tr>
+                        <tr>
+                            <td>Marital Status</td>
+                            <td>Single</td>
+                            <td>Domicile State </td>
+                            <td>Madhya Pradesh</td>
+                        </tr>
+                        <tr>
+                            <td>Number of children</td>
+                            <td>-</td>
+                            <td>Business Mobile</td>
+                            <td>9878765250</td>
+                        </tr>
+                        <tr>
+                            <td>Religion</td>
+                            <td>Hinduism</td>
+                            <td>Business Email</td>
+                            <td>${oMainModel.email}</td>
+                        </tr>
+                        <tr>
+                            <td>Nationality </td>
+                            <td>Indian</td>
+                            <td>Emergency Contact</td>
+                            <td>9786453760</td>
+                        </tr>
+                        <tr>
+                            <td>PAN No</td>
+                            <td>-</td>
+                            <td>Aadhar Number</td>
+                            <td>-</td>
+                        </tr>
+                        
+                    </table>
 
-            //     // Add the table to the PDF
-            //     doc.autoTable({
-            //         head: [columns],
-            //         body: rows
-            //     });
+                    <div class="section-title">Promotion History</div>
+                
+                    <table>
+                        <tr>
+                            <th>Pervious Cadre</th>
+                            <th>Current Cadre</th>
+                            <th>w.e.f</th>
+                            <th>Event Reason</th>
+                            <th>Job Title</th>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        
+                    </table>
 
-            //     const pdfBlob = doc.output('blob');
-            //     const pdfUrl = URL.createObjectURL(pdfBlob);
+                    <div class="section-title">Transfer History</div>
+                    <table>
+                        <tr>
+                            <th>Transfer Date</th>
+                            <th>IC Name</th>
+                            <th>Job Code</th>
+                            <th>Job Description</th>
+                            <th>Site/Office</th>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        
+                    </table>
 
-            //     window.open(pdfUrl, '_blank');
+                    <div class="section-title">Family Details</div>
+                   
+                    <table>
+                        <tr>
+                            <th>Dependent Name</th>
+                            <th>Relationship</th>
+                            <th>Gender</th>
+                            <th>DOB</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>Geeta Kushwaha</td>
+                            <td>Mother</td>
+                            <td>F</td>
+                            <td>1-Jan-1976</td>
+                            <td>Active</td>
+                        </tr>
+                        
+                    </table>
+                
+                </body>
+                </html>
+                    `
 
-            // },
+                // var cv_html = response.value.data
+                var oComponent = this.getOwnerComponent();
+                var sBaseUrl = oComponent.getManifestEntry("sap.app").dataSources.admin1.uri;
+                var posturl = sBaseUrl + "generatePdf";
+                console.log("Post URL:",posturl);
+                $.ajax({
+                    url: posturl,
+                    dataType: "json",
+                    type: "post",
+                    // headers:{"x-csrf-token":csrf_token},
+                    crossDomain: true,
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        html_text: cv_html
+                    }),
+                    success: function (response) {
+                        console.log("pdf service response", response);
+                        if (response.value.statusCode === 200) {
+                            const byteCharacters = atob(response.value.data.data.data);
+                            const byteNumbers = new Array(byteCharacters.length);
+                            for (let i = 0; i < byteCharacters.length; i++) {
+                                byteNumbers[i] = byteCharacters.charCodeAt(i);
+                            }
+                            const byteArray = new Uint8Array(byteNumbers);
+                            const blob = new Blob([byteArray], { type: 'application/pdf' });
+                            const blobUrl = URL.createObjectURL(blob);
+                            console.log("blobUrl", blobUrl);
+                            window.open(blobUrl, '_blank');
+
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    },
+                })
+            },
 
             // onGeneratePDF: function () {
 
@@ -3256,92 +3588,180 @@ sap.ui.define([
             //     const { jsPDF } = window.jspdf;
             //     const doc = new jsPDF();
 
-            //     // Add a custom header
-            //     const pageWidth = doc.internal.pageSize.getWidth();
-            //     const centerX = pageWidth / 2;
-            //     const quartX = pageWidth / 2.5;
-            //     const pageHeight = doc.internal.pageSize.getHeight();
-
-            //     const employeeName = oMainModel.employee_name.toUpperCase();
-            //     // Add spaces between each character
-            //     const spacedName = employeeName.split('').join(' ');
-            //     doc.setFontSize(25);
-            //     doc.text(`${spacedName}`, centerX, 15, { align: 'center' });
-
-            //     doc.setFontSize(10);
-            //     const designationData = "DESIGNATION";
-            //     const spacedDesignation = designationData.split('').join(' ');
-            //     doc.text(`${spacedDesignation}`, centerX, 22, { align: 'center' });
-
-            //     // Add a line below the header
-            //     doc.setLineWidth(0.5);
-            //     doc.line(10, 30, 200, 30);
-
-            //     // Set the fill color to light grey-white (RGB: 240, 240, 240)
-            //     doc.setFillColor(240, 240, 240);
-
-            //     // Draw a filled rectangle without a border at position (0, 30.3) 
-            //     doc.rect(0, 30.5, quartX, pageHeight, 'F');
-
-            //     // add contact details
-            //     doc.setFontSize(10);
-            //     doc.setTextColor(0, 0, 0); // Set text color to black
-            //     const contactData = "CONTACT";
-            //     const spacedContact = contactData.split('').join(' ');
-            //     doc.text(`${spacedContact}`, 10, 38);
-
-            //     // Add a line below contact details
-            //     doc.setLineWidth(0.4);
-            //     doc.line(10, 80, 68, 80);
+            //     // Title and Header 
+            //     doc.setFontSize(7);
 
 
-            //     // add skill details
-            //     doc.setFontSize(10);
-            //     doc.setTextColor(0, 0, 0); // Set text color to black
-            //     const skillData = "SKILLS";
-            //     const spacedSkill = skillData.split('').join(' ');
-            //     doc.text(`${spacedSkill}`, 10, 87);
+            //     //  Merged table data (combined columns)
+            //     const personalData = [
+            //         ['Name', `${oMainModel.employee_name}`],
+            //         ['IC', 'Buildings & Factories'],
+            //         ['SBG', 'Public Spaces, Airports & Factories'],
+            //         ['BU', 'PAF - PUBLIC SPACES BU'],
+            //         ['Cluster Desc', 'B&F HQ, CHENNAI', 'HR Comments', ''],
+            //         ['Overall Experience', '27Y03M', 'L&T Experience', '27Y03M'],
+            //         ['Separation Date', '09-May-2023', 'Reason', 'Resignation']
+            //     ];
 
-            //     // Add a line below skill details
-            //     doc.setLineWidth(0.4);
-            //     doc.line(10, 135, 68, 135);
+            //     var imgData = './test-resources/sap/uxap/images/imageID_275314.png';
+            //     // Personal details table
+            //     doc.autoTable({
+            //         startY: 7,
+            //         styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak', cellWidth: 'auto' },
+            //         head: [['BIO DATA', '', '', '']],
+            //         body: personalData,
+            //         // didDrawCell: function(data) { 
+            //         //     // Check if we are in the Image column (3rd column, index 2)
+            //         //     if (data.column.index === 1 && data.cell.section === 'body')
+            //         //      { 
+            //         //     // Calculate the X and Y positions to place the image in the cell
+            //         //     var imgWidth = 20; // Image width
+            //         //     var imgHeight = 20; // Image height
+            //         //     var xPos = data.cell.x + (data.cell.width - imgWidth) / 2; // Center the image
+            //         //     var yPos = data.cell.y + (data.cell.height - imgHeight) / 2; // Center the image
 
-            //     // add education details
-            //     doc.setFontSize(10);
-            //     doc.setTextColor(0, 0, 0); // Set text color to black
-            //     const eduData = "EDUCATION";
-            //     const spacedEdu = eduData.split('').join(' ');
-            //     doc.text(`${spacedEdu}`, 10, 142);
+            //         //     // Add the image in the cell
+            //         //      doc.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
+            //         //      } 
+            //         //     },
+            //         theme: 'grid',
+            //         margin: { top: 4 },
+            //         pageBreak: 'auto',
+            //     });
 
-            //     // Add a line below education details
-            //     doc.setLineWidth(0.4);
-            //     doc.line(10, 175, 68, 175);
+            //     // doc.addImage(imgData,'JEPG', 140,50,20,20)
 
-            //     // add profile details
-            //     doc.setFontSize(10);
-            //     doc.setTextColor(0, 0, 0); // Set text color to black
-            //     const profileData = "PROFILE";
-            //     const spacedProfile = profileData.split('').join(' ');
-            //     doc.text(`${spacedProfile}`, 90, 38);
+            //     // Merged Employment details
+            //     const employmentDetails = [
+            //         ['PS Number', '80531', 'Date of Retirement', '01-Oct-2029'],
+            //         ['Joining Date', '18-Jan-1996', 'End of Contract', ''],
+            //         ['Date of Birth', '10-Jul-1971', 'Office / Site', 'Office'],
+            //         ['Age', '53', 'IS Name', '82887 - Stahaladipti Saha'],
+            //         ['Gender', 'Male', 'DH Name', '82887 - Stahaladipti Saha']
+            //     ];
 
-            //     var sName = this.byId("inputName").getValue();
 
-            //     // Add custom data to the PDF
-            //     doc.setFontSize(9);
-            //     doc.text( sName, 90, 45,{maxWidth:80});
-               
-            //     // Add a line below profile details
-            //     doc.setLineWidth(0.4);
-            //     doc.line(90, 80, 200, 80);
+            //     // Employment Details
+            //     doc.autoTable({
+            //         startY: doc.previousAutoTable.finalY + 5,
+            //         styles: {
+            //             fontSize: 9,
+            //             cellPadding: 2
+            //         },
 
-            //     // // Add some content
-            //     // doc.setFontSize(12);
-            //     // doc.text("This is a sample PDF generated using jsPDF.", 10, 30);
-            //     // doc.text("You can customize this template as needed.", 10, 40);
+            //         head: [['Employment Details', '', '', '']],
+            //         body: employmentDetails,
+            //         theme: 'grid',
+            //         margin: { left: 14 }
+            //     });
 
-            //     // Add a custom footer
-            //     doc.setFontSize(10);
-            //     doc.text("Page 1", 10, 290);
+            //     // Merged Education details
+            //     const educationDetails = [
+            //         ['Executive Post Graduate Diploma in Management (EPGDM)', 'Executive Mba', 'Post Graduate Certificate (PGC)', 'Project Management'],
+            //         ['Post Graduate Diploma in Management (PGDM)', 'Finance', 'Master of Engineering (ME)', 'Construction Management'],
+            //         ['Correspondence', 'Indian Institute Of Management (IIM-K)', 'Correspondence', 'National Institute Of Construction Management And Research'],
+
+            //     ];
+
+            //     // Education Details
+            //     doc.autoTable({
+            //         startY: doc.previousAutoTable.finalY + 5,
+            //         styles: {
+            //             fontSize: 9,
+            //             cellPadding: 1
+            //         },
+            //         head: [['Education Details', '', '', '', ''],
+            //         ['Qualification', 'Discipline', 'Type of Course', 'College / University', 'Year of Passing']],
+            //         body: educationDetails,
+            //         theme: 'grid',
+            //         margin: { top: doc.previousAutoTable.finalY + 5 },
+            //         pageBreak: 'auto'
+            //     });
+
+            //     //  Certification details
+            //     const certificationDetails = [
+            //         ['-', 'PROJECT MANAGEMENT ASSOCIATES', '-', 'IPMA LEVEL-D EXAM', '15-Jun-2025']
+            //     ];
+
+
+            //     // Certification Table
+            //     doc.autoTable({
+            //         startY: doc.previousAutoTable.finalY + 5,
+            //         styles: {
+            //             fontSize: 9,
+            //             cellPadding: 1
+            //         },
+            //         head: [['Certifiactions', '', '', '', ''],
+            //         ['Certificate Type', 'Institute', 'Company Sponsored', 'Certificate / Licenses', 'Valid upto']],
+            //         body: certificationDetails,
+            //         theme: 'grid',
+            //         margin: { top: doc.previousAutoTable.finalY + 10 },
+            //         // autoPageBreak: 'true'
+            //     });
+
+            //     // doc.addPage();
+
+            //     //  Experience Details
+            //     const experienceDetails = [
+            //         ['13-Jul-1995', '18-Jan-1996', 'Larsen & Tourbo Ltd.', '-', '15-Jun-2025']
+            //     ];
+
+
+
+            //     // Experience Table
+            //     doc.autoTable({
+            //         startY: doc.previousAutoTable.finalY + 5,
+            //         styles: {
+            //             fontSize: 9,
+            //             cellPadding: 1
+            //         },
+            //         head: [['Experience Details', '', '', '', ''],
+            //         ['Start Date', 'End Date', 'Previous Employers', 'Designation', 'Total No. of Yrs/Mon']],
+            //         body: experienceDetails,
+            //         theme: 'grid',
+            //         margin: { top: doc.previousAutoTable.finalY + 10 },
+            //         pageBreak: 'auto',
+            //         rowPageBreak: 'auto',
+            //     });
+
+            //     doc.addPage();
+
+            //     //  Experience Details
+            //     const personalDetails = [
+            //         ['13-Jul-1995', '18-Jan-1996', 'Larsen & Tourbo Ltd.', '-', '15-Jun-2025']
+            //     ];
+
+            //     // Experience Table
+            //     doc.autoTable({
+            //         startY: doc.previousAutoTable.finalY + 5,
+            //         styles: {
+            //             fontSize: 9,
+            //             cellPadding: 1
+            //         },
+            //         head: [['Experience Details', '', '', '', ''],
+            //         ['Start Date', 'End Date', 'Previous Employers', 'Designation', 'Total No. of Yrs/Mon']],
+            //         body: personalDetails,
+            //         theme: 'grid',
+            //         margin: { top: doc.previousAutoTable.finalY + 10 },
+            //         // didDrawPage: function (data) {
+            //         //     // Calculate current position and check if it exceeds the page height
+            //         //     let currentY = doc.lastAutoTable.finalY;
+
+            //         //     if (currentY + marginBottom >= pageHeight) {
+            //         //       // Dynamically add a page if the content exceeds the current page height
+            //         //       doc.addPage();
+            //         //       startY = 10; // Reset Y-position after new page
+            //         //     }
+            //         //   },
+            //         pageBreak: 'auto',
+            //         rowPageBreak: 'auto',
+            //     });
+
+            //     doc.addPage();
+
+            //     // // Add a custom footer
+            //     // doc.setFontSize(10);
+            //     // doc.text("Page 1", 10, 290);
 
             //     const pdfBlob = doc.output('blob');
             //     const pdfUrl = URL.createObjectURL(pdfBlob);
@@ -3352,1489 +3772,10 @@ sap.ui.define([
             //     // doc.save("custom_template.pdf");
             // },
 
-            onGeneratePDF: function () {
-                var oModel = this.getView().getModel(); // Assuming you have a model set to your view
-                var sServiceUrl = "/path/to/your/cap/service/generatePDF";
-          
-                // Fetch the PDF from the CAP service
-                fetch(sServiceUrl, {
-                  method: 'GET',
-                  headers: {
-                    'Content-Type': 'application/pdf'
-                  }
-                })
-                .then(response => response.blob())
-                .then(blob => {
-                  var url = window.URL.createObjectURL(blob);
-                  var a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'data.pdf';
-                  document.body.appendChild(a);
-                  a.click();
-                  a.remove();
-                })
-                .catch(error => {
-                  console.error('Error generating PDF:', error);
-                });
-              },
-
-            handlePDF: function () {
-
-                var oModel = this.getView().getModel("EmployeeModel");
-                const { jsPDF } = window.jspdf;
-                // const doc = new jsPDF();
-                var employee_name = oModel.getData().employee_name;
-                //    console.log('employee_name CV pdf ',employee_name);
-                let oEmpl_CV_payload = oModel.getProperty("/employee_cv_experience_data");
-                let oEmpl_Education_payload = oModel.getProperty("/employee_education_detail");
-                let oEmpl_Professional_payload = oModel.getProperty("/employee_professional_summary");
-                let oEmpl_Skill_payload = oModel.getProperty("/employee_skill_detail");
-                let experienceData = oEmpl_CV_payload.results;
-                let qualificationData = oEmpl_Education_payload.results;
-                let professionalData = oEmpl_Professional_payload.results;
-                let skillsData = oEmpl_Skill_payload.results;
-                // console.log('oEmpl_CV_payload ==>',experienceData);
-                // console.log('qualificationData ==>',qualificationData);
-                // console.log('PRofessionalData ==>',professionalData);
-                // console.log('skillsData ==>',skillsData);
-
-                var expcustomizeArray = [];
-                experienceData.forEach(function (item) {
-                    //console.log('cv item 1',item)
-                    let exRow = {
-                        'company_name': item.company_name,
-                        'role': item.role,
-                        'domain': item.domain,
-                        'startDate': item.startDate,//
-                        'endDate': item.endDate //
-                    }
-                    expcustomizeArray.push(exRow);
-
-                });
-                //    console.log('experienceData data',expcustomizeArray);
-                var expArray = [];
-                expcustomizeArray.forEach(function (item) {
-                    var expDataArray = [];
-                    // console.log('cv item 2',item)
-
-                    Object.keys(item).forEach(function (key) {
-
-                        expDataArray.push(item[key]);
-
-
-                    });
-                    expArray.push(expDataArray);
-                });
-
-                var educustomizeArray = [];
-                qualificationData.forEach(function (item) {
-                    //console.log('cv item 1',item)
-                    let exRow = {
-                        'degree': item.degree,
-                        'specialization': item.specialization,
-                        'institute_name': item.institute_name,
-                        'startDate': item.startDate,//item.startDate
-                        'endDate': item.endDate
-                    }
-                    educustomizeArray.push(exRow);
-
-                });
-                //    console.log('table data',educustomizeArray);
-                var eductArray = [];
-                educustomizeArray.forEach(function (item) {
-                    var eduQualiArray = [];
-                    Object.keys(item).forEach(function (key) {
-                        // console.log('table data',item[key]);
-                        eduQualiArray.push(item[key]);
-                    });
-                    eductArray.push(eduQualiArray);
-                });
-                //    console.log('education data',eductArray);
-                var careerData = professionalData[0].professional_desc;
-                //    console.log('careerData ==>',careerData);
-
-                var skillcustomizeArray = [];
-                skillsData.forEach(function (item) {
-                    //console.log('cv item 1',item)
-                    let exRow = {
-                        'Technology': item.JSC.replace(/<[^>]*>?/gm, ''),
-                        'Skill': item.skill.replace(/<[^>]*>?/gm, ''),
-                        'Rating': item.rating,
-                        'Exeperience in Years': item.exp_years,//item.startDate
-                        'Experience in Months': item.exp_months //item.endDate
-                    }
-                    skillcustomizeArray.push(exRow);
-
-                });
-                var clusterJSCData = [];
-                skillcustomizeArray.forEach(function (item) {
-                    var skillsArray = [];
-                    Object.keys(item).forEach(function (key) {
-                        console.log('table data', item[key]);
-                        skillsArray.push(item[key]);
-                    });
-                    clusterJSCData.push(skillsArray);
-                });
-                console.log('clusterJSCData data', clusterJSCData);
-
-
-                var doc = new jsPDF();
-                var img = new Image;
-                img.crossOrigin = "";
-                img.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRymEZbGbpjYRYAQKikX_O7ledQFd30vlkZhg&s';
-                //const img= 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRymEZbGbpjYRYAQKikX_O7ledQFd30vlkZhg&s'; ///home/user/projects/skills_ui/webapp/resources/SitansuGhosh.jpg
-                //let btaImg=btoa(imgURL);
-                //console.log('this =>',img);
-                //doc.addImage(img,10,10);
-                doc.rect(5, 5, 25, 25);
-
-                doc.setFontSize(22);
-                doc.text(`Name: ${oMainModel.employee_name}`, 90, 10, { align: 'center' });
-                doc.setFontSize(12);
-                doc.text(`PS NO: ${oMainModel.PS_NO}`, 90, 15, { align: 'center' });
-                doc.setFontSize(10);
-                doc.text(`Email :${oMainModel.email}`, 90, 20, { align: 'center' });
-                doc.text('Phone :+91 9876543210', 90, 25, { align: 'center' });
-                //doc.setLineWidth(0.5); 
-                const lx1 = 30, ly1 = 30; //starting point (x1,y1)
-                const lx2 = 180, ly2 = 30;//Ending point (x2,y2)
-                doc.line(lx1, ly1, lx2, ly2);
-
-
-
-                // const htmlContent='<div id="professionalData">'+careerData+'</div>';
-                //var htmlObject = document.getElementById('container');
-                //  document.getElementById("container").innerHTML = htmlContent;
-                // var profContent= document.createElement("professionalData");
-                // Professional Summary
-                doc.setFontSize(14);
-                doc.setTextColor(0, 150, 255);
-                doc.text('Professional Summary', 12, 40);
-                doc.setFontSize(11);
-                doc.setTextColor(54, 69, 79);
-                doc.text('• 8 years of total experience in the IT field. Hands-on experience Java,python.', 12, 50);
-                doc.text('• Having good knowledge in Node, SAP Fiori/UI5, HANA/S4, BTP.', 12, 55);
-                doc.text('• Working experience in RESTful APIs, JSON and third-party integration like payment gateway and Insurance.', 12, 60);
-                doc.text('• Good understanding of ES6, HTML, AngularJS, ReactJS.', 12, 66);
-                doc.text('• Working Knowledge Closely with GIT, JIRA, Bitbucket,AWS.', 12, 70);
-                doc.text('• Working Knowledge with Team handling for a project', 12, 75);
-
-                // doc.line(10, 20, 100, 20);
-                const x1 = 120; //50 x-coordinate (same for both poitns to make the line vertical)
-                const y1 = 80; //10 starting y-coordinate
-                const x2 = 120; //50 x-coordinate (same as x1)
-                const y2 = 200; //200 ending y-cordinate
-                doc.line(120, 100, 120, 220);
-                doc.setFontSize(14);
-                doc.text('Project Summary', 125, 100);
-                doc.setFontSize(12);
-                doc.text('• Project One', 125, 110);
-                doc.setFontSize(10);
-                doc.text('* 01-02-2023 - 31-08-2023', 125, 115);
-                doc.text('* Java, SpringBoot, Mysql', 125, 120);
-                doc.text('* Work related to bug fixes and enhancements in UI', 125, 125);
-                doc.text('* Documentation for Troubleshoot', 125, 130);
-                doc.text('* R & D work for UI enhancements', 125, 135);
-
-                doc.setFontSize(12);
-                doc.text('• Project Two', 125, 145);
-                doc.setFontSize(10);
-                doc.text('* 01-02-2023 - 31-08-2023', 125, 150);
-                doc.text('* SAP Fiori/UI5, HANA, CAPM', 125, 155);
-                doc.text('* Work related to bug fixes and enhancements in UI', 125, 160);
-                doc.text('* Documentation for Troubleshoot', 125, 165);
-                doc.text('* R & D work for UI enhancements', 125, 170);
-
-                // Add Section: Experience
-                var i = 100,
-                    w = 0;
-                doc.setFontSize(14);
-                doc.text('Work Experience', 12, i);
-                doc.setFontSize(10);
-
-
-                experienceData.forEach((exp, index) => {
-                    w = i + 10;
-
-                    console.log('i w 1==>', i, w);
-                    doc.text('• ' + exp.company_name + ' at ' + exp.role, 12, w);
-                    w = w + 6;
-                    if (exp.endDate != "") {
-                        var end_date = exp.endDate;
-                    } else {
-                        end_date = 'Present';
-                    }
-                    doc.text('• ' + exp.startDate + ' - ' + end_date, 12, w);
-                    w = w + 6;
-                    //(exp.endDate !="")?item.endDate: "Still Working",
-                    doc.text('• ' + exp.domain, 12, w);
-                    // w=w+10;
-                    i = w;
-                    console.log('i w 2==>', i, w);
-                });
-                console.log('i w 3==>', i, w);
-
-                // Education Qualification
-                var d = i,
-                    d = d + 20;
-                doc.setFontSize(14);
-                doc.text('Education Qualification', 12, d);
-                doc.setFontSize(10);
-                var j = 0;
-
-                qualificationData.forEach((edu, index) => {
-                    j = d + 10;
-                    console.log('i 1==>', j, d);
-                    doc.text('• ' + edu.degree + ' in ' + edu.specialization, 12, j);
-                    j = j + 6;
-
-                    doc.text('• ' + edu.startDate + ' - ' + edu.endDate, 12, j);
-                    j = j + 6;
-                    doc.text('• ' + edu.institute_name, 12, j);
-                    d = j;
-                    console.log('j d 4==>', j, d);
-                });
-                console.log('j d 5==>', j, d);
-
-                // Skills Details
-
-                var s = d,
-                    s = d + 20;
-                doc.setFontSize(14);
-                doc.text('Skills & Proficiency', 12, s);
-                doc.setFontSize(10);
-                var k = 0;
-
-                skillsData.forEach((skill, index) => {
-                    k = s + 10;
-                    console.log('i 1==>', j, d);
-                    doc.text('• Domain -' + skill.JSC.replace(/^\t+/gm, '').replace('\t', '') + ',' + skill.skill.replace(/^\t+/gm, '').replace('\t', ''), 12, k);
-                    k = k + 6;
-                    doc.text('• Relevant Experience (Yrs)-' + skill.exp_years + '.' + skill.exp_months, 12, k);
-                    k = k + 6;
-                    //doc.text('• '+ skill.institute_name, 14, j);
-                    s = k;
-                    console.log('s j d k 4==>', s, k);
-                });
-                console.log('s j d k 5==>', s, k);
-
-
-
-                //    doc.save('Resume_template.pdf')    
-                const pdfBlob = doc.output('blob');
-                const pdfUrl = URL.createObjectURL(pdfBlob);
-
-                window.open(pdfUrl, '_blank');
-            },
-
-
-
-
 
 
 
             //----------------------------------------------------------------------------------------------------------------------//
-            //                                             
-            //----------------------------------------------------------------------------------------------------------------------//
-
-
-
-            //----------------------------------------------------------------------------------------------------------------------//
-            //                                             SITANSHU'S  CV TAB
-            //----------------------------------------------------------------------------------------------------------------------//
-
-
-
-            // workExperienceList2: function () {
-
-            //     var oModel = this.getOwnerComponent().getModel();
-            //     var oJSONModel = new sap.ui.model.json.JSONModel();
-
-            //     var oUrlParameters = {
-            //         "$expand": "employee_cv_experience_data"
-            //     }
-
-            //     return new Promise((resolve, reject) => {
-            //         var oBusyDialog = new sap.m.BusyDialog({
-            //             title: "Loading",
-            //             text: "Please wait..."
-            //         });
-            //         oBusyDialog.open();
-            //         oModel.read("/Employees", {
-            //             urlParameters: oUrlParameters,
-            //             success: function (response) {
-            //                 oJSONModel.setData(response.results);
-            //                 this.getView().setModel(oJSONModel, "odatawork");
-            //                 oBusyDialog.close();
-            //                 resolve();
-            //             }.bind(this),
-            //             error: function (error) {
-            //                 oBusyDialog.close();
-            //             }
-            //         });
-            //     });
-
-
-
-
-
-
-
-
-            //     })
-            // },
-
-
-            // onEditWorkExpDialog: function () {
-
-            //     var dialogwrkID = this.getView().byId("wrkedit");
-            //     if (!this.oDialog && dialogwrkID) {
-            //         this.loadFragment({
-            //             name: "myskillsapp.fragment.EditWorkExp"
-            //         }).then(function (odialog) {
-
-
-            //             var oModel = this.getView().getModel("EmployeeModel");
-
-            //             var owrkTable = this.getView().byId("workTreeTable");
-            //             var aIndices = owrkTable.getSelectedIndices();
-
-            //             var owrkSelectItem = owrkTable.getContextByIndex(aIndices[0]);
-            //             var owrkObjShow = owrkSelectItem.getObject();
-            //             console.log('owrkObjShow ==>', owrkObjShow);
-            //             var editJobId = this.getView().byId("orgid");
-            //             editJobId.setValue(owrkObjShow.id)
-            //             var orgName = this.getView().byId("editorg");
-            //             orgName.setValue(owrkObjShow.company_name);
-            //             var desigName = this.getView().byId("editdesig");//role domain startDate endDate
-            //             desigName.setValue(owrkObjShow.role);
-            //             var profileDetail = this.getView().byId("editjobprofile");
-            //             profileDetail.setValue(owrkObjShow.domain);
-            //             var editJobStart = this.getView().byId("DP2");
-            //             editJobStart.setValue(owrkObjShow.startDate);
-            //             var editJobEnd = this.getView().byId("DP5");
-            //             if (owrkObjShow.endDate == "Still Working") {
-            //                 editJobEnd.setValue('');
-            //             } else {
-            //                 editJobEnd.setValue(owrkObjShow.endDate);
-            //             }
-
-
-
-            //             this.oDialog = odialog;
-            //             this.oDialog.open();
-
-            //         }.bind(this))
-            //     } else {
-            //         this.oDialog.open();
-            //     }
-
-            // },
-
-
-            // educationQualificationList: function () {
-
-            //     var oModel = this.getOwnerComponent().getModel();
-            //     var oJSONModel = new sap.ui.model.json.JSONModel();
-
-            //     var oUrlParameters = {
-            //         "$expand": "employee_education_detail"
-            //     }
-
-            //     return new Promise((resolve, reject) => {
-            //         var oBusyDialog = new sap.m.BusyDialog({
-            //             title: "Loading",
-            //             text: "Please wait..."
-            //         });
-            //         oBusyDialog.open();
-            //         oModel.read("/Employees", {
-            //             urlParameters: oUrlParameters,
-            //             success: function (response) {
-            //                 oJSONModel.setData(response.results);
-            //                 this.getView().setModel(oJSONModel, "odataEdu");
-            //                 oBusyDialog.close();
-            //                 resolve();
-            //             }.bind(this),
-            //             error: function (error) {
-            //                 oBusyDialog.close();
-            //             }
-            //         });
-            //     });
-
-
-
-
-
-
-
-
-
-
-
-            //     return new Promise((resolve, reject) => {
-            //         var oEducationModel = this.getView().getModel("EmployeeModel");
-            //         let oEducationData = oEducationModel.getProperty("/employee_education_detail");
-            //         let qualificationData = oEducationData.results;
-            //         console.log('qualificationData ==>', qualificationData);
-            //         var oQualificationJSONdata = {
-            //             "educationListArray": []
-            //         }
-
-            //         qualificationData.forEach(function (item) {
-            //             //console.log('cv item 1',item)
-            //             let exRow = {
-            //                 'id': item.ID,
-            //                 'degree': item.degree,
-            //                 'specialization': item.specialization,
-            //                 'institute_name': item.institute_name,
-            //                 'startDate': item.startDate,//item.startDate
-            //                 'endDate': item.endDate
-            //             }
-            //             oQualificationJSONdata.educationListArray.push(exRow);
-
-            //         });
-            //         console.log('educationListArray table data', oQualificationJSONdata);
-            //         var oEducTreeModel = new sap.ui.model.json.JSONModel(oQualificationJSONdata);
-
-            //         // setting the treetable model with created JSONModel
-            //         var oEduTreeTable = this.getView().byId("educationTreeTable");
-            //         oEduTreeTable.setModel(oEducTreeModel);
-            //         oEduTreeTable.bindRows({
-            //             path: "/educationListArray"
-            //         });
-            //         resolve();
-            //     })
-            // },
-
-
-
-
-            // handleEditPress: function () {
-
-
-            //     var oView = this.getView();
-            //     oView.byId("showCVdata").setVisible(false);
-            //     oView.byId("editCVdata").setVisible(true);
-            //     oView.byId('editSummary').setVisible(true);
-            //     oView.byId('wrkexp').setVisible(true);
-            //     oView.byId('education').setVisible(true);
-            //     // oView.byId('skills').setVisible(true);
-
-            // },
-
-            // initRichTextEditor: function (bIsTinyMCE5) {
-
-            //     var sHtmlValue = '';
-
-            //     var that = this;
-            //     sap.ui.require(["sap/ui/richtexteditor/RichTextEditor", "sap/ui/richtexteditor/library"],
-            //         function (RTE, library) {
-            //             var EditorType = library.EditorType;
-            //             that.oRichTextEditor = new RTE("myRTE", {
-            //                 //editorType: bIsTinyMCE5 ? EditorType.TinyMCE5 : EditorType.TinyMCE6,
-            //                 editorType: EditorType.TinyMCE6,
-            //                 width: "100%",
-            //                 height: "200px",
-            //                 position: "center",
-            //                 customToolbar: true,
-            //                 showGroupFont: true,
-            //                 showGroupLink: true,
-            //                 showGroupInsert: true,
-            //                 value: sHtmlValue,
-            //                 ready: function () {
-            //                     bIsTinyMCE5 ? this.addButtonGroup("styleselect").addButtonGroup("table") : this.addButtonGroup("styles").addButtonGroup("table");
-            //                 }
-            //             });
-
-            //             that.getView().byId("idVerticalLayout").addContent(that.oRichTextEditor);
-
-            //             //console.log('summary data 1=>',sHtmlValue,that.oRichTextEditor);
-            //         });
-            // },
-
-            // onSaveWorkexp: function () {
-
-            //     var orgVal = this.getView().byId("org");
-            //     var orgData = orgVal.getValue();
-            //     var desigVal = this.getView().byId("desig");
-            //     var desigData = desigVal.getValue();
-            //     var jobProfileVal = this.getView().byId("jobprofile");
-            //     var jobProfileData = jobProfileVal.getValue();
-            //     var jobStartDate = this.getView().byId("DP2");
-            //     var jobStartData = jobStartDate.getValue();
-            //     var endDateVal = this.getView().byId("DP5");
-            //     var endDateData = endDateVal.getValue();
-            //     var oMainModel = this.getView().getModel("EmployeeModel");
-            //     var iPS_NO = oMainModel.getData().PS_NO;
-            //     let workExpData = {
-            //         'empl_PS_NO': iPS_NO,
-            //         'company_name': orgData,
-            //         'role': desigData,
-            //         'domain': jobProfileData,
-            //         'startDate': jobStartData,
-            //         'endDate': endDateData
-            //     }
-            //     // 
-            //     console.log('work exp data', workExpData);
-            //     // 
-
-            //     var oDataModel = this.getView().getModel();
-
-
-            //     var that = this;
-            //     let path = "/Employee_CV_Experience_Data";
-            //     oDataModel.create(path, workExpData, {
-            //         success: function (data, response) {
-            //             MessageBox.success("Data Successfully Saved");
-            //             // that.onEditCancel();
-            //             //that._onReadEmpData();
-            //             that.oDialog.destroy();
-            //             that.oDialog = null;
-            //             that._initializeAsync();
-            //             orgVal.setValue('');
-            //             desigVal.setValue('');
-            //             jobProfileVal.setValue('');
-            //             jobStartDate.setValue('');
-            //             endDateVal.setValue('');
-            //             oDataModel.refresh();
-            //             oDataModel.updateBindings();
-            //             // window.location.reload()
-            //         },
-            //         error: function (error) {
-            //             oView.byId("page").setBusy(false);
-            //             MessageBox.error("Error while updating the data" + err.responseText);
-            //         }
-            //     });
-
-            // },
-
-            // onUpdateWorkexp: function () {
-            //     var orgid = this.getView().byId("orgid");
-            //     var orgIdData = orgid.getValue();
-            //     var orgVal = this.getView().byId("editorg");
-            //     var orgData = orgVal.getValue();
-            //     var desigVal = this.getView().byId("editdesig");
-            //     var desigData = desigVal.getValue();
-            //     var jobProfileVal = this.getView().byId("editjobprofile");
-            //     var jobProfileData = jobProfileVal.getValue();
-            //     var jobStartDate = this.getView().byId("DP2");
-            //     var jobStartData = jobStartDate.getValue();
-            //     var endDateVal = this.getView().byId("DP5");
-            //     var endDateData = endDateVal.getValue();
-            //     var oMainModel = this.getView().getModel("EmployeeModel");
-            //     var iPS_NO = oMainModel.getData().PS_NO;
-            //     let workExpData = {
-
-            //         'empl_PS_NO': iPS_NO,
-            //         'company_name': orgData,
-            //         'role': desigData,
-            //         'domain': jobProfileData,
-            //         'startDate': jobStartData,
-            //         'endDate': endDateData
-            //     }
-            //     // 
-            //     console.log('work exp data', workExpData);
-            //     // 
-            //     var oDataModel = this.getView().getModel();
-
-
-            //     var that = this;
-            //     let path = "/Employee_CV_Experience_Data(" + orgIdData + ")";
-            //     oDataModel.update(path, workExpData, {
-            //         success: function (data, response) {
-            //             MessageBox.success("Data Successfully Updated");
-            //             // that.onEditCancel();
-            //             //that._onReadEmpData();
-            //             that.oDialog.destroy();
-            //             that.oDialog = null;
-            //             that._initializeAsync();
-            //             orgVal.setValue('');
-            //             desigVal.setValue('');
-            //             jobProfileVal.setValue('');
-            //             jobStartDate.setValue('');
-            //             endDateVal.setValue('');
-            //             oDataModel.refresh();
-            //             oDataModel.updateBindings();
-
-            //         },
-            //         error: function (error) {
-            //             oView.byId("page").setBusy(false);
-            //             MessageBox.error("Error while updating the data" + err.responseText);
-            //         }
-            //     });
-            // },
-            // onCurrentCompanySelection: function () {
-            //     var oCheckBox = this.getView().byId('currentcompany').getSelected();
-            //     console.log('oCheckBox ==>', oCheckBox)
-            //     var oView = this.getView();
-            //     if (oCheckBox == true) {
-
-            //         oView.byId("_IDGendeLabel3endate").setVisible(false);
-            //         oView.byId("DP5").setVisible(false);
-            //     } else {
-
-            //         oView.byId("_IDGendeLabel3endate").setVisible(true);
-            //         oView.byId("DP5").setVisible(true);
-            //     }
-            // },
-            // oCancelFragment: function () {
-            //     var that = this;
-            //     var oDataModel = this.getView().getModel();
-            //     that.oDialog.destroy();
-            //     this.oDialog = null;
-            //     that._initializeAsync();
-            //     //byId("org").
-
-            //     oDataModel.refresh(true);
-            // },
-            // onSaveEducation: function () {
-            //     var steamVal = this.getView().byId("eduSteam");
-            //     var steamData = steamVal.getValue();
-            //     var specializationVal = this.getView().byId("specialization");
-            //     var specializationData = specializationVal.getValue();
-            //     var instVal = this.getView().byId("institute");
-            //     var instData = instVal.getValue();
-            //     var eduStartDate = this.getView().byId("DP8");
-            //     var eduStartData = eduStartDate.getValue();
-            //     var eduEndDateVal = this.getView().byId("DP6");
-            //     var eduEndDateData = eduEndDateVal.getValue();
-            //     var oMainModel = this.getView().getModel("EmployeeModel");
-            //     var iPS_NO = oMainModel.getData().PS_NO;
-
-
-            //     let educationData = {
-            //         'empl_PS_NO': iPS_NO,
-            //         'degree': steamData,
-            //         'specialization': specializationData,
-            //         'institute_name': instData,
-            //         'startDate': eduStartData,
-            //         'endDate': eduEndDateData
-            //     };
-            //     console.log('Education data', educationData);
-            //     var oDataModel = this.getView().getModel();
-
-            //     var that = this;
-            //     let path = "/Employee_Education_Detail";
-            //     oDataModel.create(path, educationData, {
-            //         success: function (data, response) {
-            //             MessageBox.success("Education Qualification Added Successfully");
-            //             // that.onEditCancel();
-            //             //that._onReadEmpData();
-            //             that.oDialog.destroy();
-            //             that.oDialog = null;
-            //             oDataModel.refresh();
-            //             that._initializeAsync();
-            //             steamVal.setValue('');
-            //             specializationVal.setValue('');
-            //             instVal.setValue('');
-            //             eduStartDate.setValue('');
-            //             eduEndDateVal.setValue('');
-            //             oDataModel.updateBindings();
-            //         },
-            //         error: function (error) {
-            //             oView.byId("page").setBusy(false);
-            //             oDataModel.refresh();
-            //             MessageBox.error("Error while updating the data" + err.responseText);
-            //         }
-            //     });
-            // },
-            // onAddEducationDialog: function () {
-            //     console.log('onAddEducationDialog');
-            //     var dialogID = this.getView().byId("eduadd");
-            //     if (!this.oDialog && dialogID) {
-            //         this.loadFragment({
-            //             name: "myskillsapp.fragment.AddEduQualification"
-            //         }).then(function (odialog) {
-            //             console.log('onAddWorkExpDialog AddEduQualification');
-            //             this.oDialog = odialog;
-            //             this.oDialog.open();
-
-            //         }.bind(this))
-            //     } else {
-            //         this.oDialog.open();
-            //     }
-            // },
-            // onEditEducation: function () {
-            //     console.log('onEditEducationDialog');
-            //     var dialogID = this.getView().byId("eduedit");
-            //     if (!this.oDialog && dialogID) {
-            //         this.loadFragment({
-            //             name: "myskillsapp.fragment.EditEduQualification"
-            //         }).then(function (odialog) {
-            //             console.log('onEditEducationDialog onEditEducationDialog');
-            //             var oModel = this.getView().getModel("EmployeeModel");
-
-            //             var oEduTable = this.getView().byId("educationTreeTable");
-            //             var aIndices = oEduTable.getSelectedIndices();
-
-            //             var oEduSelectItem = oEduTable.getContextByIndex(aIndices[0]);
-            //             var oeduObjShow = oEduSelectItem.getObject();
-            //             console.log('oEduObjShow ==>', oeduObjShow);
-            //             var editEduId = this.getView().byId("eduId");
-            //             editEduId.setValue(oeduObjShow.id)
-            //             var degreeName = this.getView().byId("editeduSteam");
-            //             degreeName.setValue(oeduObjShow.degree);
-            //             var subName = this.getView().byId("editspecialization");//role domain startDate endDate
-            //             subName.setValue(oeduObjShow.specialization);
-            //             var instituteName = this.getView().byId("editinstitute");
-            //             instituteName.setValue(oeduObjShow.institute_name);
-            //             var editEduStart = this.getView().byId("DP8");
-            //             editEduStart.setValue(oeduObjShow.startDate);
-            //             var editEduEnd = this.getView().byId("DP6");
-            //             editEduEnd.setValue(oeduObjShow.endDate)
-
-
-            //             this.oDialog = odialog;
-            //             this.oDialog.open();
-
-            //         }.bind(this))
-            //     } else {
-            //         this.oDialog.open();
-            //     }
-            // },
-            // onUpdateEducation: function () {
-            //     var steamId = this.getView().byId("eduId");
-            //     var steamIdData = steamId.getValue();
-            //     var steamVal = this.getView().byId("editeduSteam");
-            //     var steamData = steamVal.getValue();
-            //     var specializationVal = this.getView().byId("editspecialization");
-            //     var specializationData = specializationVal.getValue();
-            //     var instVal = this.getView().byId("editinstitute");
-            //     var instData = instVal.getValue();
-            //     var eduStartDate = this.getView().byId("DP8");
-            //     var eduStartData = eduStartDate.getValue();
-            //     var eduEndDateVal = this.getView().byId("DP6");
-            //     var eduEndDateData = eduEndDateVal.getValue();
-            //     var oMainModel = this.getView().getModel("EmployeeModel");
-            //     var iPS_NO = oMainModel.getData().PS_NO;
-
-
-            //     let educationData = {
-            //         'empl_PS_NO': iPS_NO,
-            //         'degree': steamData,
-            //         'specialization': specializationData,
-            //         'institute_name': instData,
-            //         'startDate': eduStartData,
-            //         'endDate': eduEndDateData
-            //     };
-            //     console.log('Education update data', educationData);
-            //     var oDataModel = this.getView().getModel();
-
-            //     var that = this;
-            //     let path = "/Employee_Education_Detail(" + steamIdData + ")";
-            //     oDataModel.update(path, educationData, {
-            //         success: function (data, response) {
-            //             MessageBox.success("Education Qualification Updated Successfully");
-            //             that.oDialog.destroy();
-            //             that.oDialog = null;
-            //             oDataModel.refresh();
-            //             that._initializeAsync();
-            //             steamVal.setValue('');
-            //             specializationVal.setValue('');
-            //             instVal.setValue('');
-            //             eduStartDate.setValue('');
-            //             eduEndDateVal.setValue('');
-            //             oDataModel.updateBindings();
-            //         },
-            //         error: function (error) {
-            //             oView.byId("page").setBusy(false);
-            //             oDataModel.refresh();
-            //             MessageBox.error("Error while updating the data" + err.responseText);
-            //         }
-            //     });
-            // }
-            // ,
-
-
-
-
-            // onDeleteWork: function () {
-            //     //  alert('hi');
-            //     var that = this;
-            //     var oModel = this.getView().getModel("EmployeeModel");
-
-
-            //     var oTable = this.getView().byId("workTreeTable");
-            //     var aIndices = oTable.getSelectedIndices();
-
-            //     var owrkSelectData = oTable.getContextByIndex(aIndices[0]);
-            //     var owrkObj = owrkSelectData.getObject();
-            //     var owrkID = owrkObj.id;
-
-            //     console.log('workTreeTable', owrkObj);
-            //     // console.log('oSelected is',oSelected);
-            //     console.log('workTreeTable is', owrkID);
-
-            //     var oDataModel = this.getView().getModel();
-
-            //     let path = "/Employee_CV_Experience_Data(" + owrkID + ")";
-            //     let owrkProperty = oModel.getProperty("/employee_cv_experience_data");
-
-            //     oDataModel.remove(path, {
-            //         success: function (data, response) {
-            //             MessageBox.success("Data Successfully Deleted");
-
-
-            //             that._initializeAsync();
-
-            //         },
-            //         error: function (error) {
-            //             oView.byId("page").setBusy(false);
-            //             MessageBox.error("Error while updating the data" + err.responseText);
-            //         }
-            //     });
-
-
-            // },
-            // onDeleteEducation: function () {
-            //     // alert('hi')
-            //     var that = this;
-            //     var oModel = this.getView().getModel("EmployeeModel");
-
-
-            //     var oTable = this.getView().byId("educationTreeTable");
-            //     var aIndices = oTable.getSelectedIndices();
-
-            //     var oEduSelectData = oTable.getContextByIndex(aIndices[0]);
-            //     var oEduObj = oEduSelectData.getObject();
-            //     var oEduID = oEduObj.id;
-
-            //     console.log('EduTreeTable', oEduObj);
-            //     // console.log('oSelected is',oSelected);
-            //     console.log('EduTreeTable is', oEduID);
-
-            //     var oDataModel = this.getView().getModel();
-
-            //     let path = "/Employee_Education_Detail(" + oEduID + ")";
-            //     let oEduProperty = oModel.getProperty("/employee_education_detail");
-
-            //     oDataModel.remove(path, {
-            //         success: function (data, response) {
-            //             MessageBox.success("Data Successfully Deleted");
-
-
-            //             that._initializeAsync();
-
-            //         },
-            //         error: function (error) {
-            //             console.log(error);
-            //             oView.byId("page").setBusy(false);
-            //             MessageBox.error("Error while updating the data" + err.responseText);
-            //         }
-            //     });
-
-            // },
-
-            // handlePDF: function () {
-
-
-            //     var oModel = this.getView().getModel("EmployeeModel");
-            //     // oMainModel = this.getView().getModel("EmployeeModel");
-            //     var employee_name = oModel.getData().employee_name;
-            //     console.log('employee_name CV pdf ', employee_name);
-            //     let oEmpl_CV_payload = oModel.getProperty("/employee_cv_experience_data");
-            //     let oEmpl_EDUcation_payload = oModel.getProperty("/employee_education_detail");
-            //     let oEmpl_Professional_payload = oModel.getProperty("/employee_professional_summary");
-            //     let oEmpl_Skill_payload = oModel.getProperty("/employee_skill_detail");
-            //     let experienceData = oEmpl_CV_payload.results;
-            //     let qualificationData = oEmpl_EDUcation_payload.results;
-            //     let professionalData = oEmpl_Professional_payload.results;
-            //     let skillsData = oEmpl_Skill_payload.results;
-            //     console.log('oEmpl_CV_payload ==>', experienceData);
-            //     console.log('qualificationData ==>', qualificationData);
-            //     console.log('PRofessionalData ==>', professionalData);
-            //     console.log('skillsData ==>', skillsData);
-
-            //     var expcustomizeArray = [];
-            //     experienceData.forEach(function (item) {
-            //         //console.log('cv item 1',item)
-            //         let exRow = {
-            //             'company_name': item.company_name,
-            //             'role': item.role,
-            //             'domain': item.domain,
-            //             'startDate': item.startDate,//
-            //             'endDate': item.endDate //
-            //         }
-            //         expcustomizeArray.push(exRow);
-
-            //     });
-            //     console.log('experienceData data', expcustomizeArray);
-            //     var expArray = [];
-            //     expcustomizeArray.forEach(function (item) {
-            //         var expDataArray = [];
-            //         // console.log('cv item 2',item)
-
-            //         Object.keys(item).forEach(function (key) {
-
-            //             expDataArray.push(item[key]);
-
-
-            //         });
-            //         expArray.push(expDataArray);
-            //     });
-
-            //     var educustomizeArray = [];
-            //     qualificationData.forEach(function (item) {
-            //         //console.log('cv item 1',item)
-            //         let exRow = {
-            //             'degree': item.degree,
-            //             'specialization': item.specialization,
-            //             'institute_name': item.institute_name,
-            //             'startDate': item.startDate,//item.startDate
-            //             'endDate': item.endDate
-            //         }
-            //         educustomizeArray.push(exRow);
-
-            //     });
-            //     console.log('table data', educustomizeArray);
-            //     var eductArray = [];
-            //     educustomizeArray.forEach(function (item) {
-            //         var eduQualiArray = [];
-            //         Object.keys(item).forEach(function (key) {
-            //             // console.log('table data',item[key]);
-            //             eduQualiArray.push(item[key]);
-            //         });
-            //         eductArray.push(eduQualiArray);
-            //     });
-            //     console.log('education data', eductArray);
-            //     var careerData = professionalData[0].professional_desc;
-            //     console.log('careerData ==>', careerData);
-
-            //     var skillcustomizeArray = [];
-            //     skillsData.forEach(function (item) {
-            //         //console.log('cv item 1',item)
-            //         let exRow = {
-            //             'Technology': item.JSC,
-            //             'Skill': item.skill,
-            //             'Rating': item.rating,
-            //             'Exeperience in Years': item.exp_years,//item.startDate
-            //             'Experience in Months': item.exp_months //item.endDate
-            //         }
-            //         skillcustomizeArray.push(exRow);
-
-            //     });
-            //     var clusterJSCData = [];
-            //     skillcustomizeArray.forEach(function (item) {
-            //         var skillsArray = [];
-            //         Object.keys(item).forEach(function (key) {
-            //             console.log('table data', item[key]);
-            //             skillsArray.push(item[key]);
-            //         });
-            //         clusterJSCData.push(skillsArray);
-            //     });
-            //     console.log('clusterJSCData data', clusterJSCData);
-            //     //https://community.sap.com/t5/technology-blogs-by-members/pdf-download-in-sap-ui5-application/ba-p/13574901
-            //     // var rows = ['Roami','Good'];
-
-
-            //     var docDefinition = {
-
-            //         content: [
-
-            //             {
-            //                 style: "header",
-            //                 alignment: "center",
-            //                 text: employee_name,
-            //                 fontSize: 15
-            //             },
-            //             {
-            //                 text: 'john.doe@gmail.com', alignment: 'center', fontSize: 12
-            //             }
-            //             ,
-
-            //             { text: careerData, margin: [5, 5, 5, 5], fontSize: 10 }
-            //             ,
-            //             { text: 'Work Experience', margin: [5, 5, 5, 5], fontSize: 15 },
-            //             {
-            //                 table: {
-            //                     headerRows: 1,
-            //                     widths: ["*", "*", "*", "*", "*"],
-            //                     body: [
-            //                         ["Company", "Role", "Domain", "Start Date", "End Date"],
-            //                         ...expArray
-            //                     ]
-            //                 }
-            //             },
-            //             { text: 'Educational Qualification', margin: [5, 5, 5, 5], fontSize: 15 },
-            //             {
-            //                 table: {
-            //                     headerRows: 1,
-            //                     widths: ["*", "*", "*", "*", "*"],
-            //                     body: [
-            //                         ["Degree", "Specialization", "Institute Name", "Start Date", "End Date"],
-            //                         ...eductArray
-            //                     ]
-            //                 }
-            //             },
-            //             { text: 'Skills', margin: [5, 5, 5, 5], fontSize: 15 },
-            //             {
-            //                 table: {
-            //                     headerRows: 1,
-            //                     widths: ["*", "*", "*", "*", "*"],
-            //                     body: [
-            //                         ["Technology", "Skill", "Rating", "Experience in Years", "Experience in Months"],
-            //                         ...clusterJSCData
-            //                     ]
-            //                 }
-            //             },
-            //         ]
-            //     };
-
-
-
-            //     var pdfDocGenerator = pdfMake.createPdf(docDefinition);
-            //     pdfDocGenerator.download("designcheck.pdf");
-
-
-
-            // },
-
-            // handlePDF: function () {
-
-
-            //     var oModel = this.getView().getModel("EmployeeModel");
-
-            //     var employee_name = oModel.getData().employee_name;
-            //     console.log('employee_name CV pdf ', employee_name);
-            //     let oEmpl_CV_payload = oModel.getProperty("/employee_cv_experience_data");
-            //     let oEmpl_EDUcation_payload = oModel.getProperty("/employee_education_detail");
-            //     let oEmpl_Professional_payload = oModel.getProperty("/employee_professional_summary");
-            //     let oEmpl_Skill_payload = oModel.getProperty("/employee_skill_detail");
-            //     let experienceData = oEmpl_CV_payload.results;
-            //     let qualificationData = oEmpl_EDUcation_payload.results;
-            //     let professionalData = oEmpl_Professional_payload.results;
-            //     let skillsData = oEmpl_Skill_payload.results;
-            //     console.log('oEmpl_CV_payload ==>', experienceData);
-            //     console.log('qualificationData ==>', qualificationData);
-            //     console.log('PRofessionalData ==>', professionalData);
-            //     console.log('skillsData ==>', skillsData);
-
-            //     var expcustomizeArray = [];
-            //     experienceData.forEach(function (item) {
-            //         //console.log('cv item 1',item)
-            //         let exRow = {
-            //             'company_name': item.company_name,
-            //             'role': item.role,
-            //             'domain': item.domain,
-            //             'startDate': item.startDate,//
-            //             'endDate': item.endDate //
-            //         }
-            //         expcustomizeArray.push(exRow);
-
-            //     });
-            //     console.log('experienceData data', expcustomizeArray);
-            //     var expArray = [];
-            //     expcustomizeArray.forEach(function (item) {
-            //         var expDataArray = [];
-            //         // console.log('cv item 2',item)
-
-            //         Object.keys(item).forEach(function (key) {
-
-            //             expDataArray.push(item[key]);
-
-
-            //         });
-            //         expArray.push(expDataArray);
-            //     });
-
-            //     var educustomizeArray = [];
-            //     qualificationData.forEach(function (item) {
-            //         //console.log('cv item 1',item)
-            //         let exRow = {
-            //             'degree': item.degree,
-            //             'specialization': item.specialization,
-            //             'institute_name': item.institute_name,
-            //             'startDate': item.startDate,//item.startDate
-            //             'endDate': item.endDate
-            //         }
-            //         educustomizeArray.push(exRow);
-
-            //     });
-            //     console.log('table data', educustomizeArray);
-            //     var eductArray = [];
-            //     educustomizeArray.forEach(function (item) {
-            //         var eduQualiArray = [];
-            //         Object.keys(item).forEach(function (key) {
-            //             // console.log('table data',item[key]);
-            //             eduQualiArray.push(item[key]);
-            //         });
-            //         eductArray.push(eduQualiArray);
-            //     });
-            //     console.log('education data', eductArray);
-            //     var careerData = professionalData[0].professional_desc;
-            //     console.log('careerData ==>', careerData);
-
-            //     var skillcustomizeArray = [];
-            //     skillsData.forEach(function (item) {
-            //         //console.log('cv item 1',item)
-            //         let exRow = {
-            //             'Technology': item.JSC.replace(/<[^>]*>?/gm, ''),
-            //             'Skill': item.skill.replace(/<[^>]*>?/gm, ''),
-            //             'Rating': item.rating,
-            //             'Exeperience in Years': item.exp_years,//item.startDate
-            //             'Experience in Months': item.exp_months //item.endDate
-            //         }
-            //         skillcustomizeArray.push(exRow);
-
-            //     });
-            //     var clusterJSCData = [];
-            //     skillcustomizeArray.forEach(function (item) {
-            //         var skillsArray = [];
-            //         Object.keys(item).forEach(function (key) {
-            //             console.log('table data', item[key]);
-            //             skillsArray.push(item[key]);
-            //         });
-            //         clusterJSCData.push(skillsArray);
-            //     });
-            //     console.log('clusterJSCData data', clusterJSCData);
-
-
-            //     var doc = new jsPDF();
-            //     var img = new Image;
-            //     img.crossOrigin = "";
-            //     img.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRymEZbGbpjYRYAQKikX_O7ledQFd30vlkZhg&s';
-            //     //const img= 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRymEZbGbpjYRYAQKikX_O7ledQFd30vlkZhg&s'; ///home/user/projects/skills_ui/webapp/resources/SitansuGhosh.jpg
-            //     //let btaImg=btoa(imgURL);
-            //     //console.log('this =>',img);
-            //     //doc.addImage(img,10,10);
-            //     doc.rect(5, 5, 25, 25);
-
-            //     doc.setFontSize(22);
-            //     doc.text('John Doe', 90, 10, { align: 'center' });
-            //     doc.setFontSize(12);
-            //     doc.text('Software Engineer', 90, 15, { align: 'center' });
-            //     doc.setFontSize(10);
-            //     doc.text('Email :john.doe@gmail.com', 90, 20, { align: 'center' });
-            //     doc.text('Phone :+91 9876543210', 90, 25, { align: 'center' });
-            //     //doc.setLineWidth(0.5); 
-            //     const lx1 = 30, ly1 = 30; //starting point (x1,y1)
-            //     const lx2 = 180, ly2 = 30;//Ending point (x2,y2)
-            //     doc.line(lx1, ly1, lx2, ly2);
-
-
-
-            //     // const htmlContent='<div id="professionalData">'+careerData+'</div>';
-            //     //var htmlObject = document.getElementById('container');
-            //     //  document.getElementById("container").innerHTML = htmlContent;
-            //     // var profContent= document.createElement("professionalData");
-            //     // Professional Summary
-            //     doc.setFontSize(14);
-            //     doc.setTextColor(0, 150, 255);
-            //     doc.text('Professional Summary', 12, 40);
-            //     doc.setFontSize(11);
-            //     doc.setTextColor(54, 69, 79);
-            //     doc.text('• 8 years of total experience in the IT field. Hands-on experience Java,python.', 12, 50);
-            //     doc.text('• Having good knowledge in Node, SAP Fiori/UI5, HANA/S4, BTP.', 12, 55);
-            //     doc.text('• Working experience in RESTful APIs, JSON and third-party integration like payment gateway and Insurance.', 12, 60);
-            //     doc.text('• Good understanding of ES6, HTML, AngularJS, ReactJS.', 12, 66);
-            //     doc.text('• Working Knowledge Closely with GIT, JIRA, Bitbucket,AWS.', 12, 70);
-            //     doc.text('• Working Knowledge with Team handling for a project', 12, 75);
-
-            //     // doc.line(10, 20, 100, 20);
-            //     const x1 = 120; //50 x-coordinate (same for both poitns to make the line vertical)
-            //     const y1 = 80; //10 starting y-coordinate
-            //     const x2 = 120; //50 x-coordinate (same as x1)
-            //     const y2 = 200; //200 ending y-cordinate
-            //     doc.line(120, 100, 120, 220);
-            //     doc.setFontSize(14);
-            //     doc.text('Project Summary', 125, 100);
-            //     doc.setFontSize(12);
-            //     doc.text('• Project One', 125, 110);
-            //     doc.setFontSize(10);
-            //     doc.text('* 01-02-2023 - 31-08-2023', 125, 115);
-            //     doc.text('* Java, SpringBoot, Mysql', 125, 120);
-            //     doc.text('* Work related to bug fixes and enhancements in UI', 125, 125);
-            //     doc.text('* Documentation for Troubleshoot', 125, 130);
-            //     doc.text('* R & D work for UI enhancements', 125, 135);
-
-            //     doc.setFontSize(12);
-            //     doc.text('• Project Two', 125, 145);
-            //     doc.setFontSize(10);
-            //     doc.text('* 01-02-2023 - 31-08-2023', 125, 150);
-            //     doc.text('* SAP Fiori/UI5, HANA, CAPM', 125, 155);
-            //     doc.text('* Work related to bug fixes and enhancements in UI', 125, 160);
-            //     doc.text('* Documentation for Troubleshoot', 125, 165);
-            //     doc.text('* R & D work for UI enhancements', 125, 170);
-
-            //     // Add Section: Experience
-            //     var i = 100,
-            //         w = 0;
-            //     doc.setFontSize(14);
-            //     doc.text('Work Experience', 12, i);
-            //     doc.setFontSize(10);
-
-
-            //     experienceData.forEach((exp, index) => {
-            //         w = i + 10;
-
-            //         console.log('i w 1==>', i, w);
-            //         doc.text('• ' + exp.company_name + ' at ' + exp.role, 12, w);
-            //         w = w + 6;
-            //         if (exp.endDate != "") {
-            //             var end_date = exp.endDate;
-            //         } else {
-            //             end_date = 'Present';
-            //         }
-            //         doc.text('• ' + exp.startDate + ' - ' + end_date, 12, w);
-            //         w = w + 6;
-            //         //(exp.endDate !="")?item.endDate: "Still Working",
-            //         doc.text('• ' + exp.domain, 12, w);
-            //         // w=w+10;
-            //         i = w;
-            //         console.log('i w 2==>', i, w);
-            //     });
-            //     console.log('i w 3==>', i, w);
-
-            //     // Education Qualification
-            //     var d = i,
-            //         d = d + 20;
-            //     doc.setFontSize(14);
-            //     doc.text('Education Qualification', 12, d);
-            //     doc.setFontSize(10);
-            //     var j = 0;
-
-            //     qualificationData.forEach((edu, index) => {
-            //         j = d + 10;
-            //         console.log('i 1==>', j, d);
-            //         doc.text('• ' + edu.degree + ' in ' + edu.specialization, 12, j);
-            //         j = j + 6;
-
-            //         doc.text('• ' + edu.startDate + ' - ' + edu.endDate, 12, j);
-            //         j = j + 6;
-            //         doc.text('• ' + edu.institute_name, 12, j);
-            //         d = j;
-            //         console.log('j d 4==>', j, d);
-            //     });
-            //     console.log('j d 5==>', j, d);
-
-            //     // Skills Details
-
-            //     var s = d,
-            //         s = d + 20;
-            //     doc.setFontSize(14);
-            //     doc.text('Skills & Proficiency', 12, s);
-            //     doc.setFontSize(10);
-            //     var k = 0;
-
-            //     skillsData.forEach((skill, index) => {
-            //         k = s + 10;
-            //         console.log('i 1==>', j, d);
-            //         doc.text('• Domain -' + skill.JSC.replace(/^\t+/gm, '').replace('\t', '') + ',' + skill.skill.replace(/^\t+/gm, '').replace('\t', ''), 12, k);
-            //         k = k + 6;
-            //         doc.text('• Relevant Experience (Yrs)-' + skill.exp_years + '.' + skill.exp_months, 12, k);
-            //         k = k + 6;
-            //         //doc.text('• '+ skill.institute_name, 14, j);
-            //         s = k;
-            //         console.log('s j d k 4==>', s, k);
-            //     });
-            //     console.log('s j d k 5==>', s, k);
-
-
-
-            //     doc.save('Resume_template.pdf')
-
-            // },
-
-
-
-
-
-
-
-
-
-
-            //----------------------------------------------------------------------------------------------------------------------//
-
-
-
-
-            // selectRelatedRowsInTable: function (e) {
-            //     var oTreeTable = this.getView().byId("TreeTableBasic");
-            //     var totalrowcount = this.getView().byId("TreeTableBasic").getBinding("rows").getLength();
-            //     var s = e.getSource();
-            //     var n = e.getParameters().rowIndex;
-            //     // var oTableContext = oTreeTable.getContextByIndex(n);
-            //     var hierarchyLevel = oTreeTable.getContextByIndex(n)._mProxyInfo.level;
-            //     // var a = s.getModel().getProperty("HierarchyLevel", s.getContextByIndex(n));
-            //     if (hierarchyLevel === 1) {
-            //         var b = n + 1;
-            //         while (s.getContextByIndex(b) && oTreeTable.getContextByIndex(b)._mProxyInfo.level !== 1) {
-            //             if (s.isIndexSelected(n)) {
-            //                 if (!s.isIndexSelected(b)) {
-            //                     // var k = s.getModel().getProperty("PurchaseOrder", s.getContextByIndex(b));
-            //                     // this.aSelectedItems.push(k);
-            //                     s.detachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //                     s.addSelectionInterval(b, b);
-            //                     s.attachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //                     this.nItemSelectionCount += 1;
-            //                 }
-            //             } else {
-            //                 if (s.isIndexSelected(b)) {
-            //                     // k = s.getModel().getProperty("PurchaseOrder", s.getContextByIndex(b));
-            //                     // var i = this.aSelectedItems.indexOf(k);
-            //                     // if (i !== -1) {
-            //                     //     this.aSelectedItems.splice(i, 1);
-            //                     // }
-            //                     s.detachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //                     s.removeSelectionInterval(b, b);
-            //                     s.attachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //                     this.nItemSelectionCount -= 1;
-            //                 }
-            //             }
-            //             b += 1;
-            //         }
-            //     } else {
-            //         if (!s.isIndexSelected(n)) {
-            //             b = n - 1;
-            //             while (s.getContextByIndex(b)._mProxyInfo.level !== 1) {
-            //                 b -= 1;
-            //             }
-            //             s.detachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //             s.removeSelectionInterval(b, b);
-            //             s.attachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //             this.nHeaderSelectionCount += 1;
-            //         }
-            //         if (s.isIndexSelected(n)) {
-            //             var flag1 = [];
-            //             var flag2 = [];
-            //             b = n - 1;
-            //             var c = n + 1;
-            //             if (c === totalrowcount) {
-            //                 c = n;
-            //             }
-            //             if (s.getContextByIndex(c)._mProxyInfo.level == 1) {
-            //                 flag1.push(true);
-            //             };
-            //             while (s.getContextByIndex(c)._mProxyInfo.level !== 1) {
-            //                 // flag1.push(false);
-            //                 if (s.isIndexSelected(c)) {
-            //                     flag1.push(true);
-            //                 } else {
-            //                     flag1.push(false);
-            //                 };
-            //                 c += 1;
-            //                 if (c === totalrowcount) {
-            //                     break;
-            //                 }
-            //             };
-            //             if (s.getContextByIndex(b)._mProxyInfo.level == 1) {
-            //                 flag1.push(true);
-            //             };
-            //             while (s.getContextByIndex(b)._mProxyInfo.level !== 1) {
-            //                 // flag1.push(false);
-            //                 if (s.isIndexSelected(b)) {
-            //                     flag1.push(true);
-            //                 } else {
-            //                     flag1.push(false);
-            //                 }
-            //                 b -= 1;
-            //             }
-            //             const andofFlags = flag1.every(Boolean);
-            //             if (andofFlags) {
-            //                 s.detachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //                 s.addSelectionInterval(b, b);
-            //                 s.attachRowSelectionChange(this.onSelectSelectPOTable, this);
-            //             }
-            //         }
-            //     }
-            //     var selectedrows = s.getSelectedIndices();
-            //     if (selectedrows.length > 0) {
-            //         this.getView().byId("calstockbutton").setEnabled(true);
-            //     } else {
-            //         this.getView().byId("calstockbutton").setEnabled(false);
-            //     }
-            // },
-            // onSelectSelectPOTable: function (e) {
-            //     var s = this.getView().byId("TreeTableBasic");
-            //     if (e.getParameters().selectAll === true) {
-            //         this.bSelectAll = true;
-            //         this.nHeaderSelectionCount = this.countSelectedHeaders(s, s.getSelectedIndices());
-            //         // this.getView().byId("calstockbutton").setEnabled(true);
-            //         // this.getView().byId("CreateDeliveryButton").setEnabled(false);
-            //         // this.getView().byId("CalculateStockBalanceButton").setEnabled(false);
-            //         // this.getView().byId("StockRequirementButton").setEnabled(false);
-            //     } else {
-            //         if (e.getParameters().rowContext === null) {
-            //             this.bSelectAll = false;
-            //             // this.getView().byId("calstockbutton").setEnabled(false);
-            //             // this.getView().byId("CreateDeliveryButton").setEnabled(false);
-            //             // this.getView().byId("CalculateStockBalanceButton").setEnabled(false);
-            //             // this.getView().byId("StockRequirementButton").setEnabled(false);
-            //             this.nHeaderSelectionCount = 0;
-            //             this.nItemSelectionCount = 0;
-            //             // this.aSelectedItems = [];
-            //         } else {
-            //             // this.getView().byId("calstockbutton").setEnabled(true);
-            //             var p = e.getParameters().rowContext.sPath;
-            //             var n = e.getParameters().rowIndex;
-            //             var hierarchyLevel = e.getSource().getContextByIndex(n)._mProxyInfo.level;
-            //             // var l = this.getView().getModel().getProperty(p).HierarchyNodeLevel;
-            //             if (s.isIndexSelected(n)) {
-            //                 if (hierarchyLevel === "1") {
-            //                     this.nHeaderSelectionCount += 1;
-            //                     if (this.nHeaderSelectionCount > 0) {
-            //                         if (this._StockReqIntentAvailable) {
-            //                             // this.getView().byId("StockRequirementButton").setEnabled(true);
-            //                         } else {
-            //                             // this.getView().byId("StockRequirementButton").setEnabled(false);
-            //                         }
-            //                         // this.getView().byId("calstockbutton").setEnabled(true);
-            //                     } else {
-            //                         // this.getView().byId("calstockbutton").setEnabled(false);
-            //                         // this.getView().byId("StockRequirementButton").setEnabled(false);
-            //                     }
-            //                 } else {
-            //                     // this.aSelectedItems.push(this.getView().getModel().getProperty(p).ProdPlntSupplierConcatenatedID);
-            //                     this.nItemSelectionCount += 1;
-
-            //                 }
-            //             } else {
-            //                 if (hierarchyLevel === "2") {
-            //                     this.nHeaderSelectionCount -= 1;
-            //                     if (this.nHeaderSelectionCount > 0) {
-            //                         // if (this._StockReqIntentAvailable) {
-            //                         //     this.getView().byId("StockRequirementButton").setEnabled(true);
-            //                         // } else {
-            //                         //     this.getView().byId("StockRequirementButton").setEnabled(false);
-            //                         // }
-            //                         // this.getView().byId("calstockbutton").setEnabled(true);
-            //                     } else {
-            //                         // this.getView().byId("calstockbutton").setEnabled(false);
-            //                         // this.getView().byId("StockRequirementButton").setEnabled(false);
-            //                     }
-            //                 } else {
-            //                     // var i = this.aSelectedItems.indexOf(this.getView().getModel().getProperty(p).ProdPlntSupplierConcatenatedID);
-            //                     // if (i !== -1) {
-            //                     //     this.aSelectedItems.splice(i, 1);
-            //                     // }
-            //                     this.nItemSelectionCount -= 1;
-            //                 }
-            //             }
-            //             this.selectRelatedRowsInTable(e);
-            //         }
-            //     }
-            //     if (s.getSelectedIndices().length > 0 && this.nItemSelectionCount > 0) {
-            //         // this.getView().byId("ActionC_PROCMTDOCSUBCONTRG0button").setEnabled(true);
-            //         // this.getView().byId("CreateDeliveryButton").setEnabled(true);
-            //     } else {
-            //         // this.getView().byId("ActionC_PROCMTDOCSUBCONTRG0button").setEnabled(false);
-            //         // this.getView().byId("CreateDeliveryButton").setEnabled(false);
-            //     }
-            //     if (s.getSelectedIndices().length > 0 && this.nHeaderSelectionCount > 0) {
-            //         // if (this._StockReqIntentAvailable) {
-            //         //     this.getView().byId("StockRequirementButton").setEnabled(true);
-            //         // } else {
-            //         //     this.getView().byId("StockRequirementButton").setEnabled(false);
-            //         // }
-            //         // this.getView().byId("calstockbutton").setEnabled(true);
-            //     } else {
-            //         // this.getView().byId("calstockbutton").setEnabled(false);
-            //         // this.getView().byId("StockRequirementButton").setEnabled(false);
-            //     }
-            // },
-
-
 
         });
     });

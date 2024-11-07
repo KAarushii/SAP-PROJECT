@@ -19,6 +19,14 @@ server:
             destination: Project_skills_app
           - path: /v2
             url: https://larsen---toubro-infotech-ltd-dev-iptools-project-skills-app-srv.cfapps.eu10.hana.ondemand.com
+          - path: /odata/v4/admin
+            url: https://424f2286trial-dev-bookstore-srv.cfapps.ap21.hana.ondemand.com
+          - path: /odata/v4/admin/
+            url: https://424f2286trial-dev-bookstore-srv.cfapps.ap21.hana.ondemand.com
+          - path: /odata/v4/admin/
+            url: https://larsen---toubro-infotech-ltd-dev-iptools-bookstore-srv.cfapps.eu10.hana.ondemand.com
+          - path: /odata/v4/admin/
+            url: https://larsen---toubro-infotech-ltd-dev-iptools-bookstore-srv.cfapps.eu10.hana.ondemand.com
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -31,7 +39,7 @@ server:
         mountPath: /
         services:
           - urlPath: /v2/odata/v4/main
-            metadataPath: ./webapp/localService/main/metadata.xml
-            mockdataPath: ./webapp/localService/main/data
             generateMockData: true
+            metadataXmlPath: ./webapp/localService/main/metadata.xml
+            mockdataRootPath: ./webapp/localService/main/data
         annotations: []

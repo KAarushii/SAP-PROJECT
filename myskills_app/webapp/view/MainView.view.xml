@@ -576,170 +576,167 @@
                                 <IconTabFilter id="_IDGenIconTabFilter3"  key="cv" icon="" text="CV">
             
  
-								  <Wizard
-									 id="CreateCVWizard"
-									 finishButtonText="Finish"
-									 currentStep="CV_Download"
-							         showNextButton="false">
-						
-
-						
-										 <WizardStep 
-											 	id="CV_EmpInfo"
-												title="EMPLOYEE INFORMATION"
-												activate="onActivate">
-														
-											  	  		<form:SimpleForm id="cvDisplayForm" editable="false"
-				   		                          		 layout="ResponsiveGridLayout"
-						                          		 width="80%">
-				   
-															<form:content >
-																<Label text="Name" design="Bold" />
-																<Text  text="{EmployeeModel>/employee_name}" />
-																<Label text="Designation" design="Bold"/>
-																<Text text="{EmployeeModel>/designation}" />
-																<Label text="Email" design="Bold"/>
-																<Text text="{EmployeeModel>/email}" />
-																<Label text="Location" design="Bold"/>
-																<Text  text="{EmployeeModel>/base_location}" />
-															</form:content>
-													  </form:SimpleForm>
-
-										  </WizardStep>
-
-											  
-										  <WizardStep id="cv_ProfileSummary"
-														title="PROFILE SUMMARY"
-														activate="onActivate"
-														>
-                                                     	
-
-														<OverflowToolbar style="Clear" width="80%">
-												 		 
-                                                 				<ToolbarSpacer/>
-												 				<Button id="profileEdit" icon="sap-icon://edit"  press="onEditProfsummary" tooltip="Edit"  type="Accept" visible="true"></Button>
-																<Button id="DeleteProfile"   type="Reject" icon="sap-icon://delete"  press="onDeleteProfSummary" visible="true"/>
-							 					 				<Button id="saveProfileSumm" type="Accept" icon="sap-icon://save" press="onProfSummary" tooltip="Save" visible="false"/>
-																<Button id="cancel_Profilebtn" type="Attention" icon="sap-icon://decline" press="onProfSummarynotadd" tooltip="Cancel" visible="false"/>
-                                                  		</OverflowToolbar>
-                                                            <Text id="profsumm" text="{oViewCVModel>/profSummaryData}" width="80%" visible="true"/>
-															
-															<VBox id="profSummAdd" visible="false">
-															 <form:SimpleForm width="80%"
-															>
-															 <form:content>
-															     <l:VerticalLayout id="idVerticalLayout" class="sapUiContentPadding" >
-																<HBox alignItems="Center">
-					                                            <Text text="{oViewCVModel>/profSummaryData}" />
-					   
-																</HBox>
-					
-	            											</l:VerticalLayout>
-															 </form:content>
-															 </form:SimpleForm>
-															</VBox>
-				
-										  </WizardStep>
-
-										  <WizardStep id="CV_WorkExperience"
-														title=" WORK EXPERIENCE"
-														activate="onActivate"
-														>
-												     
-														<List
-															id="WorkExp"
-															items="{path: 'EmployeeModel>/employee_cv_experience_data/results'}"
-															mode="MultiSelect"
-															selectionChange=""
-															includeItemInSelection="true"
-															growing="true"
-		                                                    growingThreshold="4"
-															width="80%">
-															
-		                                                        <headerToolbar>
-																	<OverflowToolbar  style="Clear">
-			                                                        
-                                                 				 	 <ToolbarSpacer/>
-												 				 	 <Button  icon="sap-icon://add" press="onAddWorkExpDialog" tooltip="Add Work Experience"   type="Emphasized" ></Button>
-												                 	 <Button   type="Accept" icon="sap-icon://edit" press="onEditWorkExpDialog" />
-																 	 <Button   type="Reject" icon="sap-icon://delete"  press="onMultiDeleteWorkExp"/>
-																	</OverflowToolbar>
-																</headerToolbar>
-																<CustomListItem>
-																     <HBox>
-																	     <Avatar src="sap-icon://building" 
-																		 displaySize="S" 
-																		 displayShape="Square"
-																		 class="sapUiMediumMarginEnd"
-																		 
-																		 />
-																		 
-																	   <VBox   >
-																	       
-																	       <Text text="{EmployeeModel>company_name}"  />
-																		   <Text text="{EmployeeModel>role}" />
-																		   <Text text="{EmployeeModel>startDate} to {EmployeeModel>endDate}" />
-																		   <!-- <Text text="" /> -->
-																	   </VBox>
-																	 </HBox>
-																</CustomListItem>
-	
-														</List>													
-													
-									  </WizardStep>
-
-									  <WizardStep id="CV_EducationQualification"
-												  title="EDUCATION QUALIFICATION"
-												>
-													<List  
-													    id="EduQ"
-														mode="MultiSelect" 
-														items="{path: 'EmployeeModel>/employee_education_detail/results'}" 
-														width="80%">
-
-														<headerToolbar>
-															<OverflowToolbar style="Clear">
-																	<ToolbarSpacer/>
-																	<Button id="eduaddd" icon="sap-icon://add" press="onAddEduDialog" tooltip="Add Education Qualification"   type="Emphasized" ></Button>
-																	<Button   type="Accept" icon="sap-icon://edit" press="onEditEduQDialog" />
-																	<Button   type="Reject" icon="sap-icon://delete"  press="onMultiDeleteEduQ" />
-															</OverflowToolbar>
-														</headerToolbar>	   
-														<CustomListItem>
-															<HBox>
-																<Avatar src="sap-icon://study-leave" 
-																			displaySize="S" 
-																			displayShape="Square"
-																			class="sapUiMediumMarginEnd"
-																			/>
-										
-																<VBox >
-																	<Label text="{EmployeeModel>institute_name}"/>
-																	<Text  text="{EmployeeModel>degree}-{EmployeeModel>specialization}"/>
-																	<Text text="{EmployeeModel>startDate} to {EmployeeModel>endDate}"/>
-																</VBox>
-															</HBox>
-														</CustomListItem>
-													</List>  
-                        			  </WizardStep>
-
-
-
+										<Wizard
+											id="CreateCVWizard"
+											finishButtonText="Finish"
+											currentStep="CV_Download"
+											showNextButton="false">
+								
 
 											
-											<WizardStep id="CV_Download"
-														title="Download CV"
-														activate="onActivate"
-														>
-												 <Input id="inputName" placeholder="Profile Summary"/>
-     											 <Input id="inputEmail" placeholder="Achievements"/>		
-												 <Button id="pdfbtn"  text="Download PDF" type="Emphasized" visible="true" press="onGeneratePuppeteerPDF" />
-											</WizardStep>
-													
+														<WizardStep 
+																	id="CV_EmpInfo"
+																	title="EMPLOYEE INFORMATION"
+																	activate="onActivate">
+																			
+																			<form:SimpleForm id="cvDisplayForm" editable="false"
+																			layout="ResponsiveGridLayout"
+																			width="80%">
+									
+																				<form:content >
+																					<Label text="Name" design="Bold" />
+																					<Text  text="{EmployeeModel>/employee_name}" />
+																					<Label text="Designation" design="Bold"/>
+																					<Text text="{EmployeeModel>/designation}" />
+																					<Label text="Email" design="Bold"/>
+																					<Text text="{EmployeeModel>/email}" />
+																					<Label text="Location" design="Bold"/>
+																					<Text  text="{EmployeeModel>/base_location}" />
+																				</form:content>
+																		</form:SimpleForm>
 
-						               </Wizard>
+														</WizardStep>
+
+																
+														<WizardStep id="cv_ProfileSummary"
+																		title="PROFILE SUMMARY"
+																		activate="onActivate"
+																		>
+																		
+
+																		<OverflowToolbar style="Clear" width="80%">
+																		
+																				<ToolbarSpacer/>
+																				<Button id="profileEdit" icon="sap-icon://edit"  press="onEditProfsummary" tooltip="Edit"  type="Accept" visible="true"></Button>
+																				<Button id="DeleteProfile"   type="Reject" icon="sap-icon://delete"  press="onDeleteProfSummary" visible="true"/>
+																				<Button id="saveProfileSumm" type="Accept" icon="sap-icon://save" press="onProfSummary" tooltip="Save" visible="false"/>
+																				<Button id="cancel_Profilebtn" type="Attention" icon="sap-icon://decline" press="onProfSummarynotadd" tooltip="Cancel" visible="false"/>
+																		</OverflowToolbar>
+																			<Text id="profsumm" text="{oViewCVModel>/profSummaryData}" width="80%" visible="true"/>
+																			
+																			<VBox id="profSummAdd" visible="false">
+																			<form:SimpleForm width="80%"
+																			>
+																			<form:content>
+																				<l:VerticalLayout id="idVerticalLayout" class="sapUiContentPadding" >
+																				<HBox alignItems="Center">
+																				<Text text="{oViewCVModel>/profSummaryData}" />
+									
+																				</HBox>
+									
+																			</l:VerticalLayout>
+																			</form:content>
+																			</form:SimpleForm>
+																			</VBox>
+								
+														</WizardStep>
+
+														<WizardStep id="CV_WorkExperience"
+																		title=" WORK EXPERIENCE"
+																		activate="onActivate"
+																		>
+																	
+																		<List
+																			id="WorkExp"
+																			items="{path: 'EmployeeModel>/employee_cv_experience_data/results'}"
+																			mode="MultiSelect"
+																			selectionChange=""
+																			includeItemInSelection="true"
+																			growing="true"
+																			growingThreshold="4"
+																			width="80%">
+																			
+																				<headerToolbar>
+																					<OverflowToolbar  style="Clear">
+																					
+																					<ToolbarSpacer/>
+																					<Button  icon="sap-icon://add" press="onAddWorkExpDialog" tooltip="Add Work Experience"   type="Emphasized" ></Button>
+																					<Button   type="Accept" icon="sap-icon://edit" press="onEditWorkExpDialog" />
+																					<Button   type="Reject" icon="sap-icon://delete"  press="onMultiDeleteWorkExp"/>
+																					</OverflowToolbar>
+																				</headerToolbar>
+																				<CustomListItem>
+																					<HBox>
+																						<Avatar src="sap-icon://building" 
+																						displaySize="S" 
+																						displayShape="Square"
+																						class="sapUiMediumMarginEnd"
+																						
+																						/>
+																						
+																					<VBox   >
+																						
+																						<Text text="{EmployeeModel>company_name}"  />
+																						<Text text="{EmployeeModel>profess}" />
+																						<Text text="{EmployeeModel>startDate} to {EmployeeModel>startDate}" />
+																						<!-- <Text text="" /> -->
+																					</VBox>
+																					</HBox>
+																				</CustomListItem>
+					
+																		</List>													
+																	
+														</WizardStep>
+
+														<WizardStep id="CV_EducationQualification"
+																	title="EDUCATION QUALIFICATION"
+																	>
+																		<List  
+																			id="EduQ"
+																			mode="MultiSelect" 
+																			items="{path: 'EmployeeModel>/employee_education_detail/results'}" 
+																			width="80%">
+
+																			<headerToolbar>
+																				<OverflowToolbar style="Clear">
+																						<ToolbarSpacer/>
+																						<Button id="eduaddd" icon="sap-icon://add" press="onAddEduDialog" tooltip="Add Education Qualification"   type="Emphasized" ></Button>
+																						<Button   type="Accept" icon="sap-icon://edit" press="onEditEduQDialog" />
+																						<Button   type="Reject" icon="sap-icon://delete"  press="onMultiDeleteEduQ" />
+																				</OverflowToolbar>
+																			</headerToolbar>	   
+																			<CustomListItem>
+																				<HBox>
+																					<Avatar src="sap-icon://study-leave" 
+																								displaySize="S" 
+																								displayShape="Square"
+																								class="sapUiMediumMarginEnd"
+																								/>
+															
+																					<VBox >
+																						<Label text="{EmployeeModel>institute_name}"/>
+																						<Text  text="{EmployeeModel>degree}-{EmployeeModel>specialization}"/>
+																						<Text text="{EmployeeModel>startDate} to {EmployeeModel>endDate}"/>
+																					</VBox>
+																				</HBox>
+																			</CustomListItem>
+																		</List>  
+														</WizardStep>
+
+																
+														<WizardStep id="CV_Download"
+																	title="Download CV"
+																	activate="onActivate"
+																	>
+																<!-- <Input id="inputName" placeholder="Profile Summary"/> -->
+																<!-- <Input id="inputEmail" placeholder="Achievements"/>		 -->
+																<Button id="pdfbtn"  text="Download PDF" type="Emphasized" visible="true" press="generate_cv_new" />
+														</WizardStep>
+															
+
+											</Wizard>
    
-                            </IconTabFilter>
+                                </IconTabFilter>
 					  		   
 				           </items>
 			 		     </IconTabBar>
