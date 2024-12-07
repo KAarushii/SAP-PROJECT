@@ -65,6 +65,15 @@
                     "localUri": "localService/admin1/metadata.xml",
                     "odataVersion": "4.0"
                 }
+            },
+            "main1": {
+                "uri": "/odata/v4/main/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/main1/metadata.xml",
+                    "odataVersion": "4.0"
+                }
             }
         }
     },
@@ -139,6 +148,16 @@
             },
             "admin1": {
                 "dataSource": "admin1",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "main1": {
+                "dataSource": "main1",
                 "preload": true,
                 "settings": {
                     "synchronizationMode": "None",
@@ -307,4 +326,5 @@
         "public": true,
         "service": "myskillsapp"
     }
+
 }

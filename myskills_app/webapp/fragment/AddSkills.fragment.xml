@@ -20,30 +20,30 @@
 				descending : false
 			}
 		}">
-		<ColumnListItem id="col" vAlign="Middle" >
+		<ColumnListItem  vAlign="Middle" >
 			<cells >
 				
-                <Text id="two" text="{practice}" />
-				<Text id="one" text="{JSC}" />
-			    <Text id="three" text="{leaf_skills}" />
+                <Text  text="{practice}" />
+				<Text  text="{JSC}" />
+			    <Text  text="{leaf_skills}" />
 				
 			</cells>
 		</ColumnListItem>
 		<columns>
-			<Column id="col1" width="12em"  class="tableSelectDialogue"  >
+			<Column  width="12em"  class="tableSelectDialogue"  >
 				<header >
-					<Text id="T1" text="Practice" />
+					<Text  text="Practice" />
 				</header>
 			</Column>
-			<Column id="col2" minScreenWidth="Tablet" demandPopin="true">
+			<Column minScreenWidth="Tablet" demandPopin="true">
 				<header>
-					<Text id="T2" text="Skill Cluster" />
+					<Text  text="Skill Cluster" />
 				</header>
 			</Column>
 
-            <Column id="col3" >
+            <Column >
 				<header>
-					<Text id="T3" text="Skills" />
+					<Text  text="Skills" />
 				</header>
 			</Column>
 

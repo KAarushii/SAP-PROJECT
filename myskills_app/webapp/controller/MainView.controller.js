@@ -18,7 +18,7 @@ sap.ui.define([
     function (Controller, MessageBox, Filter, FilterOperator, Sorter, JSONModel, UserInfo,
         MessageToast, MockServer, exportLibrary, Spreadsheet, ODataModel, CoreLibrary, UnifiedLibrary, DateTypeRange, UI5Date) {
         "use strict";
-        var ResumeData = "10735098";
+        // var ResumeData = "10735098";
 
         return Controller.extend("myskillsapp.controller.MainView", {
             onInit: function () {
@@ -65,7 +65,7 @@ sap.ui.define([
                 var oJSONModel = new sap.ui.model.json.JSONModel();
 
                 // var oUserInfoService = sap.ushell.Container.getService("UserInfo");
-                //     var sEmailId = oUserInfoService.getUser().getEmail();
+                // var sEmailId = oUserInfoService.getUser().getEmail();
 
 
                 var sEmailId = "aarushi.kushwaha@ltimindtree.com"
@@ -2477,7 +2477,7 @@ sap.ui.define([
             //  -------------------------------------------------------------------------------------------------------------------//
 
             //----------------------------------------------------------------------------------------------------------------------//
-            //                                             AARUSHI'S  CV TAB
+            //                                               CV TAB
             //----------------------------------------------------------------------------------------------------------------------//
 
 
@@ -3210,7 +3210,7 @@ sap.ui.define([
 
 
             ///////////////////////////////////////////////////////////PDF TAB ////////////////////////////////////////////////////////////    
-           
+
             generate_cv_new: function () {
 
                 const table_font = "Verdana, sans-serif";
@@ -3235,10 +3235,10 @@ sap.ui.define([
                            `
                 }
 
-                 //create the rows of the experienceDetails
-                 var htmlExperienceDetailsTable = ""
-                 for (let i = 0; i < oExperienceModel.results.length; i++) {
-                     htmlExperienceDetailsTable += `<tr>
+                //create the rows of the experienceDetails
+                var htmlExperienceDetailsTable = ""
+                for (let i = 0; i < oExperienceModel.results.length; i++) {
+                    htmlExperienceDetailsTable += `<tr>
                             <td>${oExperienceModel.results[i].startDate}</td>
                             <td>${oExperienceModel.results[i].endDate}</td>
                             <td>${oExperienceModel.results[i].role}</td>
@@ -3246,13 +3246,13 @@ sap.ui.define([
                             <td>${oExperienceModel.results[i].endDate}</td>
                             </tr>
                             `
-                 }
+                }
                 var cv_html = `<!DOCTYPE html>
                     <html lang="en">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>BIO DATA</title>
+                     <title>BIO DATA</title>
                     <style>
                         body {
                             font-family: Arial, sans-serif;
@@ -3263,12 +3263,14 @@ sap.ui.define([
                             border-collapse: collapse;
                             margin-bottom:20px;
                             padding:20px;
+                            page-break-inside: avoid
 
                         }
                         th, td {
                             padding: 8px;
                             text-align: left;
                             border: 1px solid #ddd;
+                            page-break-inside: avoid
                         }
                         th {
                             background-color: #f2f2f2;
@@ -3277,13 +3279,14 @@ sap.ui.define([
                             font-weight: bold;
                             background-color: #f2f2f2;
                             padding: 10px;
+                            page-break-inside: avoid
                         }
                         .header {
+                            text-align: center;
                             font-weight: bold;
                             background-color: #f2f2f2;
                             padding: 20px;
-                            font-size: 10px;
-                            text-align: center;
+                            page-break-inside: avoid
                             
                         }
                         .profile-pic {
@@ -3293,10 +3296,9 @@ sap.ui.define([
                 </head>
                 <body>
                     
-                    <div class="header">
-                         BIO DATA
-                    </div>
-                    
+                
+                    <div class="header"> BIO DATA </div>
+                    <div style="page-break-inside: avoid;">
                    
                     <table>
                         <tr>
@@ -3321,21 +3323,22 @@ sap.ui.define([
                             <td colspan="3">${oMainModel.base_location}</td>
                         </tr>
                         <tr>
-                            <td ><b>Overall Experience</b> </td>
+                            <td><b>Overall Experience</b></td>
                             <td>${oMainModel.total_experience}Yrs</td>
-                            <td><b>L&T Experience</b> </td>
+                            <td><b>L&T Experience</b></td>
                             <td>${oMainModel.lti_experience}Yrs</td>
                         </tr>
                     
                         <tr>
-                            <td ><b>Separation Date</b>  </td>
+                            <td><b>Separation Date</b></td>
                             <td>${oMainModel.lwd}</td>
-                            <td ><b>Reason</b> </td>
+                            <td><b>Reason</b></td>
                             <td>-</td>
                         </tr>
                     </table>
-                    
+                    </div>
                 
+                    <div style="page-break-inside: avoid;">
                     <div class="section-title">Employment Details</div>
                 
                     <table>
@@ -3388,9 +3391,10 @@ sap.ui.define([
                             <td>${oMainModel.base_location}</td>
                         </tr>
                     </table>
-                
+                    </div>
+
                     <div class="section-title">Education Details</div>
-                
+                    <div style="page-break-inside: avoid;">
                     <table id="educationTable">
                         <tr>
                             <th>Qualification</th>
@@ -3402,10 +3406,11 @@ sap.ui.define([
                         ${htmlEducationDetailsTable}
                         
                     </table>
-                   
+                   </div>
 
+                   <div style="page-break-inside: avoid;">
                     <div class="section-title">Certifications</div>
-                
+                    
                     <table>
                         <tr>
                             <th>Certificate Type</th>
@@ -3423,9 +3428,10 @@ sap.ui.define([
                         </tr>
                         
                     </table>
+                    </div> 
 
                     <div class="section-title">Experience Details</div>
-                
+                    <div style="page-break-inside: avoid;">
                     <table>
                         <tr>
                             <th>Start Date</th>
@@ -3437,9 +3443,11 @@ sap.ui.define([
                          ${htmlExperienceDetailsTable}
                         
                     </table>
+                    </div>
 
-                     <div class="section-title">Personal Details</div>
-                
+                    <div style="page-break-inside: avoid;">
+                    <div class="section-title">Personal Details</div>
+                    
                     <table>
                         <tr>
                             <td>Father's Name</td>
@@ -3479,9 +3487,11 @@ sap.ui.define([
                         </tr>
                         
                     </table>
-
+                    </div>
+                    
+                    <div style="page-break-inside: avoid;">
                     <div class="section-title">Promotion History</div>
-                
+                    
                     <table>
                         <tr>
                             <th>Pervious Cadre</th>
@@ -3499,8 +3509,11 @@ sap.ui.define([
                         </tr>
                         
                     </table>
-
+                    </div>
+                    
+                    <div style="page-break-inside: avoid;">
                     <div class="section-title">Transfer History</div>
+                    
                     <table>
                         <tr>
                             <th>Transfer Date</th>
@@ -3518,9 +3531,10 @@ sap.ui.define([
                         </tr>
                         
                     </table>
-
-                    <div class="section-title">Family Details</div>
+                    </div>
                    
+                    <div style="page-break-inside: avoid;">
+                    <div class="section-title">Family Details</div>
                     <table>
                         <tr>
                             <th>Dependent Name</th>
@@ -3538,16 +3552,50 @@ sap.ui.define([
                         </tr>
                         
                     </table>
-                
+                    </div>
                 </body>
                 </html>
                     `
+                
+
+    // const script = document.createElement('script');
+    // script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js";
+    // document.head.appendChild(script);
+
+    // //  Create a container for the HTML content
+    // const container = document.createElement('div');
+    // container.innerHTML = cv_html;
+    // document.body.appendChild(container);
+
+            
+
+    // script.onload = function() {
+    //     // Create a container for the HTML content
+    //     const container = document.createElement('div');
+    //     container.innerHTML = cv_html;
+    //     document.body.appendChild(container);
+
+    //     // Use html2pdf.js to convert HTML to PDF
+    //     html2pdf().from(container).set({
+    //         margin: 1,
+    //         filename: 'biodata.pdf',
+    //         html2canvas: { scale: 3 },
+    //         jsPDF: { unit: 'in', format: 'a3', orientation: 'portrait' }
+    //     }).outputPdf('blob').then((pdfBlob) => {
+    //         // Create a URL for the Blob and open it in a new window
+    //         const pdfUrl = URL.createObjectURL(pdfBlob);
+    //         window.open(pdfUrl);
+    //         // Remove the container from the document
+    //         document.body.removeChild(container);
+    //     });
+    // };
+
 
                 // var cv_html = response.value.data
                 var oComponent = this.getOwnerComponent();
                 var sBaseUrl = oComponent.getManifestEntry("sap.app").dataSources.admin1.uri;
                 var posturl = sBaseUrl + "generatePdf";
-                console.log("Post URL:",posturl);
+                console.log("Post URL:", posturl);
                 $.ajax({
                     url: posturl,
                     dataType: "json",
@@ -3580,197 +3628,332 @@ sap.ui.define([
                 })
             },
 
-            // onGeneratePDF: function () {
+            onGeneratePDF: function () {
 
-            //     var oMainModel = this.getView().getModel("EmployeeModel").getData();
+                var oMainModel = this.getView().getModel("EmployeeModel").getData();
 
-            //     // Create a new jsPDF instance
-            //     const { jsPDF } = window.jspdf;
-            //     const doc = new jsPDF();
+                // Create a new jsPDF instance
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
 
-            //     // Title and Header 
-            //     doc.setFontSize(7);
-
-
-            //     //  Merged table data (combined columns)
-            //     const personalData = [
-            //         ['Name', `${oMainModel.employee_name}`],
-            //         ['IC', 'Buildings & Factories'],
-            //         ['SBG', 'Public Spaces, Airports & Factories'],
-            //         ['BU', 'PAF - PUBLIC SPACES BU'],
-            //         ['Cluster Desc', 'B&F HQ, CHENNAI', 'HR Comments', ''],
-            //         ['Overall Experience', '27Y03M', 'L&T Experience', '27Y03M'],
-            //         ['Separation Date', '09-May-2023', 'Reason', 'Resignation']
-            //     ];
-
-            //     var imgData = './test-resources/sap/uxap/images/imageID_275314.png';
-            //     // Personal details table
-            //     doc.autoTable({
-            //         startY: 7,
-            //         styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak', cellWidth: 'auto' },
-            //         head: [['BIO DATA', '', '', '']],
-            //         body: personalData,
-            //         // didDrawCell: function(data) { 
-            //         //     // Check if we are in the Image column (3rd column, index 2)
-            //         //     if (data.column.index === 1 && data.cell.section === 'body')
-            //         //      { 
-            //         //     // Calculate the X and Y positions to place the image in the cell
-            //         //     var imgWidth = 20; // Image width
-            //         //     var imgHeight = 20; // Image height
-            //         //     var xPos = data.cell.x + (data.cell.width - imgWidth) / 2; // Center the image
-            //         //     var yPos = data.cell.y + (data.cell.height - imgHeight) / 2; // Center the image
-
-            //         //     // Add the image in the cell
-            //         //      doc.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
-            //         //      } 
-            //         //     },
-            //         theme: 'grid',
-            //         margin: { top: 4 },
-            //         pageBreak: 'auto',
-            //     });
-
-            //     // doc.addImage(imgData,'JEPG', 140,50,20,20)
-
-            //     // Merged Employment details
-            //     const employmentDetails = [
-            //         ['PS Number', '80531', 'Date of Retirement', '01-Oct-2029'],
-            //         ['Joining Date', '18-Jan-1996', 'End of Contract', ''],
-            //         ['Date of Birth', '10-Jul-1971', 'Office / Site', 'Office'],
-            //         ['Age', '53', 'IS Name', '82887 - Stahaladipti Saha'],
-            //         ['Gender', 'Male', 'DH Name', '82887 - Stahaladipti Saha']
-            //     ];
+                // Title and Header 
+                doc.setFontSize(7);
 
 
-            //     // Employment Details
-            //     doc.autoTable({
-            //         startY: doc.previousAutoTable.finalY + 5,
-            //         styles: {
-            //             fontSize: 9,
-            //             cellPadding: 2
-            //         },
+                //  Merged table data (combined columns)
+                const personalData = [
+                    ['Name', `${oMainModel.employee_name}`],
+                    ['IC', 'Buildings & Factories'],
+                    ['SBG', 'Public Spaces, Airports & Factories'],
+                    ['BU', 'PAF - PUBLIC SPACES BU'],
+                    ['Cluster Desc', 'B&F HQ, CHENNAI', 'HR Comments', ''],
+                    ['Overall Experience', '27Y03M', 'L&T Experience', '27Y03M'],
+                    ['Separation Date', '09-May-2023', 'Reason', 'Resignation']
+                ];
 
-            //         head: [['Employment Details', '', '', '']],
-            //         body: employmentDetails,
-            //         theme: 'grid',
-            //         margin: { left: 14 }
-            //     });
+                var imgData = './test-resources/sap/uxap/images/imageID_275314.png';
+                // Personal details table
+                doc.autoTable({
+                    startY: 7,
+                    styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak', cellWidth: 'auto' },
+                    head: [['BIO DATA', '', '', '']],
+                    body: personalData,
+                    // didDrawCell: function(data) { 
+                    //     // Check if we are in the Image column (3rd column, index 2)
+                    //     if (data.column.index === 1 && data.cell.section === 'body')
+                    //      { 
+                    //     // Calculate the X and Y positions to place the image in the cell
+                    //     var imgWidth = 20; // Image width
+                    //     var imgHeight = 20; // Image height
+                    //     var xPos = data.cell.x + (data.cell.width - imgWidth) / 2; // Center the image
+                    //     var yPos = data.cell.y + (data.cell.height - imgHeight) / 2; // Center the image
 
-            //     // Merged Education details
-            //     const educationDetails = [
-            //         ['Executive Post Graduate Diploma in Management (EPGDM)', 'Executive Mba', 'Post Graduate Certificate (PGC)', 'Project Management'],
-            //         ['Post Graduate Diploma in Management (PGDM)', 'Finance', 'Master of Engineering (ME)', 'Construction Management'],
-            //         ['Correspondence', 'Indian Institute Of Management (IIM-K)', 'Correspondence', 'National Institute Of Construction Management And Research'],
+                    //     // Add the image in the cell
+                    //      doc.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
+                    //      } 
+                    //     },
+                    theme: 'grid',
+                    margin: { top: 4 },
+                    pageBreak: 'auto',
+                });
 
-            //     ];
+                // doc.addImage(imgData,'JEPG', 140,50,20,20)
 
-            //     // Education Details
-            //     doc.autoTable({
-            //         startY: doc.previousAutoTable.finalY + 5,
-            //         styles: {
-            //             fontSize: 9,
-            //             cellPadding: 1
-            //         },
-            //         head: [['Education Details', '', '', '', ''],
-            //         ['Qualification', 'Discipline', 'Type of Course', 'College / University', 'Year of Passing']],
-            //         body: educationDetails,
-            //         theme: 'grid',
-            //         margin: { top: doc.previousAutoTable.finalY + 5 },
-            //         pageBreak: 'auto'
-            //     });
-
-            //     //  Certification details
-            //     const certificationDetails = [
-            //         ['-', 'PROJECT MANAGEMENT ASSOCIATES', '-', 'IPMA LEVEL-D EXAM', '15-Jun-2025']
-            //     ];
-
-
-            //     // Certification Table
-            //     doc.autoTable({
-            //         startY: doc.previousAutoTable.finalY + 5,
-            //         styles: {
-            //             fontSize: 9,
-            //             cellPadding: 1
-            //         },
-            //         head: [['Certifiactions', '', '', '', ''],
-            //         ['Certificate Type', 'Institute', 'Company Sponsored', 'Certificate / Licenses', 'Valid upto']],
-            //         body: certificationDetails,
-            //         theme: 'grid',
-            //         margin: { top: doc.previousAutoTable.finalY + 10 },
-            //         // autoPageBreak: 'true'
-            //     });
-
-            //     // doc.addPage();
-
-            //     //  Experience Details
-            //     const experienceDetails = [
-            //         ['13-Jul-1995', '18-Jan-1996', 'Larsen & Tourbo Ltd.', '-', '15-Jun-2025']
-            //     ];
+                // Merged Employment details
+                const employmentDetails = [
+                    ['PS Number', '80531', 'Date of Retirement', '01-Oct-2029'],
+                    ['Joining Date', '18-Jan-1996', 'End of Contract', ''],
+                    ['Date of Birth', '10-Jul-1971', 'Office / Site', 'Office'],
+                    ['Age', '53', 'IS Name', '82887 - Stahaladipti Saha'],
+                    ['Gender', 'Male', 'DH Name', '82887 - Stahaladipti Saha']
+                ];
 
 
+                // Employment Details
+                doc.autoTable({
+                    startY: doc.previousAutoTable.finalY + 5,
+                    styles: {
+                        fontSize: 9,
+                        cellPadding: 2
+                    },
 
-            //     // Experience Table
-            //     doc.autoTable({
-            //         startY: doc.previousAutoTable.finalY + 5,
-            //         styles: {
-            //             fontSize: 9,
-            //             cellPadding: 1
-            //         },
-            //         head: [['Experience Details', '', '', '', ''],
-            //         ['Start Date', 'End Date', 'Previous Employers', 'Designation', 'Total No. of Yrs/Mon']],
-            //         body: experienceDetails,
-            //         theme: 'grid',
-            //         margin: { top: doc.previousAutoTable.finalY + 10 },
-            //         pageBreak: 'auto',
-            //         rowPageBreak: 'auto',
-            //     });
+                    head: [['Employment Details', '', '', '']],
+                    body: employmentDetails,
+                    theme: 'grid',
+                    margin: { left: 14 }
+                });
 
-            //     doc.addPage();
+                // Merged Education details
+                const educationDetails = [
+                    ['Executive Post Graduate Diploma in Management (EPGDM)', 'Executive Mba', 'Post Graduate Certificate (PGC)', 'Project Management'],
+                    ['Post Graduate Diploma in Management (PGDM)', 'Finance', 'Master of Engineering (ME)', 'Construction Management'],
+                    ['Correspondence', 'Indian Institute Of Management (IIM-K)', 'Correspondence', 'National Institute Of Construction Management And Research'],
 
-            //     //  Experience Details
-            //     const personalDetails = [
-            //         ['13-Jul-1995', '18-Jan-1996', 'Larsen & Tourbo Ltd.', '-', '15-Jun-2025']
-            //     ];
+                ];
 
-            //     // Experience Table
-            //     doc.autoTable({
-            //         startY: doc.previousAutoTable.finalY + 5,
-            //         styles: {
-            //             fontSize: 9,
-            //             cellPadding: 1
-            //         },
-            //         head: [['Experience Details', '', '', '', ''],
-            //         ['Start Date', 'End Date', 'Previous Employers', 'Designation', 'Total No. of Yrs/Mon']],
-            //         body: personalDetails,
-            //         theme: 'grid',
-            //         margin: { top: doc.previousAutoTable.finalY + 10 },
-            //         // didDrawPage: function (data) {
-            //         //     // Calculate current position and check if it exceeds the page height
-            //         //     let currentY = doc.lastAutoTable.finalY;
+                // Education Details
+                doc.autoTable({
+                    startY: doc.previousAutoTable.finalY + 5,
+                    styles: {
+                        fontSize: 9,
+                        cellPadding: 1
+                    },
+                    head: [['Education Details', '', '', '', ''],
+                    ['Qualification', 'Discipline', 'Type of Course', 'College / University', 'Year of Passing']],
+                    body: educationDetails,
+                    theme: 'grid',
+                    margin: { top: doc.previousAutoTable.finalY + 5 },
+                    pageBreak: 'auto'
+                });
 
-            //         //     if (currentY + marginBottom >= pageHeight) {
-            //         //       // Dynamically add a page if the content exceeds the current page height
-            //         //       doc.addPage();
-            //         //       startY = 10; // Reset Y-position after new page
-            //         //     }
-            //         //   },
-            //         pageBreak: 'auto',
-            //         rowPageBreak: 'auto',
-            //     });
+                //  Certification details
+                const certificationDetails = [
+                    ['-', 'PROJECT MANAGEMENT ASSOCIATES', '-', 'IPMA LEVEL-D EXAM', '15-Jun-2025']
+                ];
 
-            //     doc.addPage();
 
-            //     // // Add a custom footer
-            //     // doc.setFontSize(10);
-            //     // doc.text("Page 1", 10, 290);
+                // Certification Table
+                doc.autoTable({
+                    startY: doc.previousAutoTable.finalY + 5,
+                    styles: {
+                        fontSize: 9,
+                        cellPadding: 1
+                    },
+                    head: [['Certifiactions', '', '', '', ''],
+                    ['Certificate Type', 'Institute', 'Company Sponsored', 'Certificate / Licenses', 'Valid upto']],
+                    body: certificationDetails,
+                    theme: 'grid',
+                    margin: { top: doc.previousAutoTable.finalY + 10 },
+                    // autoPageBreak: 'true'
+                });
 
-            //     const pdfBlob = doc.output('blob');
-            //     const pdfUrl = URL.createObjectURL(pdfBlob);
+                // doc.addPage();
 
-            //     window.open(pdfUrl, '_blank');
+                //  Experience Details
+                const experienceDetails = [
+                    ['13-Jul-1995', '18-Jan-1996', 'Larsen & Tourbo Ltd.', '-', '15-Jun-2025']
+                ];
 
-            //     // Save the PDF
-            //     // doc.save("custom_template.pdf");
-            // },
+
+
+                // Experience Table
+                doc.autoTable({
+                    startY: doc.previousAutoTable.finalY + 5,
+                    styles: {
+                        fontSize: 9,
+                        cellPadding: 1
+                    },
+                    head: [['Experience Details', '', '', '', ''],
+                    ['Start Date', 'End Date', 'Previous Employers', 'Designation', 'Total No. of Yrs/Mon']],
+                    body: experienceDetails,
+                    theme: 'grid',
+                    margin: { top: doc.previousAutoTable.finalY + 10 },
+                    pageBreak: 'auto',
+                    rowPageBreak: 'auto',
+                });
+
+                // doc.addPage();
+
+                //  Experience Details
+                const personalDetails = [
+                    ['13-Jul-1995', '18-Jan-1996', 'Larsen & Tourbo Ltd.', '-', '15-Jun-2025']
+                ];
+
+                // Experience Table
+                doc.autoTable({
+                    startY: doc.previousAutoTable.finalY + 5,
+                    styles: {
+                        fontSize: 9,
+                        cellPadding: 1
+                    },
+                    head: [['Experience Details', '', '', '', ''],
+                    ['Start Date', 'End Date', 'Previous Employers', 'Designation', 'Total No. of Yrs/Mon']],
+                    body: personalDetails,
+                    theme: 'grid',
+                    margin: { top: doc.previousAutoTable.finalY + 10 },
+                    // didDrawPage: function (data) {
+                    //     // Calculate current position and check if it exceeds the page height
+                    //     let currentY = doc.lastAutoTable.finalY;
+
+                    //     if (currentY + marginBottom >= pageHeight) {
+                    //       // Dynamically add a page if the content exceeds the current page height
+                    //       doc.addPage();
+                    //       startY = 10; // Reset Y-position after new page
+                    //     }
+                    //   },
+                    pageBreak: 'auto',
+                    rowPageBreak: 'auto',
+                });
+
+                // doc.addPage();
+
+                // // Add a custom footer
+                // doc.setFontSize(10);
+                // doc.text("Page 1", 10, 290);
+
+                const pdfBlob = doc.output('blob');
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+
+                window.open(pdfUrl, '_blank');
+
+                // Save the PDF
+                // doc.save("custom_template.pdf");
+            },
+
+            generatepdf_jsPDF: function (){
+                // const table_font = "Verdana, sans-serif";
+                // const table_font_size_in_pixels = 12;
+            
+                var oMainModel = this.getView().getModel("EmployeeModel").getData();
+                var oModel = this.getView().getModel("EmployeeModel"); // Define oModel
+                let oEducationModel = oModel.getProperty("/employee_education_detail");
+                let oExperienceModel = oModel.getProperty("/employee_cv_experience_data");
+            
+                // Create the rows of the educationDetails
+                var htmlEducationDetailsTable = "";
+                for (let i = 0; i < oEducationModel.results.length; i++) {
+                    htmlEducationDetailsTable += `<tr>
+                        <td>${oEducationModel.results[i].degree}</td>
+                        <td>${oEducationModel.results[i].specialization}</td>
+                        <td>${oEducationModel.results[i].degree}</td>
+                        <td>${oEducationModel.results[i].institute_name}</td>
+                        <td>${oEducationModel.results[i].endDate}</td>
+                    </tr>`;
+                }
+            
+                var cv_html = `<!DOCTYPE html>
+                    <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>BIO DATA</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            font-size: 10px;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 20px;
+                            padding: 20px;
+                        }
+                        th, td {
+                            padding: 8px;
+                            text-align: left;
+                            border: 1px solid #ddd;
+                        }
+                        th {
+                            background-color: #f2f2f2;
+                        }
+                        .section-title {
+                            font-weight: bold;
+                            background-color: #f2f2f2;
+                            padding: 10px;
+                        }
+                        .header {
+                            font-weight: bold;
+                            background-color: #f2f2f2;
+                            padding: 20px;
+                            font-size: 10px;
+                            text-align: center;
+                        }
+                        .profile-pic {
+                            width: 100px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">BIO DATA</div>
+                    <table>
+                        <tr>
+                            <td rowspan="5" style="width: 20%;"><img src="profile.jpg" alt="Profile Picture" class="profile-pic"></td>
+                            <td><b>Name</b></td>
+                            <td colspan="3">${oMainModel.employee_name}</td>
+                        </tr>
+                        <tr>
+                            <td><b>IC</b></td>
+                            <td colspan="3">${oMainModel.practice}</td>
+                        </tr>
+                        <tr>
+                            <td><b>SBG</b></td>
+                            <td colspan="3">${oMainModel.sub_practice}</td>
+                        </tr>
+                        <tr>
+                            <td><b>BU</b></td>
+                            <td colspan="3">${oMainModel.deputed_bu}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Cluster Desc</b></td>
+                            <td colspan="3">${oMainModel.base_location}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Overall Experience</b></td>
+                            <td>${oMainModel.total_experience}Yrs</td>
+                            <td><b>L&T Experience</b></td>
+                            <td>${oMainModel.lti_experience}Yrs</td>
+                        </tr>
+                    </table>
+                    <div class="section-title">Education Details</div>
+                    <table>
+                        <tr>
+                            <th>Qualification</th>
+                            <th>Discipline</th>
+                            <th>Type of Course</th>
+                            <th>College / University</th>
+                            <th>Year of Passing</th>
+                        </tr>
+                        ${htmlEducationDetailsTable}
+                    </table>
+                </body>
+                </html>`;
+            
+                 // Include dompurify and html2canvas
+                 const script1 = document.createElement('script');
+                 script1.src = "https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js";
+                 document.head.appendChild(script1);
+             
+                 const script2 = document.createElement('script');
+                 script2.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+                 document.head.appendChild(script2);
+             
+                 script2.onload= function() {
+                    // Use jsPDF to convert HTML to PDF
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+            
+                    // Convert HTML to PDF
+                    doc.html(cv_html, {
+                        callback: function (doc) {
+                            doc.save('biodata.pdf');
+                        },
+                        x: 10,
+                        y: 10
+                    });
+                };
+            }
+            
+            
 
 
 

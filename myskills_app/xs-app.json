@@ -26,6 +26,12 @@
       "target": "$1",
       "service": "html5-apps-repo-rt",
       "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/odata/v4/admin/(.*)$",
+      "target": "/odata/v4/admin/$1",
+      "destination": "my_skills_new",
+      "csrfProtection": false
     }
   ]
 }

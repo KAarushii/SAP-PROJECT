@@ -1,30 +1,27 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     'sap/ui/model/Filter',
-    'sap/ui/model/FilterOperator'
+    'sap/ui/model/FilterOperator',
+    'sap/ui/core/Fragment',
+    "sap/ui/model/odata/v4/ODataModel"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,Filter,FilterOperator) {
+    function (Controller, Filter, FilterOperator, Fragment, ODataModel) {
         "use strict";
 
         return Controller.extend("myskillsapp.controller.SkillScreener", {
 
             onInit: function () {
 
-                // this.applyData = this.applyData.bind(this);
-                // this.fetchData = this.fetchData.bind(this);
-                // this.getFiltersWithValues = this.getFiltersWithValues.bind(this);
-
-                // this.oFilterBar = this.getView().byId("filterbar");
-                // this.oTable = this.getView().byId("skillscreenertable");
-
-                // this.oFilterBar.registerFetchData(this.fetchData);
-                // this.oFilterBar.registerApplyData(this.applyData);
-                // this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
+                
 
                 this._initializeAsync();
+
+                this.comboBoxGenericSearch("comboBoxSkill");
+                this.comboBoxGenericSearch("comboBoxStatus");
+                this.comboBoxGenericSearch("comboBoxPractice");
 
             },
 
@@ -41,15 +38,21 @@ sap.ui.define([
             },
 
             onNavToMyProfile: function (oEvent) {
+
+                var fPage = this.byId("filteringPage");
+                fPage.setVisible(true);
+                var oPage = this.byId("overviewPage");
+                oPage.setVisible(false);
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 
                 oRouter.navTo("MyProfile");
             },
 
             onNavToSkillScreener: function (oEvent) {
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("SkillScreener");
+
             },
 
             onNavToTraining: function (oEvent) {
@@ -88,12 +91,13 @@ sap.ui.define([
                 oRouter.navTo("AdoptionStatus");
             },
 
-//----------------------------------------------------------------------------------------------------------------------//
+            //----------------------------------------------------------------------------------------------------------------------//
 
             _initializeAsync: async function () {
 
                 try {
                     await this._onReadEmployeeData();
+                    await this._readUniqueDataForFilter();
                 }
                 catch (error) {
                     console.error("Error Occured in  function calls", error);
@@ -102,165 +106,211 @@ sap.ui.define([
 
             _onReadEmployeeData: function () {
 
-                var oModel = this.getOwnerComponent().getModel();
-                var oJSONModel = new sap.ui.model.json.JSONModel();
+                var fPage = this.byId("filteringPage");
+                fPage.setVisible(true);
+
+                var oPage = this.byId("overviewPage");
+                oPage.setVisible(false);
 
                 return new Promise((resolve, reject) => {
+
                     var oBusyDialog = new sap.m.BusyDialog({
                         title: "Loading",
                         text: "Please wait..."
                     });
                     oBusyDialog.open();
-                    oModel.read("/Employees", {
-                        urlParameters: {
-                            "$expand": "employee_skill_detail"
-                        },
-                        success: function (response) {
-                            oJSONModel.setData(response.results);
-                            this.getView().setModel(oJSONModel, "EmployeeModel");
-                            oBusyDialog.close();
-                            resolve();
-                        }.bind(this),
-                        error: function (error) {
-                            oBusyDialog.close();
-                        }
+                    var oModel = this.getOwnerComponent().getModel("main1");
+
+                    // Use the requestBinding method to fetch data from the /Employees endpoint
+                    oModel.bindList("/Employees", undefined, undefined, undefined, {
+
+                        $expand: "employee_skill_detail,employee_customer_experience,employee_industries_experience,employee_product_experience,employee_project_summary,employee_cv_experience_data"
+
+                    }).requestContexts().then(function (aContexts) {
+
+                        var aData = aContexts.map(function (oContext) {
+                            return oContext.getObject();  // Extract the object from each context
+                        });
+
+                        // Create a JSON model and set the fetched data to it
+                        var oJSONModel = new sap.ui.model.json.JSONModel(aData);
+                        this.getView().setModel(oJSONModel, "EmployeeModel");  // Set the JSON model to the view
+                        oBusyDialog.close();
+                        resolve();
+
+                    }.bind(this)).catch(function (oError) {
+                        console.error("Error while fetching employees data: ", oError);
+                        oBusyDialog.close();
+                        reject(error); // Reject the promise on error
+
                     });
+
+                    oModel.bindList("/Employee_Skill_Detail").requestContexts().then(function (aContexts) {
+
+                        var aData = aContexts.map(function (oContext) {
+                            return oContext.getObject();  // Extract the object from each context
+                        });
+
+                        // Create a JSON model and set the fetched data to it
+                        var oJSONModel = new sap.ui.model.json.JSONModel(aData);
+                        this.getView().setModel(oJSONModel, "EmployeeSkillModel");  // Set the JSON model to the view
+                        oBusyDialog.close();
+                        resolve();
+
+                    }.bind(this)).catch(function (oError) {
+                        console.error("Error while fetching employees data: ", oError);
+                        oBusyDialog.close();
+                        reject(error); // Reject the promise on error
+
+                    });
+
                 });
 
             },
 
+            _readUniqueDataForFilter: function () {
 
-            //----------------------------------------------------------------------------------------------------------------------//
+                return new Promise((resolve, reject) => {
 
-           
+                    var oModel = this.getOwnerComponent().getModel("main1");
+                    var sFunctionPath = "/uniqueDataForFilter()";
 
+                    oModel.bindContext(sFunctionPath).requestObject().then(function (oData) {
 
+                        // Use oData or oData.value based on what the structure is
+                        var oJSONModel = new sap.ui.model.json.JSONModel(oData);
+                        this.getView().setModel(oJSONModel, "UniqueModel");
+                        resolve();
 
-
-
-
-
-
-            //     
-
-
-            onExit: function () {
-                this.oModel = null;
-                this.oFilterBar = null;
-                this.oTable = null;
-            },
-
-            fetchData: function () {
-                var aData = this.oFilterBar.getAllFilterItems().reduce(function (aResult, oFilterItem) {
-                    aResult.push({
-                        groupName: oFilterItem.getGroupName(),
-                        fieldName: oFilterItem.getName(),
-                        fieldData: oFilterItem.getControl().getSelectedKeys()
+                    }.bind(this)).catch(function (oError) {
+                        console.error("Error executing function: ", oError);
+                        reject();
                     });
 
-                    return aResult;
-                }, []);
 
-                return aData;
+                });
+
             },
 
-            applyData: function (aData) {
-                aData.forEach(function (oDataObject) {
-                    var oControl = this.oFilterBar.determineControlByName(oDataObject.fieldName, oDataObject.groupName);
-                    oControl.setSelectedKeys(oDataObject.fieldData);
-                }, this);
-            },
+            //---------------------------------------------------------------------------------------------------------
 
-            getFiltersWithValues: function () {
-                var aFiltersWithValue = this.oFilterBar.getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
+            onSearch: function (oEvent) {
+
+
+                var oBusyDialog = new sap.m.BusyDialog({
+                    title: "Loading",
+                    text: "Please wait..."
+                });
+                oBusyDialog.open();
+
+                var aFilterSkills = [], aFilterBillingStatus = [], aFilterPractice = [];
+
+                var oFilterBar = this.byId("filterBar");
+                var aFilterGroupItems = oFilterBar.getFilterGroupItems();
+                var oModel = this.getOwnerComponent().getModel("main1");
+                var that = this;
+
+                aFilterGroupItems.forEach(function (oFilterGroupItem) {
+                    var sName = oFilterGroupItem.getName();
                     var oControl = oFilterGroupItem.getControl();
+                    var aSelectedItems = oControl.getSelectedItems();
 
-                    if (oControl && oControl.getSelectedKeys && oControl.getSelectedKeys().length > 0) {
-                        aResult.push(oFilterGroupItem);
+                    if (aSelectedItems.length > 0) {
+
+                        switch (sName) {
+                            case "employee_skill_detail/skill":
+
+                                aFilterSkills = aSelectedItems.map(item => item.getKey());
+                                break;
+
+                            case "billing_status":
+
+                                aFilterBillingStatus = aSelectedItems.map(item => item.getKey());
+                                break;
+
+                            case "practice":
+
+                                aFilterPractice = aSelectedItems.map(item => item.getKey());
+                                break;
+
+                            default:
+                                console.log("unidentified filter component name");
+                                break;
+                        }
                     }
 
-                    return aResult;
-                }, []);
+                });
 
-                return aFiltersWithValue;
+                // Construct the function call URL with parameters 
+                var sFunctionPath = "/skillFilter(filterSkill='" + aFilterSkills.join(",")
+                    + "',filterStatus='" + aFilterBillingStatus.join(",")
+                    + "',filterPractice='" + aFilterPractice.join(",") + "')";
+
+                oModel.bindList(sFunctionPath, undefined, undefined, undefined, {
+
+                    $expand: "employee_skill_detail,employee_customer_experience,employee_industries_experience,employee_product_experience,employee_project_summary,employee_cv_experience_data"
+
+                }).requestContexts().then(function (aContexts) {
+
+                    var aData = aContexts.map(function (oContext) {
+                        return oContext.getObject();  // Extract the object from each context
+                    });
+
+                    // Create a JSON model and set the fetched data to it
+                    var oJSONModel = new sap.ui.model.json.JSONModel(aData);
+                    that.getView().setModel(oJSONModel, "EmployeeModel");  // Set the JSON model to the view
+                    oBusyDialog.close();
+
+                }.bind(this)).catch(function (oError) {
+                    console.error("Error while fetching employees data: ", oError);
+                    oBusyDialog.close();
+
+                });
+
             },
 
-            onSelectionChange: function (oEvent) {
+            comboBoxGenericSearch: function (id) {
 
-                this.oFilterBar.fireFilterChange(oEvent);
+                var oComboBox = this.byId(id);
+                oComboBox.setFilterFunction(function (sTerm, oItem) {
+                    return oItem.getText().toLowerCase().includes(sTerm.toLowerCase());
+                });
+
             },
 
-            onSearch: function () {
-                var aTableFilters = this.oFilterBar.getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
-                    var oControl = oFilterGroupItem.getControl(),
-                        aSelectedKeys = oControl.getSelectedKeys(),
-                        aFilters = aSelectedKeys.map(function (sSelectedKey) {
-                            return new Filter({
-                                path: oFilterGroupItem.getName(),
-                                operator: FilterOperator.Contains,
-                                value1: sSelectedKey
-                            });
-                        });
+            //////////////////////////////////////////// OVERVIEW PAGE ///////////////////////////////////////////////////////////////////
 
-                    if (aSelectedKeys.length > 0) {
-                        aResult.push(new Filter({
-                            filters: aFilters,
-                            and: false
-                        }));
-                    }
+            onNavToDetails: function (oEvent) {
 
-                    return aResult;
-                }, []);
+                var fPage = this.byId("filteringPage");
+                fPage.setVisible(false);
 
-                this.oTable.getBinding("items").filter(aTableFilters);
-                this.oTable.setShowOverlay(false);
+                var oPage = this.byId("overviewPage");
+                oPage.setVisible(true);
+
+                var oSelectedItem = oEvent.getSource();
+
+                // Get the binding context of the selected item
+                var oContext = oSelectedItem.getBindingContext("EmployeeModel");
+
+                // Get the data of the selected item
+                var oSelectedData = oContext.getObject();
+
+                var oOverviewModel = new sap.ui.model.json.JSONModel(oSelectedData);
+                this.getView().setModel(oOverviewModel, "OverviewModel");
+
+                //this._setTreeTableDataSkills(oEmpl_skill_fetched_data);
+
             },
 
-            onFilterChange: function () {
-                this._updateLabelsAndTable();
-            },
+            onNavBack: function () {
 
-            onAfterVariantLoad: function () {
-                this._updateLabelsAndTable();
-            },
+                var fPage = this.byId("filteringPage");
+                fPage.setVisible(true);
 
-            getFormattedSummaryText: function () {
-                var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
+                var oPage = this.byId("overviewPage");
+                oPage.setVisible(false);
 
-                if (aFiltersWithValues.length === 0) {
-                    return "No filters active";
-                }
-
-                if (aFiltersWithValues.length === 1) {
-                    return aFiltersWithValues.length + " filter active: " + aFiltersWithValues.join(", ");
-                }
-
-                return aFiltersWithValues.length + " filters active: " + aFiltersWithValues.join(", ");
-            },
-
-            getFormattedSummaryTextExpanded: function () {
-                var aFiltersWithValues = this.oFilterBar.retrieveFiltersWithValues();
-
-                if (aFiltersWithValues.length === 0) {
-                    return "No filters active";
-                }
-
-                var sText = aFiltersWithValues.length + " filters active",
-                    aNonVisibleFiltersWithValues = this.oFilterBar.retrieveNonVisibleFiltersWithValues();
-
-                if (aFiltersWithValues.length === 1) {
-                    sText = aFiltersWithValues.length + " filter active";
-                }
-
-                if (aNonVisibleFiltersWithValues && aNonVisibleFiltersWithValues.length > 0) {
-                    sText += " (" + aNonVisibleFiltersWithValues.length + " hidden)";
-                }
-
-                return sText;
-            },
-
-            _updateLabelsAndTable: function () {
-                this.oTable.setShowOverlay(true);
             },
 
 

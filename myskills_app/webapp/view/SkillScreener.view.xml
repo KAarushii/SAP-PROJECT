@@ -13,6 +13,8 @@
 	xmlns:layout="sap.ui.layout"
 	xmlns:u="sap.ui.unified"
 	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:card="sap.f.cards"
+	xmlns:mode="sap.ui.table.rowmodes"
 	>
 
     <tnt:ToolPage id="toolPage_2" >
@@ -23,26 +25,26 @@
                    
 				 <tnt:NavigationList id="_Iist12" >
 				
-					 <tnt:NavigationListItem id="_Ism72"  icon="sap-icon://menu2" select="onExpandSideNavigation"  />
-					 
-					  <tnt:NavigationListItem id="_Ism12" text="My Profile" icon="sap-icon://employee" select="onNavToMyProfile" />
+						<tnt:NavigationListItem id="_Ism72"  icon="sap-icon://menu2" select="onExpandSideNavigation"  />
+						
+						<tnt:NavigationListItem id="_Ism12" text="My Profile" icon="sap-icon://employee" select="onNavToMyProfile" />
 
-                      <tnt:NavigationListItem id="item12" text="Skill Screener" icon="sap-icon://people-connected"  select="onNavToSkillScreener" />
+						<tnt:NavigationListItem id="item12" text="Skill Screener" icon="sap-icon://people-connected"  select="onNavToSkillScreener" />
 
-					  <tnt:NavigationListGroup id="grp12"  text="Learning Hub" >
-						  <tnt:NavigationListItem id="grp22" text="Training" icon="sap-icon://learning-assistant"   select="onNavToTraining"/>
-						  <tnt:NavigationListItem id="grp32" text="Certifications" icon="sap-icon://validate"  select="onNavToCertifications"/>
-						  <tnt:NavigationListItem id="grp102" text="Certification Report" icon="sap-icon://clinical-task-tracker"  select="onNavToCertificationReport"  />
-						  <tnt:NavigationListItem id="grp112" text="Training Course Master" icon="sap-icon://learning-assistant"  select="onNavToTrainingCourseMaster"/>
-					  </tnt:NavigationListGroup>
+						<tnt:NavigationListGroup id="grp12"  text="Learning Hub" >
+							<tnt:NavigationListItem id="grp22" text="Training" icon="sap-icon://learning-assistant"   select="onNavToTraining"/>
+							<tnt:NavigationListItem id="grp32" text="Certifications" icon="sap-icon://validate"  select="onNavToCertifications"/>
+							<tnt:NavigationListItem id="grp102" text="Certification Report" icon="sap-icon://clinical-task-tracker"  select="onNavToCertificationReport"  />
+							<tnt:NavigationListItem id="grp112" text="Training Course Master" icon="sap-icon://learning-assistant"  select="onNavToTrainingCourseMaster"/>
+						</tnt:NavigationListGroup>
 
-					  <tnt:NavigationListGroup id="grp42"  text="Recruitment">
-						  <tnt:NavigationListItem id="grp52" text="Planel Slot Booking" icon="sap-icon://retail-store-manager"  select="onNavToPanelSlotBooking" />
-					  </tnt:NavigationListGroup>
-					  
-					   <tnt:NavigationListGroup id="grp72"  text="Reports">
-						  <tnt:NavigationListItem id="grp82" text="Adoption Status" icon="sap-icon://document-text"  select="onNavToAdoptionStatus" />
-					  </tnt:NavigationListGroup>
+						<tnt:NavigationListGroup id="grp42"  text="Recruitment">
+							<tnt:NavigationListItem id="grp52" text="Planel Slot Booking" icon="sap-icon://retail-store-manager"  select="onNavToPanelSlotBooking" />
+						</tnt:NavigationListGroup>
+						
+						<tnt:NavigationListGroup id="grp72"  text="Reports">
+							<tnt:NavigationListItem id="grp82" text="Adoption Status" icon="sap-icon://document-text"  select="onNavToAdoptionStatus" />
+						</tnt:NavigationListGroup>
                         
 					</tnt:NavigationList>
 		
@@ -52,205 +54,447 @@
 
 		<tnt:mainContents >
 
-			<f:DynamicPage >
-			<f:title >
-				<f:DynamicPageTitle  class="Hone"  >
-				<f:heading>
-						<Title text="Skill Screener"/>
-					</f:heading>
-					</f:DynamicPageTitle>
-			</f:title>
-			<f:header>
-				<f:DynamicPageHeader class="Hone">
-					<f:content>
+			<f:DynamicPage id="filteringPage" visible="true" >
 
-					<HBox justifyContent="SpaceBetween" alignItems="Start" wrap="Wrap">
-						<VBox>
-                			<Label text="Skill Cluster" labelFor="jscFilter" />
-							<ComboBox 
-									id="comboBoxJSC"	
-									showClearIcon="true"
-										items="{
-										path: '/Cluster',
-										sorter: { path: 'practice' }
-									}">
-							<core:Item key="{JSC}" text="{JSC}" />
-							</ComboBox>
-                
-            			</VBox>
-						
-						<VBox>
-						<Label text="Skill" labelFor="skillFilter" />
-						<ComboBox 
-							id="comboBoxSkill"	
-							showClearIcon="true"
-								items="{
-								path: '/Cluster',
-								sorter: { path: 'practice' }
-							}">
-						<core:Item key="{leaf_skills}" text="{leaf_skills}" />
-						</ComboBox>
-						</VBox>
-
-						<VBox>
-						<Label text="Practice" labelFor="practiceFilter" />
-						<ComboBox 
-							id="comboBoxPractice"	
-							showClearIcon="true"
-								items="{
-								path: '/Cluster',
-								sorter: { path: 'practice' }
-							}">
-						<core:Item key="{practice}" text="{practice}" />
-						</ComboBox>
-						</VBox>
-					</HBox>
-
-						<!-- <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
-							<fb:filterGroupItems>
-								<fb:FilterGroupItem name="Practice" label="Practice" groupName="Group1" visibleInFilterBar="true">
-									<fb:control>
-										<MultiComboBox
-											name="jobReqId"
-											selectionChange=".onSelectionChange"
-											items="{
-												path: '/Cluster',
-												templateShareable: true
-											}"
-										>
-											<core:Item key="{practice}" text="{practice}"/>
-										</MultiComboBox>
-									</fb:control>
-								</fb:FilterGroupItem>
-								<fb:FilterGroupItem name="Skill Cluster" label="Skill Cluster" groupName="Group1" visibleInFilterBar="true">
-									<fb:control>
-										<MultiComboBox
-											name="templateType"
-											selectionChange=".onSelectionChange"
-											items="{
-												path: '/Cluster',
-												templateShareable: true
-											}"
-										>
-											<core:Item key="{JSC}" text="{JSC}"/>
-										</MultiComboBox>
-									</fb:control>
-								</fb:FilterGroupItem>
-								<fb:FilterGroupItem name="Skill" label="Skill" groupName="Group1" visibleInFilterBar="true">
-									<fb:control>
-										<MultiComboBox
-											name="salaryMax"
-											selectionChange=".onSelectionChange"
-											items="{
-												path: '/Cluster',
-												templateShareable: true
-											}"
-										>
-											<core:Item key="{leaf_skills}" text="{leaf_skills}"/>
-										</MultiComboBox>
-									</fb:control>
-								</fb:FilterGroupItem>
-							</fb:filterGroupItems>
-						</fb:FilterBar> -->
-					</f:content>
-				</f:DynamicPageHeader>
-			</f:header>
-
-			<f:content >
-
-				<Table
-					id="skillscreenertable"
-					inset="false"
-					items="{path: 'EmployeeModel>/', parameters: {expand: 'employee_skill_detail'}}"
-					class="Htwo"
-				>
-				<!-- items="{EmployeeModel>/}" -->
-
-					<columns>
-						<Column  minScreenWidth="Tablet" demandPopin="true"  width="auto">
-							<Text  text="Employee"/>
-						</Column>
-                        <Column  minScreenWidth="Tablet" demandPopin="true" width="auto">
-							<Text  text="Skill"/>
-						</Column>
-						<Column  minScreenWidth="Tablet" demandPopin="true" width="auto">
-							<Text  text="Status"/>
-						</Column>
-						<Column  minScreenWidth="Tablet" demandPopin="true" width="auto">
-							<Text  text="Practice"/>
-						</Column>
-                        <!-- <Column  minScreenWidth="Tablet" demandPopin="true">
-							<Text  text="last Modified"/>
-						</Column> -->
-						
-					</columns>
-
-					<items>
-						<ColumnListItem  vAlign="Middle" type="Navigation" press="onNavToDetails">
-							<cells>
-    							<ObjectIdentifier title="{EmployeeModel>employee_name}" 
-								text="{EmployeeModel>PS_NO} | {EmployeeModel>practice} | {EmployeeModel>level} | {EmployeeModel>total_experience} yrs | {EmployeeModel>base_location}"/>
-
-								<List items="{EmployeeModel>employee_skill_detail/results}">
-                    				<CustomListItem>
-                            			<HBox justifyContent="SpaceBetween" alignItems="Center" >
-                                			<Text text="{EmployeeModel>JSC} | {EmployeeModel>skill}- " />
-                                			<RatingIndicator value="{EmployeeModel>rating}" maxValue="4"  />
-                            			</HBox>
-                        			</CustomListItem>
-                				</List>
-								<!-- <core:HTML content="{UserDOdata>jobReqLocale/results/0/externalJobDescription}" /> -->
-								<Text text="{EmployeeModel>billing_status}" />
-                                <Text text="{EmployeeModel>practice}" />
-								
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>	
-			</f:content>
-		</f:DynamicPage>
-
-			<!-- <f:DynamicPage id="dynamicPageId" 
-				stickySubheaderProvider="_IDGenIconTabBar1"
-			    class="sapUiNoContentPadding"
-				backgroundDesign="Transparent"
-				title="Skill Screener"
-				>
- 
- 			  		<f:title>
-				    	<f:DynamicPageTitle>
-								<f:heading>
-									<Title text="Skill Screener"/>
-								</f:heading>
+				<f:title >
+					<f:DynamicPageTitle  class="Hone"  >
+					<f:heading>
+							<Title text="Skill Screener"/>
+						</f:heading>
 						</f:DynamicPageTitle>
+				</f:title>
+
+				<f:header>
+				   <f:DynamicPageHeader>
+						<f:content>
+							<fb:FilterBar id="filterBar"  search="onSearch" filterBarExpanded="true" >
+								<fb:filterGroupItems>
+									<!-- Filter for Skill -->
+									<fb:FilterGroupItem groupName="Group1" name="employee_skill_detail/skill" label="Skill" visibleInFilterBar="true">
+										<fb:control>
+										<MultiComboBox id="comboBoxSkill"
+											items="{UniqueModel>/uniqueSkill}"
+										>
+									<core:Item key="{UniqueModel>selectedkey}" text="{UniqueModel>text}" />
+									</MultiComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+
+									<!-- Filter for Status -->
+									<fb:FilterGroupItem groupName="Group1" name="billing_status" label="Status" visibleInFilterBar="true" >
+										<fb:control>
+										<MultiComboBox id="comboBoxStatus"
+											items="{UniqueModel>/uniqueBillingStatus}"
+										>
+										<core:Item key="{UniqueModel>selectedkey}" text="{UniqueModel>text}" />
+										</MultiComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+									<!-- Filter for Practice -->
+									<fb:FilterGroupItem groupName="Group1" name="practice" label="Practice" visibleInFilterBar="true" >
+										<fb:control>
+											<MultiComboBox id="comboBoxPractice"
+											items="{UniqueModel>/uniquePractice}"
+										>
+										<core:Item key="{UniqueModel>selectedkey}" text="{UniqueModel>text}" />
+										</MultiComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+								</fb:filterGroupItems>
+							</fb:FilterBar>
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+
+				<f:content >
+
+					<Table
+						id="skillscreenertable"
+						inset="false"
+						items="{path: 'EmployeeModel>/', parameters: {expand: 'employee_skill_detail'}}"
+						class="Htwo"
+					>
+					
+						<columns>
+							<Column  minScreenWidth="Tablet" demandPopin="true"  width="auto">
+								<Text  text="Employee"/>
+							</Column>
+							<Column  minScreenWidth="Tablet" demandPopin="true" width="auto">
+								<Text  text="Skill"/>
+							</Column>
+							<Column  minScreenWidth="Tablet" demandPopin="true" width="auto">
+								<Text  text="Status"/>
+							</Column>
+							<Column  minScreenWidth="Tablet" demandPopin="true" width="auto">
+								<Text  text="Practice"/>
+							</Column>
+						</columns>
+
+						<items>
+							<ColumnListItem  vAlign="Middle" type="Navigation" press="onNavToDetails">
+								<cells>
+									<ObjectIdentifier title="{EmployeeModel>employee_name}" 
+									text="{EmployeeModel>PS_NO} | {EmployeeModel>practice} | {EmployeeModel>level} | {EmployeeModel>total_experience} yrs | {EmployeeModel>base_location}"/>
+									<!-- <Text text="{EmployeeModel>employee_skill_detail/JSC} | {EmployeeModel>employee_skill_detail/skill} - {EmployeeModel>employee_skill_detail/rating}" /> -->
+									
+									<VBox>
+										<List id="skillList" items="{EmployeeModel>employee_skill_detail}">
+											<items>
+												<CustomListItem>
+													<!-- <HBox justifyContent="SpaceBetween" alignItems="Center" > -->
+														<Text text="{EmployeeModel>JSC} | {EmployeeModel>skill} - {EmployeeModel>rating}" />
+													<!-- </HBox> -->
+												</CustomListItem>
+											</items>
+										</List>
+									</VBox>
+									<Text text="{EmployeeModel>billing_status}" />
+									<Text text="{EmployeeModel>practice}" />
+									
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>	
+				</f:content>
+		   </f:DynamicPage>
+
+		<!-- //////////////////////////////////////////////// Overview Page /////////////////////////////////////////////  -->
+
+		<f:DynamicPage id="overviewPage" visible="false" >
+
+		<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+				
+							<Title text="{OverviewModel>/employee_name}" wrapping="true" />	
+					
+					</f:heading>
+					<f:navigationActions>
+					<Button type="Emphasized" text="Back" press="onNavBack" />
+					</f:navigationActions>
+					
+					
+					<f:expandedContent>
+						<Label text="designation"/>
+					</f:expandedContent>
+					<f:snappedContent>
+							<Label text="designation"/>
+					</f:snappedContent>
+					<f:snappedTitleOnMobile>
+							<Title text="designation"/>
+					</f:snappedTitleOnMobile>
+					<f:content>
+					</f:content>
+					
+					
+				</f:DynamicPageTitle>
 			  		</f:title>
 			 	 <f:header >
 						<f:DynamicPageHeader pinnable="false"   >
-				   		   
-                              
-						</f:DynamicPageHeader>
-						
-				 </f:header>
+				   		   	<FlexBox wrap="Wrap" fitContainer="true">
+				
+					             <layout:HorizontalLayout class="HorizontalLayout" >
+					                 <Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" 
+									 displaySize="S" 
+									 displayShape="Circle"
+									 class="sapUiMediumMarginEnd sapUiSmallMarginBottom" />
+											  <!-- <Avatar
+                            					 displaySize="S"
+                           						 displayShape="Circle"
+                           						 press="onPress"
+                           						 src="sap-icon://customer"
+                           						 badgeIcon=""
+                           						 badgeTooltip= "Julie Armstrong"
+													/>	    -->
+									<layout:VerticalLayout class="sapUiMediumMarginEnd">
 
-
-			 		 <f:content >
-						  <IconTabBar id="_IDGenIconTabBar1" > 
-							<items >
+						               <layout:HorizontalLayout class="HorizontalLayout" >
+							              
+											<Label text="Name " design="Bold" showColon="true"/>
+											<Text text="{OverviewModel>/employee_name}"/>
+							       	       	
+							            </layout:HorizontalLayout  >
 							
+							            <layout:HorizontalLayout class="HorizontalLayout" >
+										    <Label text="PS No. " design="Bold" showColon="true"/>
+											<Text text="{OverviewModel>/PS_NO}"/>
+									        
+							            </layout:HorizontalLayout  >
 
-					            <IconTabFilter id="_IDGenIconTabFilter2"
-									key="experience"
-									icon=""
-									text="Experience">
-					
-				     			</IconTabFilter>
+										<layout:HorizontalLayout class="HorizontalLayout" >
+										    <Label text="Location " design="Bold" showColon="true"/>
+											<Text text="{OverviewModel>/base_location}"/>
+											
+										</layout:HorizontalLayout  >
+							
+						            </layout:VerticalLayout>
+						    
+                             
+					               <layout:VerticalLayout  class="sapUiMediumMarginEnd">
 
-					  		   
-				           </items>
-			 		     </IconTabBar>
-			 		 </f:content>
+                               			 <layout:HorizontalLayout class="HorizontalLayout" >
+                                            <Label text="Primary JSC " design="Bold" showColon="true"/>
+											<Text text="{OverviewModel>/practice}"/>
 
-			</f:DynamicPage > -->
+                               			 </layout:HorizontalLayout>
+                                         
+										<layout:HorizontalLayout class="HorizontalLayout" >
+                                           <Label text="Secondary JSC " design="Bold" showColon="true"/>
+											<Text text="{OverviewModel>/sub_practice}"/>
+
+										</layout:HorizontalLayout>
+
+										<layout:HorizontalLayout class="HorizontalLayout" >
+										    <Label text="Country " design="Bold" showColon="true"/>
+											<Text text="{OverviewModel>/deputed_country}"/>
+                                        </layout:HorizontalLayout>
+							       </layout:VerticalLayout>
+
+							       <layout:VerticalLayout class="sapUiMediumMarginEnd"  >
+
+							   			 <layout:HorizontalLayout class="HorizontalLayout" >
+										        <Label text="Customer Name " design="Bold" showColon="true"/>
+											     <Text text="{OverviewModel>/customer_name}"/>
+
+							  			 </layout:HorizontalLayout >	
+
+							  			 <layout:HorizontalLayout class="HorizontalLayout" >
+										          <Label text="Project Name " design="Bold" showColon="true"/>
+											      <Text text="{OverviewModel>/project_name}"/>
+
+							  			 </layout:HorizontalLayout>	
+								
+										 <layout:HorizontalLayout class="HorizontalLayout" >	
+										    <Label text="Project JSC " design="Bold" showColon="true"/>
+											<Text text="{OverviewModel>/deputed_country}"/>
+											
+										 
+										 </layout:HorizontalLayout  >	
+							       </layout:VerticalLayout>
+
+							       <layout:VerticalLayout class="sapUiMediumMarginEnd" >
+							   			  <layout:HorizontalLayout class="HorizontalLayout" >
+										          <Label text="LTIMindtree Exp " design="Bold" showColon="true"/>
+											      <Text text="{OverviewModel>/lti_experience}"/>
+												
+											</layout:HorizontalLayout  >
+								
+											<layout:HorizontalLayout class="HorizontalLayout" >	
+											     <Label text="Total Exp " design="Bold" showColon="true"/>
+											     <Text text="{OverviewModel>/total_experience}"/>
+											</layout:HorizontalLayout>
+
+											
+
+								  </layout:VerticalLayout>							              
+					           </layout:HorizontalLayout>
+                            </FlexBox>  
+					</f:DynamicPageHeader>
+						
+				</f:header>
+
+<!--  				
+
+	////////////////////////////////////////////  SKILLS  /////////////////////////////////////////////////////////////////////
+
+-->
+
+			<f:content >
+			<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+			<HBox>
+				<f:Card class="sapUiTinyMargin" width="95%" height="300px">
+					<f:header >
+						<card:Header class="customMargin"
+							title="Skills"
+							iconSrc="sap-icon://menu" />
+					</f:header>
+					<f:content>
+					<ScrollContainer horizontal="false" vertical="true" width="auto" height="auto">
+							<List
+								class="sapUiSmallMarginBottom"
+								showSeparators="None"
+								items="{
+									path: 'OverviewModel>/employee_skill_detail'
+								}">
+								<CustomListItem>
+									<HBox alignItems="Center" justifyContent="SpaceBetween">
+										<VBox class="sapUiTinyMarginBegin sapUiTinyMarginTopBottom" >
+											<Label text="{OverviewModel>JSC}" design="Bold"/>
+											<Text text="{OverviewModel>skill}" />
+										</VBox>
+										<ObjectStatus
+											class="sapUiTinyMargin sapUiSmallMarginEnd"
+											text="{OverviewModel>rating}"/>
+									</HBox>
+								</CustomListItem>
+							</List>
+						</ScrollContainer>
+					</f:content>
+				</f:Card>
+
+				
+				<f:Card class="sapUiTinyMargin" width="95%" height="300px">
+					<f:header >
+						<card:Header class="customMargin"
+							title="Customer Experience"
+							iconSrc="sap-icon://horizontal-bar-chart-2" />
+					</f:header>
+					<f:content>
+						
+						<c:InteractiveBarChart  
+						class="responsiveChart"
+						labelWidth="25%" 
+						selectionChanged="selectionChanged" 
+						bars="{OverviewModel>/employee_customer_experience}" 
+						displayedBars="20" 
+						>
+                            <c:bars>
+                                <c:InteractiveBarChartBar label="{OverviewModel>customer_name}" value="{OverviewModel>exp_years}"/>
+                            </c:bars>
+                        </c:InteractiveBarChart>
+					</f:content>
+				</f:Card>
+
+				<f:Card class="sapUiTinyMargin" width="95%" height="300px">
+					<f:header >
+						<card:Header class="customMargin"
+							title="Industry Experience"
+							iconSrc="sap-icon://end-user-experience-monitoring" />
+					</f:header>
+					<f:content>
+						<List
+								class="sapUiSmallMarginBottom"
+								showSeparators="None"
+								items="{
+									path: 'OverviewModel>/employee_industries_experience'
+								}">
+								<CustomListItem>
+									<HBox alignItems="Center" justifyContent="SpaceBetween">
+										<VBox class="sapUiTinyMarginBegin sapUiTinyMarginTopBottom" >
+											<Label text="{OverviewModel>industry_cluster}" design="Bold"/>
+											<Text text="{OverviewModel>industry_type}" />
+										</VBox>
+										<ObjectStatus
+											class="sapUiTinyMargin sapUiSmallMarginEnd"
+											text="{OverviewModel>exp_years}"/>
+									</HBox>
+								</CustomListItem>
+							</List>
+					</f:content>
+				</f:Card>
+				</HBox>
+
+							<HBox>
+				<f:Card class="sapUiTinyMargin" width="95%" height="300px">
+					<f:header >
+						<card:Header class="customMargin"
+							title="Product Experience"
+							iconSrc="sap-icon://product" />
+					</f:header>
+					<f:content>
+					<ScrollContainer horizontal="false" vertical="true" width="auto" height="auto">
+							<List
+								class="sapUiSmallMarginBottom"
+								showSeparators="None"
+								items="{
+									path: 'OverviewModel>/employee_product_experience'
+								}">
+								<CustomListItem>
+									<HBox alignItems="Center" justifyContent="SpaceBetween">
+										<VBox class="sapUiTinyMarginBegin sapUiTinyMarginTopBottom" >
+											<Label text="{OverviewModel>product_name}" design="Bold"/>
+											<!-- <Text text="{OverviewModel>skill}" /> -->
+										</VBox>
+										<ObjectStatus
+											class="sapUiTinyMargin sapUiSmallMarginEnd"
+											text="{OverviewModel>exp_years}"/>
+									</HBox>
+								</CustomListItem>
+							</List>
+						</ScrollContainer>
+					</f:content>
+				</f:Card>
+
+				
+				<f:Card class="sapUiTinyMargin" width="95%" height="300px">
+					<f:header >
+						<card:Header class="customMargin"
+							title="Work Experience"
+							iconSrc="sap-icon://work-history" />
+					</f:header>
+					<f:content>
+						<ScrollContainer horizontal="false" vertical="true" width="auto" height="auto">
+							<List
+								class="sapUiSmallMarginBottom"
+								showSeparators="None"
+								items="{
+									path: 'OverviewModel>/employee_cv_experience_data'
+								}">
+								<CustomListItem>
+									<HBox alignItems="Center" justifyContent="SpaceBetween">
+										<VBox class="sapUiTinyMarginBegin sapUiTinyMarginTopBottom" >
+											<Label text="{OverviewModel>company_name}" design="Bold"/>
+											<Text text="{OverviewModel>domain}" />
+										</VBox>
+										<ObjectStatus
+											class="sapUiTinyMargin sapUiSmallMarginEnd"
+											text="{OverviewModel>role}"/>
+									</HBox>
+								</CustomListItem>
+							</List>
+						</ScrollContainer>
+					</f:content>
+				</f:Card>
+
+				<f:Card class="sapUiTinyMargin" width="95%" height="300px">
+					<f:header >
+						<card:Header class="customMargin"
+							title="Project Details"
+							iconSrc="sap-icon://badge" />
+					</f:header>
+					<f:content>
+					<ScrollContainer horizontal="false" vertical="true" width="auto" height="auto">
+							<List
+								class="sapUiSmallMarginBottom"
+								showSeparators="None"
+								items="{
+									path: 'OverviewModel>/employee_project_summary'
+								}">
+								<CustomListItem>
+									<HBox alignItems="Center" justifyContent="SpaceBetween">
+										<VBox class="sapUiTinyMarginBegin sapUiTinyMarginTopBottom" >
+											<Label text="{OverviewModel>project_name}" design="Bold"/>
+											<Text text="{OverviewModel>technology_used}" />
+										</VBox>
+										<ObjectStatus
+											class="sapUiTinyMargin sapUiSmallMarginEnd"
+											text="{OverviewModel>description}" />
+									</HBox>
+								</CustomListItem>
+							</List>
+						</ScrollContainer>
+						<!-- <List
+							class="sapUiSmallMarginBottom"
+							showSeparators="None"
+							items="{
+								path: 'OverviewModel>/employee_skill_detail'
+							}">
+							<CustomListItem>
+									<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+										<Text text="{OverviewModel>JSC} | {OverviewModel>skill} - {OverviewModel>rating}" />
+									</VBox>
+							</CustomListItem>
+						</List> -->
+					</f:content>
+				</f:Card>
+				</HBox>
+			</VBox>
+
+			</f:content >
+			
+		</f:DynamicPage>
+
+
 		
 			
 		</tnt:mainContents>
@@ -260,120 +504,3 @@
     
 
 </mvc:View>
-
-
-<!-- <mvc:View
-	controllerName="larsento02t1.controller.SFMaster"
-		height="100%"
-		xmlns:mvc="sap.ui.core.mvc"
-		xmlns:core="sap.ui.core"
-		xmlns="sap.m"
-		xmlns:f="sap.f"
-		xmlns:a="sap.suite.ui.microchart"
-		xmlns:fb="sap.ui.comp.filterbar"
-		xmlns:svm="sap.ui.comp.smartvariants"
-		
-		>
-		<f:DynamicPage >
-			<f:title >
-				<f:DynamicPageTitle  class="Hone"  >
-				<f:heading>
-						<Title text="SF Job posting Master"/>
-					</f:heading>
-					</f:DynamicPageTitle>
-			</f:title>
-			<f:header>
-				<f:DynamicPageHeader class="Hone">
-					<f:content>
-						<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
-							<fb:filterGroupItems>
-								<fb:FilterGroupItem name="jobReqId" label="jobReqId" groupName="Group1" visibleInFilterBar="true">
-									<fb:control>
-										<MultiComboBox
-											name="jobReqId"
-											selectionChange=".onSelectionChange"
-											items="{
-												path: 'UserDOdata>/',
-												templateShareable: true
-											}"
-										>
-											<core:Item key="{UserDOdata>jobReqId}" text="{UserDOdata>jobReqId}"/>
-										</MultiComboBox>
-									</fb:control>
-								</fb:FilterGroupItem>
-								<fb:FilterGroupItem name="templateType" label="templateType" groupName="Group1" visibleInFilterBar="true">
-									<fb:control>
-										<MultiComboBox
-											name="templateType"
-											selectionChange=".onSelectionChange"
-											items="{
-												path: 'UserDOdata>/',
-												templateShareable: true
-											}"
-										>
-											<core:Item key="{UserDOdata>templateType}" text="{UserDOdata>templateType}"/>
-										</MultiComboBox>
-									</fb:control>
-								</fb:FilterGroupItem>
-								<fb:FilterGroupItem name="salaryMax" label="salaryMax" groupName="Group1" visibleInFilterBar="true">
-									<fb:control>
-										<MultiComboBox
-											name="salaryMax"
-											selectionChange=".onSelectionChange"
-											items="{
-												path: 'UserDOdata>/',
-												templateShareable: true
-											}"
-										>
-											<core:Item key="{UserDOdata>salaryMax}" text="{UserDOdata>salaryMax}"/>
-										</MultiComboBox>
-									</fb:control>
-								</fb:FilterGroupItem>
-							</fb:filterGroupItems>
-						</fb:FilterBar>
-					</f:content>
-				</f:DynamicPageHeader>
-			</f:header>
-
-			<f:content >
-				<Table
-					id="tablenew"
-					inset="false"
-					items="{UserDOdata>/}"
-					class="Htwo"
-				>
-					<columns>
-						<Column  minScreenWidth="Tablet" demandPopin="true">
-							<Text  text="Job Req ID"/>
-						</Column>
-                        <Column  minScreenWidth="Tablet" demandPopin="true">
-							<Text  text="jobDescription"/>
-						</Column>
-						<Column  minScreenWidth="Tablet" demandPopin="true">
-							<Text  text="externalJobDescription"/>
-						</Column>
-						<Column  minScreenWidth="Tablet" demandPopin="true">
-							<Text  text="End Date"/>
-						</Column>
-                        <Column  minScreenWidth="Tablet" demandPopin="true">
-							<Text  text="last Modified"/>
-						</Column>
-						
-					</columns>
-
-					<items>
-						<ColumnListItem  vAlign="Middle" type="Navigation" press="onNavToDetails">
-							<cells>
-								<Text text="{UserDOdata>jobReqId}" />
-								<core:HTML content="{UserDOdata>jobReqLocale/results/0/jobDescription}" />
-								<core:HTML content="{UserDOdata>jobReqLocale/results/0/externalJobDescription}" />
-								<Text text="{UserDOdata>jobReqPostings/results/0/postEndDate}" />
-                                <Text text="{UserDOdata>lastModifiedDateTime}" />
-								
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>	
-			</f:content>
-		</f:DynamicPage>
-</mvc:View> -->

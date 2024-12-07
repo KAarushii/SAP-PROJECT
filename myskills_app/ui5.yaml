@@ -23,6 +23,10 @@ server:
             url: https://larsen---toubro-infotech-ltd-dev-iptools-project-skills-app-srv.cfapps.eu10.hana.ondemand.com
           - path: /odata/v4/admin/
             url: https://larsen---toubro-infotech-ltd-dev-iptools-bookstore-srv.cfapps.eu10.hana.ondemand.com
+          - path: /odata/v4/main/
+            url: https://larsen---toubro-infotech-ltd-dev-iptools-project-skills-app-srv.cfapps.eu10.hana.ondemand.com/
+            destination: Project_skills_app
+            authenticationType: NoAuthentication
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
